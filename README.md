@@ -1,0 +1,18 @@
+# RL78 SIS BSP
+- This is RL78 SIS BSP repository.
+- Please refer to the [APN](https://www.renesas.com/us/en/document/apn/rl78-family-board-support-package-module-using-software-integration-system) for more information.
+
+# License
+- use condition is basically [MIT License](https://github.com/renesas/rl78-sis-r_bsp/blob/master/license.md).
+
+# How to Install
+- The official package can be installed by Smart Configurator.
+- The Release Assets of this repository can be installed(overwritten) into following folder in manually. SmartConfigurator can detect these GenericModules folder.
+  - For CS+:
+    ```text
+    C:\Users\<user_name>\.eclipse\com.renesas.smc.rcp.rl78.product_download\RL78_Modules\GenericModules
+    ```
+  - For e² studio:
+    ```text
+    C:\Users\<user_name>\.eclipse\com.renesas.platform_download\RL78_Modules\GenericModules
+    ```
