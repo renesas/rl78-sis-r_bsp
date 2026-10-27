@@ -24,6 +24,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 08.03.2021 1.00     First Release
+*         : 04.08.2021 1.12     Added prototype declaration to suppress LLVM compiler warning messages.
 
 ***********************************************************************************************************************/
 /*************************************************
@@ -53,6 +54,12 @@ void BSP_CFG_USER_WARM_START_POST_C_FUNCTION(void);
 /* If user is requesting Watchdog Timer callback functions then these are the prototypes. */
 void BSP_CFG_USER_WDT_REFRESH_INIT_FUNCTION(void);
 #endif
+
+/* This prototype is used to suppress the warning message of LLVM compiler. */
+void bsp_init_system(void);
+
+/* This prototype is used to suppress the warning message of LLVM compiler. */
+void bsp_init_hardware(void);
 
 /*************************************************
  * Private global variables and functions

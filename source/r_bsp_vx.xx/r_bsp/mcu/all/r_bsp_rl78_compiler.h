@@ -24,13 +24,16 @@
 * History : DD.MM.YYYY Version  Description
 *         : 08.03.2021 1.00     First Release
 *         : 22.04.2021 1.10     Added "__far" to the address of the option byte.
+*         : 04.08.2021 1.12     Added include guard.
 
 ***********************************************************************************************************************/
 
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
  *************************************************/
-#include "r_bsp_common.h"
+
+#ifndef R_RL78_COMPILER_H
+#define R_RL78_COMPILER_H
 
 /* Macro definition for option byte reference */
 /* 000C0H or 040C0H
@@ -161,3 +164,6 @@
 #define R_BSP_ATTRIB_INTERRUPT                                  extern
 #define R_BSP_ATTRIB_STATIC_INTERRUPT                           static
 #endif
+
+#endif /* R_RL78_COMPILER_H */
+

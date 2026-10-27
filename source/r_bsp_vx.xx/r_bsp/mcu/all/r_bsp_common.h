@@ -24,6 +24,7 @@
 * History : DD.MM.YYYY Version  Description
 *         : 08.03.2021 1.00     First Release
 *         : 22.04.2021 1.10     Changed Minor version to 1.10
+*         : 04.08.2021 1.12     Added include r_bsp_config.h.
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -33,6 +34,7 @@
 #include    <stdbool.h>
 #include    <stdio.h>
 #include    <stddef.h>
+#include    "r_bsp_config.h"
 
 /*************************************************
  * Macro definitions

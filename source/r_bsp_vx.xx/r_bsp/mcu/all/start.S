@@ -28,47 +28,45 @@
 ;;*                               - __ebss
 ;;*                               - __bss
 ;;*                               - __edata
+;;*         : 04.08.2021 1.12     Updated base file version 1.05 to 1.06
+;;*                               Added processing for C++
 ;;
 ;;***********************************************************************************************************************/
 
 /************************************************************************/
-/*    File Version: V1.05                                               */
-/*    Date Generated: 09/05/2019                                        */
+/*    File Version: V1.06                                               */
+/*    Date Generated: 09/06/2021                                        */
 /************************************************************************/
 
     /*reset_program.asm*/
 
-    /* .list */
-
     .global _PowerON_Reset  /*! global Start routine */
     .short _PowerON_Reset
-
-#ifdef CPPAPP
+    
+#ifdef CPPAPP    
 ___dso_handle:
     .global ___dso_handle
 #endif
 
-    .global __rl78_fini
-        __rl78_fini:
-        br $__rl78_fini
 
-
-    .extern _bsp_init_system /*! external Sub-routine to initialise BSP */
+    .extern _bsp_init_system /*! external Sub-routine to initialise BSP*/
     .extern __data
     .extern __mdata
     .extern __ebss
     .extern __bss
     .extern __edata
     .extern _bsp_init_hardware /*! external Sub-routine to initialise Hardware*/
-    .extern _main
+    .extern _main 
     .extern __stack
     .extern _exit
+    .extern ___do_init
+    .extern ___do_fini
 
     /*  ;; HL = start of list
         ;; DE = end of list
         ;; BC = step direction (+2 or -2)
     */
-
+    
     .text
 
 /* call to _PowerON_Reset */
@@ -80,98 +78,105 @@ _PowerON_Reset:
     call    !!_bsp_init_system
     nop
 
-/* load data section from ROM to RAM */
+/* load data section from ROM to RAM */    
 ;; block move to initialize .data
 
-        ;; we're copying from 00:[_romdatastart] to 0F:[_datastart]
-        ;; and our data is not in the mirrored area.
-    mov     es, #0
-#ifndef __RL78_S1__
-    sel     rb0         /*  ;;bank 0 */
-#endif
-
-    movw    de, #__mdata    /* src ROM address of data section in de */
-    movw    hl, #__data     /* dest start RAM address of data section in hl */
-
-#ifndef __RL78_S1__
-    sel     rb1              /* bank 1 */
-    movw    hl, #__data     /* dest start RAM address of data section in hl */
-#endif
-    movw    ax, #__edata   /*    ;; size of romdata section in ax */
-    subw    ax,hl          /* store data size */
-    shrw    ax,1
+	mov	es, #0
+	movw	bc, #__romdatacopysize
 1:
-    cmpw    ax, #0           /* check if end of data */
-    bz      $1f
-    decw    ax
-#ifdef __RL78_S1__
-    movw     bc, ax            /* save ax value in bc */
-#endif
-
-#ifndef __RL78_S1__
-    sel     rb0             /* bank 0 */
-#endif
-    movw    ax, es:[de]
-    movw    [hl], ax
-    incw    de
-    incw    de
-    incw    hl
-    incw    hl
-#ifndef __RL78_S1__
-    sel     rb1         /* bank 1  -  compare and decrement*/
-#endif
-
-#ifdef __RL78_S1__
-    movw     ax, bc            /* restore ax value */
-#endif
-    br      $1b
-1:
-
-
-/* bss initialisation : zero out bss */
-#ifndef __RL78_S1__
-    sel     rb0         /* bank 0 */
-    movw    ax, #0        /* load AX reg with zero */
-    sel     rb1         /* bank 1 */
-    movw    ax, #__ebss  /* store the end address (size of) bss section in ax */
-    movw    hl, #__bss      /* store the start address of bss in hl */
-    subw    ax,hl ;; store data size
-    shrw    ax,1
-#endif
-
-#ifdef __RL78_S1__
-    movw    hl, #__bss      /* store the start address of bss in hl */
-    movw    ax, #__ebss  /* store the end address (size of) bss section in ax */
-    subw    ax,hl ;; store data size
-    shrw    ax,1
-#endif
-
+	movw	ax, bc
+	cmpw	ax, #0
+	bz	$1f
+	decw	bc
+	decw	bc
+	movw	ax, es:__romdatastart[bc]
+	movw	__datastart[bc], ax
+	br	$1b
 
 1:
-    cmpw    ax, #0
-    bz      $1f
-    decw    ax
-#ifdef __RL78_S1__
-    movw     bc, ax        /* save ax value in bc */
-    movw    ax, #0
-#endif
-#ifndef __RL78_S1__
-    sel     rb0         /* bank 0 */
-#endif
-    movw    [hl], ax
-    incw    hl
-    incw    hl
-#ifdef __RL78_S1__
-    movw    ax, bc        /* restore ax value */
-#endif
-#ifndef __RL78_S1__
-    sel     rb1
-#endif
-    br      $1b
+	mov	es, #0
+	movw	bc, #__romdatafcopysize
 1:
-#ifndef __RL78_S1__
-    sel     rb0             /* bank 0 */
-#endif
+	movw	ax, bc
+	cmpw	ax, #0
+	bz	$1f
+	decw	bc
+	decw	bc
+	movw	ax, es:__romdatafstart[bc]
+	movw	__datafstart[bc], ax
+	br	$1b
+
+1:
+	mov	es, #0
+	movw	bc, #__romsdatacopysize
+1:
+	movw	ax, bc
+	cmpw	ax, #0
+	bz	$1f
+	decw	bc
+	decw	bc
+	movw	ax, es:__romsdatastart[bc]
+	movw	__sdatastart[bc], ax
+	br	$1b
+
+1:
+	mov	es, #0
+	movw	bc, #__romsaddrcopysize
+1:
+	movw	ax, bc
+	cmpw	ax, #0
+	bz	$1f
+	decw	bc
+	decw	bc
+	movw	ax, es:__romsaddrstart[bc]
+	movw	__saddrstart[bc], ax
+	br	$1b
+1:
+
+;; block fill to .sbss
+	movw    bc, #__sbsssize
+	movw    ax, #0
+	cmpw    ax, bc
+	bz      $_sbss_zero_done
+1:
+	decw    bc
+	decw    bc
+	movw    __sbssstart[bc], ax
+	cmpw    ax, bc
+	bnz      $1b
+
+_sbss_zero_done:
+
+;; block fill to .bss
+
+	movw    bc, #__bsssize
+	movw    ax, #0
+	cmpw    ax, bc
+	bz      $_bss_zero_done
+1:
+	decw    bc
+	decw    bc
+	movw    __bssstart[bc], ax
+	cmpw    ax, bc
+	bnz      $1b
+
+_bss_zero_done:
+    
+
+;; block fill to .bssf
+
+	movw    bc, #__bssfsize
+	movw    ax, #0
+	cmpw    ax, bc
+	bz      $_bssf_zero_done
+1:
+	decw    bc
+	decw    bc
+	movw    __bssfstart[bc], ax
+	cmpw    ax, bc
+	bnz      $1b
+
+_bssf_zero_done:
 
 /* Initialize global constructors in case of CPP app */
 #ifdef CPPAPP
@@ -196,13 +201,13 @@ _PowerON_Reset:
     call    !!_bsp_init_hardware
     nop
 
+    call    !!__rl78_init
+
 /* start user program */
 
-    movw    ax, #0
-    push    ax      /* envp */
-    push    ax      /* argv */
-    push    ax      /* argc */
-    call    !!_main
+	clrw	ax	/* argv */
+	clrw	bc	/* argc */
+	call	!!_main
 
 /* Initialize global destructors in case of CPP app */
 #ifdef CPPAPP
@@ -226,5 +231,70 @@ _PowerON_Reset:
 _exit:
      br    $_exit
 
-    .end
 
+.global	_rl78_run_preinit_array
+.type	_rl78_run_preinit_array,@function
+_rl78_run_preinit_array:
+	movw	hl, #__preinit_array_start
+	movw	de, #__preinit_array_end
+	movw	bc, #-2
+	br	$_rl78_run_inilist
+
+	.global	_rl78_run_init_array
+	.type	_rl78_run_init_array,@function
+_rl78_run_init_array:
+	movw	hl, #__init_array_start
+	movw	de, #__init_array_end
+	movw	bc, #2
+	br	$_rl78_run_inilist
+
+	.global	_rl78_run_fini_array
+	.type	_rl78_run_fini_array,@function
+_rl78_run_fini_array:
+	movw	hl, #__fini_array_start
+	movw	de, #__fini_array_end
+	movw	bc, #-2
+	/* fall through */
+
+	;; HL = start of list
+	;; DE = end of list
+	;; BC = step direction (+2 or -2)
+_rl78_run_inilist:
+next_inilist:
+	movw	ax, hl
+	cmpw	ax, de
+	bz	$done_inilist
+	movw	ax, [hl]
+	cmpw	ax, #-1
+	bz	$skip_inilist
+	cmpw	ax, #0
+	bz	$skip_inilist
+	push	ax
+	push	bc
+	push	de
+	push	hl
+	call	ax
+	pop	hl
+	pop	de
+	pop	bc
+	pop	ax
+skip_inilist:
+	movw	ax, hl
+	addw	ax, bc
+	movw	hl, ax
+	br	$next_inilist
+done_inilist:
+	ret
+
+    .section  .init,"ax"
+
+    .global __rl78_init
+__rl78_init:
+	call	!!_rl78_run_preinit_array
+	call	!!_rl78_run_init_array
+	ret
+
+    .section    .fini,"ax"
+
+    .global __rl78_fini
+.end

@@ -26,6 +26,7 @@
 *         : 08.03.2021 1.00     First Release
 *         : 22.04.2021 1.10     Added the following include path.
 *                                - r_rtos.h
+*         : 04.08.2021 1.12     Changed the order to include header file.
 
 ***********************************************************************************************************************/
 /* Make sure that no other platforms have already been defined. Do not touch this! */
@@ -39,10 +40,9 @@
 /***********************************************************************************************************************
 INCLUDE APPROPRIATE MCU AND BOARD FILES
 ***********************************************************************************************************************/
-#include    "mcu/all/r_bsp_common.h"
-#include    "mcu/all/r_bsp_rl78_compiler.h"
-
 #include    "r_bsp_config.h"
+#include    "mcu/all/r_bsp_rl78_compiler.h"
+#include    "mcu/all/r_bsp_common.h"
 #include    "mcu/all/r_rtos.h"
 
 #if defined(__CCRL__)

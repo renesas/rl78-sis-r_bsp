@@ -50,8 +50,12 @@
 *                               - BSP_CFG_FIMWAITTIME
 *                               - BSP_CFG_FILWAITTIME
 *                               Modified the comment of oscillation stabilization time.
-
+*         : 04.08.2021 1.12     Modified the comment of oscillation stabilization time.
+*                               Added include guard.
 ***********************************************************************************************************************/
+
+#ifndef R_BSP_CONFIG_REF_HEADER_FILE
+#define R_BSP_CONFIG_REF_HEADER_FILE
 /*************************************************
  * MCU information
  *************************************************/
@@ -1102,10 +1106,23 @@
 */
 #define BSP_CFG_RTOS_USED               (0)
 
-#define BSP_CFG_SUBWAITTIME              (800000U) // Subsystem clock oscillation stabilization time
-#define BSP_CFG_FIHWAITTIME              (80U)     // High-speed on-chip oscillator clock oscillation stabilization time
-#define BSP_CFG_FIMWAITTIME              (20U)     // Middle-speed on-chip oscillator clock oscillation stabilization time
-#define BSP_CFG_FILWAITTIME              (20U)     // Low-speed on-chip oscillator clock oscillation stabilization time
+// Loop count using the main system clock.
+// The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction.
+/* Subsystem clock oscillation stabilization time.
+   If the main system clock is 32 MHz, 800000 means 300 ms. */
+#define BSP_CFG_SUBWAITTIME              (800000U)
+
+/* High-speed on-chip oscillator clock stabilization time.
+   If the main system clock is 32 MHz, 30 means 5.86us. */
+#define BSP_CFG_FIHWAITTIME              (30U)
+
+/* Middle-speed on-chip oscillator clock stabilization time.
+   If the main system clock is 32 MHz, 5 means 1.16us. */
+#define BSP_CFG_FIMWAITTIME              (5U)
+
+/* Low-speed on-chip oscillator clock stabilization time.
+   If the main system clock is 32 MHz, 450 means 84.8us. */
+#define BSP_CFG_FILWAITTIME              (450U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the
    following callback definitions AND provide a call back function name for the respective callback
@@ -1132,4 +1149,6 @@
 #define BSP_CFG_WDT_REFRESH_ENABLE                   (0)
 #define BSP_CFG_USER_WDT_REFRESH_INIT_FUNCTION       my_sw_wdt_refresh_init_function
 #define BSP_CFG_USER_WDT_REFRESH_SETTING_FUNCTION    my_sw_wdt_refresh_setting_function
+
+#endif /* R_BSP_CONFIG_REF_HEADER_FILE */
 
