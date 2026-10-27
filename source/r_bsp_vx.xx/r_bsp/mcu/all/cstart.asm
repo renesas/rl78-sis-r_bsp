@@ -23,8 +23,21 @@
 ;;/***********************************************************************************************************************
 ;;* History : DD.MM.YYYY Version  Description
 ;;*         : 08.03.2021 1.00     First Release
+;;*         : 22.04.2021 1.10     Added the following include path.
+;;*                                - r_bsp_config.inc
+;;*                               Added the following external declaration of symbol for stack area.
+;;*                                - __kernel_start
+;;*                                - _ri78v4_hdw_init
+;;*                                - __init_ri_stackarea
+;;*                               Added register bank settings.
+;;*                               Added hardware initialization for RTOS.
+;;*                               Added initialization process for RTOS.
 ;;
 ;;***********************************************************************************************************************/
+
+$IFDEF BSP_RTOS
+$INCLUDE (r_bsp_config.inc)
+$ENDIF
 
 $IFNDEF __RENESAS_VERSION__
 __RENESAS_VERSION__ .EQU    0x01000000
@@ -32,6 +45,23 @@ $ENDIF
 
     .public _start
     .public _exit
+
+;-----------------------------------------------------------------------------
+; external declaration of symbol for stack area
+;-----------------------------------------------------------------------------
+$IFDEF BSP_RTOS
+$IF (BSP_CFG_ASM_RTOS_USED == 0)      ; RTOS is not used.
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 1)  ; FreeRTOS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 2)  ; embOS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 3)  ; MicroC_OS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 4)  ; Renesas ITRON is used.
+    .extern __kernel_start
+    .extern _ri78v4_hdw_init
+    .extern __init_ri_stackarea
+$ELSE
+$ENDIF
+$ELSE
+$ENDIF
 
 ;-----------------------------------------------------------------------------
 ;   RAM section
@@ -66,7 +96,18 @@ _start:
     ;--------------------------------------------------
     ; setting register bank
     ;--------------------------------------------------
+$IFDEF BSP_RTOS
+$IF (BSP_CFG_ASM_RTOS_USED == 0)      ; RTOS is not used.
 ;   SEL RB0
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 1)  ; FreeRTOS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 2)  ; embOS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 3)  ; MicroC_OS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 4)  ; Renesas ITRON is used.
+    SEL RB0
+$ELSE
+$ENDIF
+$ELSE
+$ENDIF
 
     ;--------------------------------------------------
     ; setting mirror area
@@ -95,7 +136,6 @@ $ENDIF
     ;--------------------------------------------------
     ; bsp initialization
     ;--------------------------------------------------
-;   CALL    !!_hdwinit
     CALL    !!_bsp_init_system
 
     ;--------------------------------------------------
@@ -205,10 +245,57 @@ $ENDIF
     ;--------------------------------------------------
     CALL    !!_bsp_init_hardware
 
+$IFDEF BSP_RTOS
+$IF (BSP_CFG_ASM_RTOS_USED == 0)      ; RTOS is not used.
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 1)  ; FreeRTOS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 2)  ; embOS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 3)  ; MicroC_OS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 4)  ; Renesas ITRON is used.
+    CALL    !!_ri78v4_hdw_init
+$ELSE
+$ENDIF
+$ELSE
+$ENDIF
+
     ;--------------------------------------------------
     ; call main function
     ;--------------------------------------------------
+$IFDEF BSP_RTOS
+$IF (BSP_CFG_ASM_RTOS_USED == 0)      ; RTOS is not used.
     CALL    !!_main     ; main();
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 1)  ; FreeRTOS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 2)  ; embOS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 3)  ; MicroC_OS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 4)  ; Renesas ITRON is used.
+    ;-----------------------------------------------------------------------------
+    ; initializing RI78V4 area(.kernel_data_init)
+    ;-----------------------------------------------------------------------------
+    MOVW    HL,#LOWW(STARTOF(.kernel_data_init))
+    MOVW    AX,#LOWW(STARTOF(.kernel_data_init) + SIZEOF(.kernel_data_init))
+    BR      $L2_KERNEL_DATA
+L1_KERNEL_DATA:
+    MOV     [HL+0], #0
+    INCW    HL
+L2_KERNEL_DATA:
+    CMPW    AX,HL
+    BNZ     $L1_KERNEL_DATA
+
+    ;-----------------------------------------------------------------------------
+    ; RI78V4 stack area initialization function
+    ;  When the RAM parity error detection function is not used,
+    ;  it is not necessary to call this function.
+    ;-----------------------------------------------------------------------------
+    CALL    !!__init_ri_stackarea
+
+    ;-----------------------------------------------------------------------------
+    ; RI78V4 initialization function
+    ;-----------------------------------------------------------------------------
+    BR      !!__kernel_start        ; kernel start
+$ELSE
+$ENDIF
+$ELSE
+    CALL    !!_main     ; main();
+$ENDIF
 
     ;--------------------------------------------------
     ; call exit function

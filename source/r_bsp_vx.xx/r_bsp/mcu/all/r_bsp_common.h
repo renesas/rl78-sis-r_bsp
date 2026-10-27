@@ -23,7 +23,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 08.03.2021 1.00     First Release
-
+*         : 22.04.2021 1.10     Changed Minor version to 1.10
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -43,7 +43,7 @@
 
 /* Version Number of r_bsp. */
 #define R_BSP_VERSION_MAJOR           (1)
-#define R_BSP_VERSION_MINOR           (00)
+#define R_BSP_VERSION_MINOR           (10)
 
 /* Interrupt disable/enable(assembler instruction) */
 #define BSP_DI()            __DI()                      /* Interrupt disable */

@@ -23,6 +23,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 08.03.2021 1.00     First Release
+*         : 22.04.2021 1.10     Added support of Security ID Codes for On-Chip Debugging (When using IAR).
 
 ***********************************************************************************************************************/
 
@@ -44,3 +45,8 @@ __root const uint8_t opbyte2 = OPTBYTE2_VALUE;
 #pragma location = "OPTBYTE"
 __root const uint8_t opbyte3 = OPTBYTE3_VALUE;
 
+/* Security ID Codes for On-Chip Debugging setting(When using IAR) */
+#pragma location = "SECUID"
+__root const uint8_t secuid[10] =
+{BSP_CFG_SECUID0_VALUE, BSP_CFG_SECUID1_VALUE, BSP_CFG_SECUID2_VALUE, BSP_CFG_SECUID3_VALUE, BSP_CFG_SECUID4_VALUE,
+ BSP_CFG_SECUID5_VALUE, BSP_CFG_SECUID6_VALUE, BSP_CFG_SECUID7_VALUE, BSP_CFG_SECUID8_VALUE, BSP_CFG_SECUID9_VALUE};

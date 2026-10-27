@@ -23,6 +23,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 08.03.2021 1.00     First Release
+*         : 22.04.2021 1.10     Added "__far" to the address of the option byte.
 
 ***********************************************************************************************************************/
 
@@ -42,11 +43,11 @@
  * - Interval interrupt is used or not used
  */
 #if defined(__CCRL__)
-#define OPTBYTE_C0    (*(volatile __far unsigned char  *)0x000C0)
+#define OPTBYTE_C0    (*(volatile __far unsigned char *)0x000C0)
 #elif defined(__ICCRL78__)
-#define OPTBYTE_C0    (*(volatile unsigned char  *)0x000C0)
+#define OPTBYTE_C0    (*(volatile __far unsigned char *)0x000C0)
 #elif defined(__llvm__)
-#define OPTBYTE_C0    (*(volatile unsigned char *)0x000C0)
+#define OPTBYTE_C0    (*(volatile __far unsigned char *)0x000C0)
 #endif
 
 /* 000C1H or 040C1H
@@ -57,11 +58,11 @@
  * Setting of LVD0 detection level(VLVD0)
  */
 #if defined(__CCRL__)
-#define OPTBYTE_C1    (*(volatile __far unsigned char  *)0x000C1)
+#define OPTBYTE_C1    (*(volatile __far unsigned char *)0x000C1)
 #elif defined(__ICCRL78__)
-#define OPTBYTE_C1    (*(volatile unsigned char  *)0x000C1)
+#define OPTBYTE_C1    (*(volatile __far unsigned char *)0x000C1)
 #elif defined(__llvm__)
-#define OPTBYTE_C1    (*(volatile unsigned char *)0x000C1)
+#define OPTBYTE_C1    (*(volatile __far unsigned char *)0x000C1)
 #endif
 
 /* 000C2H or 040C2H
@@ -75,25 +76,26 @@
  * - Select from 1 MHz to 32 MHz
  */
 #if defined(__CCRL__)
-#define OPTBYTE_C2    (*(volatile __far unsigned char  *)0x000C2)
+#define OPTBYTE_C2    (*(volatile __far unsigned char *)0x000C2)
 #elif defined(__ICCRL78__)
-#define OPTBYTE_C2    (*(volatile unsigned char  *)0x000C2)
+#define OPTBYTE_C2    (*(volatile __far unsigned char *)0x000C2)
 #elif defined(__llvm__)
-#define OPTBYTE_C2    (*(volatile unsigned char *)0x000C2)
+#define OPTBYTE_C2    (*(volatile __far unsigned char *)0x000C2)
 #endif
 
 /* 000C3H or 040C3H
  * Control of on-chip debug operation
  * - On-chip debug operation is disabled or enabled.
- * Handling of data of flash memory in case of failure in on-chip debug security ID authentication
- * - Data of flash memory is erased or not erased in case of failure in on-chip debug security ID authentication
+ * Handling of data of flash memory in case of failure in security ID codes for on-chip debug authentication
+ * - Data of flash memory is erased or not erased in case of failure in 
+ *   security ID codes for on-chip debug authentication
  */
 #if defined(__CCRL__)
-#define OPTBYTE_C3    (*(volatile __far unsigned char  *)0x000C3)
+#define OPTBYTE_C3    (*(volatile __far unsigned char *)0x000C3)
 #elif defined(__ICCRL78__)
-#define OPTBYTE_C3    (*(volatile unsigned char  *)0x000C3)
+#define OPTBYTE_C3    (*(volatile __far unsigned char *)0x000C3)
 #elif defined(__llvm__)
-#define OPTBYTE_C3    (*(volatile unsigned char *)0x000C3)
+#define OPTBYTE_C3    (*(volatile __far unsigned char *)0x000C3)
 #endif
 
 #if defined(__CCRL__)

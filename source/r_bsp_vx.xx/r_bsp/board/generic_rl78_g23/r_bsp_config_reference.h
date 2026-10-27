@@ -24,6 +24,22 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 08.03.2021 1.00     First Release
+*         : 22.04.2021 1.10     Modified comment for added support of 
+*                               Security ID Codes for On-Chip Debugging (When using IAR).
+*                               Added the following macro definitions.
+*                                - BSP_CFG_SECUID0_VALUE
+*                                - BSP_CFG_SECUID1_VALUE
+*                                - BSP_CFG_SECUID2_VALUE
+*                                - BSP_CFG_SECUID3_VALUE
+*                                - BSP_CFG_SECUID4_VALUE
+*                                - BSP_CFG_SECUID5_VALUE
+*                                - BSP_CFG_SECUID6_VALUE
+*                                - BSP_CFG_SECUID7_VALUE
+*                                - BSP_CFG_SECUID8_VALUE
+*                                - BSP_CFG_SECUID9_VALUE
+*                               Modified comment for added support of Renesas RTOS (RI78V4).
+*                               Added the following macro definition.
+*                                - BSP_CFG_RTOS_USED
 
 ***********************************************************************************************************************/
 /*************************************************
@@ -86,6 +102,17 @@
 #define OPTBYTE1_VALUE (0xFFU)
 #define OPTBYTE2_VALUE (0xE0U)
 #define OPTBYTE3_VALUE (0x04U)
+/* Security ID Codes for On-Chip Debugging setting(When using IAR) */
+#define BSP_CFG_SECUID0_VALUE (0x00U)
+#define BSP_CFG_SECUID1_VALUE (0x00U)
+#define BSP_CFG_SECUID2_VALUE (0x00U)
+#define BSP_CFG_SECUID3_VALUE (0x00U)
+#define BSP_CFG_SECUID4_VALUE (0x00U)
+#define BSP_CFG_SECUID5_VALUE (0x00U)
+#define BSP_CFG_SECUID6_VALUE (0x00U)
+#define BSP_CFG_SECUID7_VALUE (0x00U)
+#define BSP_CFG_SECUID8_VALUE (0x00U)
+#define BSP_CFG_SECUID9_VALUE (0x00U)
 #endif
 
 /*************************************************
@@ -1055,6 +1082,15 @@
  1 : Starts the high-speed on-chip oscillator at initialization
 */
 #define BSP_CFG_FIH_START_ON_STARTUP (1)
+
+/* This macro lets other modules no if a RTOS is being used.
+   0 = RTOS is not used.
+   1 = FreeRTOS is used.(This is not available.)
+   2 = embOS is used.(This is not available.)
+   3 = MicroC_OS is used.(This is not available.)
+   4 = Renesas ITRON is used.
+*/
+#define BSP_CFG_RTOS_USED               (0)
 
 #define BSP_SUBWAITTIME              (800000U) // Subsystem clock oscillation stabilization time
 #define BSP_FIHWAITTIME              (80U)     // High-speed on-chip oscillator clock oscillation stabilization time(T.B.D)
