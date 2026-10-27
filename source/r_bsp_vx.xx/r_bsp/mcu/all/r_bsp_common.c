@@ -23,7 +23,9 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 08.03.2021 1.00     First Release
-
+*         : 28.02.2022 1.20     Added the following function.
+*                                - R_BSP_ChangeClockSetting
+*                               Changed to enable/disable for each API function.
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -50,11 +52,11 @@
  * MIOCLK : Middle-speed on-chip oscillator
  * LOCLK  : Low-speed on-chip oscillator
  */
-#if BSP_CFG_API_FUNCTIONS_DISABLE == 0
+#if BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE == 0
 e_bsp_err_t R_BSP_StartClock(e_clock_mode_t mode)
 {
-    return start_clock(mode);
-}
+    return (start_clock(mode));
+} /* End of function R_BSP_StartClock() */
 #endif
 
 /**********************************************************************************************************************
@@ -72,11 +74,11 @@ e_bsp_err_t R_BSP_StartClock(e_clock_mode_t mode)
  * MIOCLK : Middle-speed on-chip oscillator
  * LOCLK  : Low-speed on-chip oscillator
  */
-#if BSP_CFG_API_FUNCTIONS_DISABLE == 0
+#if BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE == 0
 e_bsp_err_t R_BSP_StopClock(e_clock_mode_t mode)
 {
-    return stop_clock(mode);
-}
+    return (stop_clock(mode));
+} /* End of function R_BSP_StopClock() */
 #endif
 
 /**********************************************************************************************************************
@@ -98,11 +100,11 @@ e_bsp_err_t R_BSP_StopClock(e_clock_mode_t mode)
  * MIOCLK : Middle-speed on-chip oscillator
  * LOCLK  : Low-speed on-chip oscillator
  */
-#if BSP_CFG_API_FUNCTIONS_DISABLE == 0
+#if BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE == 0
 e_bsp_err_t R_BSP_SetClockSource(e_clock_mode_t mode)
 {
-    return set_fclk_clock_source(mode);
-}
+    return (set_fclk_clock_source(mode));
+} /* End of function R_BSP_SetClockSource() */
 #endif
 
 /**********************************************************************************************************************
@@ -115,10 +117,33 @@ e_bsp_err_t R_BSP_SetClockSource(e_clock_mode_t mode)
  * and the r_bsp has completed to specify the clock setting, then even if the user changed the
  * CPU/peripheral hardware clock(fCLK) frequency to 10 MHz, the return value is '10000000'.
  */
-#if BSP_CFG_API_FUNCTIONS_DISABLE == 0
+#if BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE == 0
 uint32_t R_BSP_GetFclkFreqHz(void)
 {
-    return get_fclk_freq_hz();  // Get the MCU specific ICLK frequency
+    return (get_fclk_freq_hz());
 } /* End of function R_BSP_GetFclkFreqHz() */
+#endif
+
+/**********************************************************************************************************************
+ * Function Name: R_BSP_ChangeClockSetting
+ ******************************************************************************************************************//**
+ * @brief Change the specified clock setting and return.
+ * @param[in] mode Clock to change settings.
+ * @param[in] set_values Value to set for the specified clock.
+ * @retval BSP_OK BSP_OK if the specified clock setting is changed.
+ * @retval BSP_ERRPR1 When the specified clock is stopped.
+ * @retval BSP_ERROR3 An unsupported state transition was specified. Refer to the user's manual.
+ * @retval BSP_ARG_ERROR BSP_ARG_ERROR if the specified clock is incorrect.
+ * @details This function changes the specified clock setting.
+ * Specify one of the following for mode.
+ * HIOCLK : High-speed on-chip oscillator
+ * MIOCLK : Middle-speed on-chip oscillator
+ * PLLCLK : PLL clock
+ */
+#if BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE == 0
+e_bsp_err_t R_BSP_ChangeClockSetting(e_clock_mode_t mode, uint8_t *set_values)
+{
+    return (change_clock_setting(mode, set_values));
+} /* End of function R_BSP_ChangeClockSetting() */
 #endif
 

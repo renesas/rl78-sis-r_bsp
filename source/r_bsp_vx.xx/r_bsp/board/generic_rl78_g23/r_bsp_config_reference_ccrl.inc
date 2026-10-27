@@ -14,7 +14,7 @@
 ;;* following link:
 ;;* http://www.renesas.com/disclaimer
 ;;*
-;;* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+;;* Copyright (C) 2022 Renesas Electronics Corporation. All rights reserved.
 ;;***********************************************************************************************************************/
 ;;/***********************************************************************************************************************
 ;;* File Name    : r_bsp_config_reference.inc
@@ -23,14 +23,14 @@
 ;;***********************************************************************************************************************/
 ;;/***********************************************************************************************************************
 ;;* History : DD.MM.YYYY Version  Description
-;;*         : 22.04.2021 1.00     First Release
-;;
+;;*         : 28.02.2022 1.20     First Release
+;;*
 ;;***********************************************************************************************************************/
 
-$ IFDEF __r_bsp_config_inc__
-$ ELSE
+$IFDEF __r_bsp_config_inc__
+$ELSE
 
-__r_bsp_config_inc__    .EQU    1
-BSP_CFG_ASM_RTOS_USED   .EQU    0
+__r_bsp_config_inc__                .EQU    1
+BSP_CFG_ASM_RTOS_USED               .EQU    0
 
-$ ENDIF    ; __r_bsp_config_inc__
+$ENDIF    ; __r_bsp_config_inc__

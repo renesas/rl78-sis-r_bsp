@@ -26,6 +26,13 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 08.03.2021 1.00     First Release
+*         : 28.02.2022 1.20     Added the following macro definition.
+*                                - BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE
+*                               Removed the following macro definition.
+*                                - BSP_CFG_API_FUNCTIONS_DISABLE
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
   Purpose: Module Description File (MDF) Example (Schema Version 2.0)
@@ -93,9 +100,27 @@ NOTE:Pxx(Port register) is not guarded.</description>
             <description>0 = Disable initialization of peripheral functions by Code Generator/Smart Configurator.
 1 = Enable initialization of peripheral functions by Code Generator/Smart Configurator.</description>
         </property>
-        <property id="BSP_CFG_API_FUNCTIONS_DISABLE" display="API functions disable" default="0" type="combobox">
-            <option id="BSP_CFG_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
-            <option id="BSP_CFG_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+        <property id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_StartClock, R_BSP_StopClock)" default="0" type="combobox">
+            <option id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable API functions.
+1 = Disable API functions.</description>
+        </property>
+        <property id="BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_GetFclkFreqHz)" default="0" type="combobox">
+            <option id="BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable API functions.
+1 = Disable API functions.</description>
+        </property>
+        <property id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_SetClockSource)" default="0" type="combobox">
+            <option id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable API functions.
+1 = Disable API functions.</description>
+        </property>
+        <property id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_ChangeClockSetting)" default="0" type="combobox">
+            <option id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
             <description>0 = Enable API functions.
 1 = Disable API functions.</description>
         </property>

@@ -54,6 +54,14 @@
 *                               Added include guard.
 *         : 29.10.2021 1.13     Added the following macro definition.
 *                                - BSP_CFG_CONFIGURATOR_VERSION
+*         : 28.02.2022 1.20     Added the following macro definition.
+*                                - BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE
+*                               Removed the following macro definition.
+*                                - BSP_CFG_API_FUNCTIONS_DISABLE
+*                               Added a comment about macro definition BSP_CFG_CONFIGURATOR_VERSION.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -857,8 +865,8 @@
  * Data flash
  *************************************************/
 /* Data flash access control(DFLEN)
- 0 : Disables data flash access.
- 1 : Enables data flash access.
+ 0 : Access to the data flash memory area and extra area is disabled.
+ 1 : Access to the data flash memory area and extra area is enabled.
 */
 #define BSP_CFG_DATA_FLASH_ACCESS_ENABLE (0)
 
@@ -881,21 +889,41 @@
 /* Version number of Smart Configurator.
    This macro definitions is updated by Smart Configurator.
    If you are using e2studio, set the following values.
-   2021-04  : 1001
-   2021-07  : 1010
-   2021-10  : 1010
-   If you are using Smart the standalone version of Smart Configurator,
+   2021-04 : 1001
+   2021-07 : 1010
+   2021-10 : 1010
+   2022-01 : 1030
+   If you are using the standalone version of Smart Configurator,
    set the following values.
-   v1.0.1   : 1001
-   v1.1.0   : 1010
+   v1.0.1  : 1001
+   v1.1.0  : 1010
+   v1.3.0  : 1030
 */
 #define BSP_CFG_CONFIGURATOR_VERSION    (1001)
 
-/* API functions disable
+/* API function disable(R_BSP_StartClock, R_BSP_StopClock)
  0 : Enable API functions
  1 : Disable API functions
 */
-#define BSP_CFG_API_FUNCTIONS_DISABLE (0)
+#define BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE (0)
+
+/* API function disable(R_BSP_GetFclkFreqHz)
+ 0 : Enable API functions
+ 1 : Disable API functions
+*/
+#define BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE (0)
+
+/* API function disable(R_BSP_SetClockSource)
+ 0 : Enable API functions
+ 1 : Disable API functions
+*/
+#define BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE (0)
+
+/* API function disable(R_BSP_ChangeClockSetting)
+ 0 : Enable API functions
+ 1 : Disable API functions
+*/
+#define BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE (0)
 
 /* Parameter check enable
  0 : Disable parameter check.
@@ -1036,11 +1064,11 @@
 */
 #define BSP_CFG_X1_WAIT_TIME_SEL (0)
 
-/* Setting in STOP mode or HALT mode while subsystem clock is selected as CPU clock
+/* Setting in STOP mode or in HALT mode while the CPU is opeating with subsystem clock X.
    Subsystem clock supply mode control register(OSMC)
    RTCLPC
- 0 : Enables supply of subsystem clock to peripheral functions.
- 1 : Stops supply of subsystem clock to peripheral functions other than the real-time clock.
+ 0 : Enables supply of subsystem clock X to peripheral functions.
+ 1 : Stops supply of the subsystem clock to peripheral functions other than the realtime clock.
 */
 #define BSP_CFG_ALLOW_FSUB_IN_STOPHALT (1)
 

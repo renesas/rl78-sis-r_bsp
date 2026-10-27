@@ -32,12 +32,12 @@
 ;;*                               Added register bank settings.
 ;;*                               Added hardware initialization for RTOS.
 ;;*                               Added initialization process for RTOS.
+;;*         : 28.02.2022 1.20     Changed to always include r_bsp_config.inc.
+;;*                               Added RAMSAR register setting.
 ;;
 ;;***********************************************************************************************************************/
 
-$IFDEF BSP_RTOS
 $INCLUDE (r_bsp_config.inc)
-$ENDIF
 
 $IFNDEF __RENESAS_VERSION__
 __RENESAS_VERSION__ .EQU    0x01000000
@@ -96,6 +96,9 @@ _start:
     ;--------------------------------------------------
     ; setting register bank
     ;--------------------------------------------------
+$IFDEF BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+    MOV !RAMSAR, #BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+$ENDIF
 $IFDEF BSP_RTOS
 $IF (BSP_CFG_ASM_RTOS_USED == 0)      ; RTOS is not used.
 ;   SEL RB0

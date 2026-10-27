@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+/***********************************************************************************************************************
+* DISCLAIMER
+* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products.
+* No other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
+* applicable laws, including copyright laws.
+* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM
+* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES
+* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS
+* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of
+* this software. By using this software, you agree to the additional terms and conditions found by accessing the
+* following link:
+* http://www.renesas.com/disclaimer
+*
+* Copyright (C) 2022 Renesas Electronics Corporation. All rights reserved.
+***********************************************************************************************************************/
+/***********************************************************************************************************************
+* File Name    : r_bsp_rl78_generic_rl78f23_extend.mdf
+* H/W Platform : GENERIC_RL78_F23
+* Description  : 
+***********************************************************************************************************************/
+/***********************************************************************************************************************
+* History : DD.MM.YYYY Version  Description
+*         : 28.02.2022 1.20     First Release
+***********************************************************************************************************************/
+/***********************************************************************************************************************
+  Purpose: Module Description File (MDF) Example (Schema Version 2.0)
+           This is a description of a sample FIT module configuration file
+***********************************************************************************************************************/
+-->
+<module xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="2.0" xs:noNamespaceSchemaLocation="schema_mdf_2.00.xsd">
+    <fileVersion>1.00</fileVersion>
+    <formatVersion>2.00</formatVersion>
+    <fileTemplate></fileTemplate>
+    <configuration>
+        <property id="BSP_CFG_STARTUP_DISABLE" display="Start up select" default="0" type="combobox">
+            <option id="BSP_CFG_STARTUP_DISABLE.0" display="Enable (use BSP startup)" value="0"/>
+            <option id="BSP_CFG_STARTUP_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable BSP startup program.
+1 = Disable BSP startup program. (e.g. Using user startup program.)</description>
+        </property>
+        <property id="BSP_CFG_INVALID_MEMORY_ACCESS_DETECTION_ENABLE" display="Control of invalid memory access detection" default="0" type="combobox">
+            <option id="BSP_CFG_INVALID_MEMORY_ACCESS_DETECTION_ENABLE.0" display="Disable" value="0"/>
+            <option id="BSP_CFG_INVALID_MEMORY_ACCESS_DETECTION_ENABLE.1" display="Enable" value="1"/>
+            <description>0 = Disable the detection of invalid memory accesses.
+1 = Enable the detection of invalid memory accesses.</description>
+        </property>
+        <property id="BSP_CFG_RAM_GUARD_FUNC" display="RAM guard space(GRAM0-1)" default="0" type="combobox">
+            <option id="BSP_CFG_RAM_GUARD_FUNC.0" display="Disabled" value="0"/>
+            <option id="BSP_CFG_RAM_GUARD_FUNC.1" display="128 bytes" value="1"/>
+            <option id="BSP_CFG_RAM_GUARD_FUNC.2" display="256 bytes" value="2"/>
+            <option id="BSP_CFG_RAM_GUARD_FUNC.3" display="512 bytes" value="3"/>
+            <description>0 = Disabled. RAM can be written to.
+1 = The 128 bytes of space starting at the start address in the RAM.
+2 = The 256 bytes of space starting at the start address in the RAM.
+3 = The 512 bytes of space starting at the start address in the RAM.</description>
+        </property>
+        <property id="BSP_CFG_PORT_FUNCTION_GUARD" display="Guard of control registers of port function(GPORT)" default="0" type="combobox">
+            <option id="BSP_CFG_PORT_FUNCTION_GUARD.0" display="Disabled" value="0"/>
+            <option id="BSP_CFG_PORT_FUNCTION_GUARD.1" display="Enabled" value="1"/>
+            <description>0 = Disabled. Control registers of the port function can be read from or written to.
+1 = Enabled. Writing to control registers of the port function is disabled. Reading is enabled.
+[Guarded SFRs] PMxx, PUxx, PIMxx, POMxx, PMCAxx, PMCTxx, PMCExx, PFOEx, PIOR, PDIDISxx, CCDE, CCSm, PTDC
+NOTE:Pxx(Port register) is not guarded.</description>
+        </property>
+        <property id="BSP_CFG_INT_FUNCTION_GUARD" display="Guard of registers of interrupt function(GINT)" default="0" type="combobox">
+            <option id="BSP_CFG_INT_FUNCTION_GUARD.0" display="Disabled" value="0"/>
+            <option id="BSP_CFG_INT_FUNCTION_GUARD.1" display="Enabled" value="1"/>
+            <description>0 = Disabled. Registers of the interrupt function can be read from or written to.
+1 = Enabled. Writing to registers of the interrupt function is disabled. Reading is enabled.
+[Guarded SFRs] IFxx, MKxx, PRxx, EGPx, EGNx</description>
+        </property>
+        <property id="BSP_CFG_CHIP_STATE_CTRL_GUARD" display="Guard of control registers of clock control function, voltage detector, and RAM parity error detection function(GCSC)" default="0" type="combobox">
+            <option id="BSP_CFG_CHIP_STATE_CTRL_GUARD.0" display="Disabled" value="0"/>
+            <option id="BSP_CFG_CHIP_STATE_CTRL_GUARD.1" display="Enabled" value="1"/>
+            <description>0 = Disabled. Control registers of the clock control function, voltage detector and RAM parity error detection function can be read from or written to.
+1 = Enabled. Writing to control registers of the clock control function, voltage detector and RAM parity error detection function is disabled. Reading is enabled.
+[Guarded SFRs] CMC, CSC, OSTS, CKC, PERx, OSMC, LVIM, LVIS, RPECTL, CKSEL, PRRx, MOCODIV, WKUPMD, PSMCR</description>
+        </property>
+        <property id="BSP_CFG_DATA_FLASH_ACCESS_ENABLE" display="Data flash access control(DFLEN)" default="0" type="combobox">
+            <option id="BSP_CFG_DATA_FLASH_ACCESS_ENABLE.0" display="Disables" value="0"/>
+            <option id="BSP_CFG_DATA_FLASH_ACCESS_ENABLE.1" display="Enables" value="1"/>
+            <description>0 = Disables data flash access.
+1 = Enables data flash access.</description>
+        </property>
+        <property id="BSP_CFG_CONFIGURATOR_SELECT" display="Initialization of peripheral functions by Code Generator/Smart Configurator" default="1" type="combobox">
+            <option id="BSP_CFG_CONFIGURATOR_SELECT.0" display="Disable" value="0"/>
+            <option id="BSP_CFG_CONFIGURATOR_SELECT.1" display="Enable" value="1"/>
+            <description>0 = Disable initialization of peripheral functions by Code Generator/Smart Configurator.
+1 = Enable initialization of peripheral functions by Code Generator/Smart Configurator.</description>
+        </property>
+        <property id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_StartClock, R_BSP_StopClock)" default="0" type="combobox">
+            <option id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable API functions.
+1 = Disable API functions.</description>
+        </property>
+        <property id="BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_GetFclkFreqHz)" default="0" type="combobox">
+            <option id="BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable API functions.
+1 = Disable API functions.</description>
+        </property>
+        <property id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_SetClockSource)" default="0" type="combobox">
+            <option id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable API functions.
+1 = Disable API functions.</description>
+        </property>
+        <property id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_ChangeClockSetting)" default="0" type="combobox">
+            <option id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable API functions.
+1 = Disable API functions.</description>
+        </property>
+        <property id="BSP_CFG_PARAM_CHECKING_ENABLE" display="Parameter check enable" default="1" type="combobox">
+            <option id="BSP_CFG_PARAM_CHECKING_ENABLE.0" display="Disable" value="0"/>
+            <option id="BSP_CFG_PARAM_CHECKING_ENABLE.1" display="Enable" value="1"/>
+            <description>0 =Disable parameter check.
+1 = Enable parameter check.</description>
+        </property>
+        <property id="BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED" display="Enable user warm start callback (PRE)" default="0" type="combobox">
+            <option id="BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED.0" display="Unused" value="0"/>
+            <option id="BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED.1" display="Used" value="1"/>
+            <description>0 = Warm start callback pre function is not to be used.
+1 = Warm start callback pre function is to be used.</description>
+        </property>
+        <property id="BSP_CFG_USER_WARM_START_PRE_C_FUNCTION" display="User warm start callback  function name (PRE)" default="my_sw_warmstart_prec_function" type="textbox">
+            <constraint display="when User warm start callback  function name (PRE) is Used only" actionOnFail="disable">${BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED} == ${BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED.1}</constraint>
+            <constraint display="Please enter a valid function name without spaces or funny characters" actionOnFail="error">testSymbol("${BSP_CFG_USER_WARM_START_PRE_C_FUNCTION}")</constraint>
+            <description>User warm start callback pre function name.</description>
+        </property>
+        <property id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED" display="Enable user warm start callback (POST)" default="0" type="combobox">
+            <option id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED.0" display="Unused" value="0"/>
+            <option id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED.1" display="Used" value="1"/>
+            <description>0 = Warm start callback post function is not to be used.
+1 = Warm start callback post function is to be used.</description>
+        </property>
+        <property id="BSP_CFG_USER_WARM_START_POST_C_FUNCTION" display="User warm start callback  function name (POST)" default="my_sw_warmstart_postc_function" type="textbox">
+            <constraint display="when User warm start callback  function name (POST) is Used only" actionOnFail="disable">${BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED} == ${BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED.1}</constraint>
+            <constraint display="Please enter a valid function name without spaces or funny characters" actionOnFail="error">testSymbol("${BSP_CFG_USER_WARM_START_POST_C_FUNCTION}")</constraint>
+            <description>User warm start callback post function name.</description>
+        </property>
+        <property id="BSP_CFG_WDT_REFRESH_ENABLE" display="Watchdog Timer refresh enable" default="0" type="combobox">
+            <option id="BSP_CFG_WDT_REFRESH_ENABLE.0" display="Unused" value="0"/>
+            <option id="BSP_CFG_WDT_REFRESH_ENABLE.1" display="Used(100%)" value="1"/>
+            <option id="BSP_CFG_WDT_REFRESH_ENABLE.2" display="Used(50%)" value="2"/>
+            <option id="BSP_CFG_WDT_REFRESH_ENABLE.3" display="Used(75%)" value="3"/>
+            <description>0 = Watchdog Timer Counter operation disabled.
+1 = Watchdog Timer Counter operation enabled. Window Open Period 100%
+2 = Watchdog Timer Counter opeartion enabled. Window Open Period 50%
+3 = Watchdog Timer Counter opeartion enabled. Window Open Period 75%
+NOTE:Please also set this config as the same setting in Watchdog Timer config.</description>
+        </property>
+        <property id="BSP_CFG_USER_WDT_REFRESH_INIT_FUNCTION" display="Watchdog Timer initialize user function name" default="my_sw_wdt_refresh_init_function" type="textbox">
+            <constraint display="when Watchdog Timer initialize user function name is Used(50% or 75%) only" actionOnFail="disable">${BSP_CFG_WDT_REFRESH_ENABLE} > ${BSP_CFG_WDT_REFRESH_ENABLE.1}</constraint>
+            <constraint display="Please enter a valid function name without spaces or funny characters" actionOnFail="error">testSymbol("${BSP_CFG_USER_WDT_REFRESH_INIT_FUNCTION}")</constraint>
+            <description>Watchdog Timer initialize user function name.</description>
+        </property>
+        <property id="BSP_CFG_USER_WDT_REFRESH_SETTING_FUNCTION" display="Watchdog Timer setting user function name" default="my_sw_wdt_refresh_setting_function" type="textbox">
+            <constraint display="when Watchdog Timer setting user function name is Used(50% or 75%) only" actionOnFail="disable">${BSP_CFG_WDT_REFRESH_ENABLE} > ${BSP_CFG_WDT_REFRESH_ENABLE.1}</constraint>
+            <constraint display="Please enter a valid function name without spaces or funny characters" actionOnFail="error">testSymbol("${BSP_CFG_USER_WDT_REFRESH_SETTING_FUNCTION}")</constraint>
+            <description>Watchdog Timer setting user function name.</description>
+        </property>
+    </configuration>
+</module>

@@ -27,7 +27,7 @@
 *         : 22.04.2021 1.10     Added the following include path.
 *                                - r_rtos.h
 *         : 04.08.2021 1.12     Changed the order to include header file.
-*         : 08.09.2021 1.13     Added the include of fsp_common_api.h and r_fsp_error.h
+*         : 08.09.2021 1.13     Added the include of fsp_common_api.h and r_fsp_error.h.
 
 ***********************************************************************************************************************/
 /* Make sure that no other platforms have already been defined. Do not touch this! */

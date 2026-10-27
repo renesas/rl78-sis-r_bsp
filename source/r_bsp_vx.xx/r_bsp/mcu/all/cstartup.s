@@ -23,6 +23,9 @@
 ;;/***********************************************************************************************************************
 ;;* History : DD.MM.YYYY Version  Description
 ;;*         : 08.03.2021 1.00     First Release
+;;*         : 28.02.2022 1.20     Added inclusion of r_bsp_config.inc.
+;;*                               Added RAMSAR register setting.
+;;*                               Added label _ramsar_init.
 ;;
 ;;***********************************************************************************************************************/
 
@@ -52,6 +55,7 @@
 #endif
 
 #include "cfi.m"
+#include "r_bsp_config.inc"
 
 ;------------------------------------------------------------------------------
 ;       The stack segment.
@@ -94,11 +98,19 @@ PMC     DEFINE  0xFFFFE
 ;       Perform the run-time initialization.
 ;------------------------------------------------------------------------------
 
+        PUBLIC  _ramsar_init
+_ramsar_init:
+
 __iar_program_start:
 ___interrupt_0x00:
 `@cstart`:
         CODE
         DI
+
+#ifdef BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+        MOVW    HL, #BSP_CFG_ASM_RAMSAR_ADDRESS
+        MOV     [HL], #BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+#endif
 
         MOV     A, #(_NEAR_CONST_LOCATION & 1)  ; Near/Far, set mirror area
         MOV1    CY, A.0
