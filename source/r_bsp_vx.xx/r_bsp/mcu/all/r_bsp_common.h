@@ -41,10 +41,6 @@
 #ifndef R_BSP_COMMON_H
 #define R_BSP_COMMON_H
 
-/* Version Number of r_bsp. */
-#define R_BSP_VERSION_MAJOR           (1)
-#define R_BSP_VERSION_MINOR           (10)
-
 /* Interrupt disable/enable(assembler instruction) */
 #define BSP_DI()            __DI()                      /* Interrupt disable */
 #define BSP_EI()            __EI()                      /* Interrupt enable */

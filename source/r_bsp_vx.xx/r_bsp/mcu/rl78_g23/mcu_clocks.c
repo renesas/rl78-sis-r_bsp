@@ -23,6 +23,11 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 08.03.2021 1.00     First Release
+*         : 25.05.2021 1.11     Renamed following macro definitions.
+*                               - BSP_CFG_SUBWAITTIME
+*                               - BSP_CFG_FIHWAITTIME
+*                               - BSP_CFG_FIMWAITTIME
+*                               - BSP_CFG_FILWAITTIME
 
 ***********************************************************************************************************************/
 /*************************************************
@@ -129,7 +134,7 @@ e_bsp_err_t start_clock(e_clock_mode_t mode)
 
 #if BSP_CFG_SUBCLK_SOURCE == 1
                 /* WAIT_LOOP */
-                for (w_count = 0U; w_count <= BSP_SUBWAITTIME; w_count++)
+                for (w_count = 0U; w_count <= BSP_CFG_SUBWAITTIME; w_count++)
                 {
 #if BSP_CFG_WDT_REFRESH_ENABLE == 0
                     BSP_NOP();
@@ -151,7 +156,7 @@ e_bsp_err_t start_clock(e_clock_mode_t mode)
                 HIOSTOP = 0U;
 
                 /* WAIT_LOOP */
-                for (w_count = 0U; w_count <= BSP_FIHWAITTIME; w_count++)
+                for (w_count = 0U; w_count <= BSP_CFG_FIHWAITTIME; w_count++)
                 {
                     BSP_NOP();
                 }
@@ -166,7 +171,7 @@ e_bsp_err_t start_clock(e_clock_mode_t mode)
                 MIOEN = 1U;
 
                 /* WAIT_LOOP */
-                for (w_count = 0U; w_count <= BSP_FIMWAITTIME; w_count++)
+                for (w_count = 0U; w_count <= BSP_CFG_FIMWAITTIME; w_count++)
                 {
                     BSP_NOP();
                 }
@@ -434,7 +439,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
 #endif
                     SELLOSC = 1U;
                     /* WAIT_LOOP */
-                    for (w_count = 0U; w_count <= BSP_FILWAITTIME; w_count++)
+                    for (w_count = 0U; w_count <= BSP_CFG_FILWAITTIME; w_count++)
                     {
                         BSP_NOP();
                     }
@@ -684,7 +689,7 @@ void mcu_clock_setup(void)
     MIOEN = 1U;
 
     /* WAIT_LOOP */
-    for (w_count = 0U; w_count <= BSP_FIMWAITTIME; w_count++)
+    for (w_count = 0U; w_count <= BSP_CFG_FIMWAITTIME; w_count++)
     {
         BSP_NOP();
     }
@@ -733,7 +738,7 @@ void mcu_clock_setup(void)
 #if BSP_CFG_SUBCLK_SOURCE == 1
     /* Wait for oscillation stabilization unless external clock input */
     /* WAIT_LOOP */
-    for (w_count = 0U; w_count <= BSP_SUBWAITTIME; w_count++)
+    for (w_count = 0U; w_count <= BSP_CFG_SUBWAITTIME; w_count++)
     {
 #if BSP_CFG_WDT_REFRESH_ENABLE == 0
         BSP_NOP();
@@ -753,7 +758,7 @@ void mcu_clock_setup(void)
 #if BSP_CFG_SUBSYSCLK_SOURCE == 1
     SELLOSC = 1U;
     /* WAIT_LOOP */
-    for (w_count = 0U; w_count <= BSP_FILWAITTIME; w_count++)
+    for (w_count = 0U; w_count <= BSP_CFG_FILWAITTIME; w_count++)
     {
         BSP_NOP();
     }

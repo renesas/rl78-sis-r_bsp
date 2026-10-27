@@ -40,6 +40,16 @@
 *                               Modified comment for added support of Renesas RTOS (RI78V4).
 *                               Added the following macro definition.
 *                                - BSP_CFG_RTOS_USED
+*         : 25.05.2021 1.11     Renamed following macro definitions.
+*                               - BSP_CFG_OPTBYTE0_VALUE
+*                               - BSP_CFG_OPTBYTE1_VALUE
+*                               - BSP_CFG_OPTBYTE2_VALUE
+*                               - BSP_CFG_OPTBYTE3_VALUE
+*                               - BSP_CFG_SUBWAITTIME
+*                               - BSP_CFG_FIHWAITTIME
+*                               - BSP_CFG_FIMWAITTIME
+*                               - BSP_CFG_FILWAITTIME
+*                               Modified the comment of oscillation stabilization time.
 
 ***********************************************************************************************************************/
 /*************************************************
@@ -98,10 +108,10 @@
 
 #if defined(__ICCRL78__)
 /* Option byte setting(When using IAR) */
-#define OPTBYTE0_VALUE (0xFFU)
-#define OPTBYTE1_VALUE (0xFFU)
-#define OPTBYTE2_VALUE (0xE0U)
-#define OPTBYTE3_VALUE (0x04U)
+#define BSP_CFG_OPTBYTE0_VALUE (0xFFU)
+#define BSP_CFG_OPTBYTE1_VALUE (0xFFU)
+#define BSP_CFG_OPTBYTE2_VALUE (0xE0U)
+#define BSP_CFG_OPTBYTE3_VALUE (0x04U)
 /* Security ID Codes for On-Chip Debugging setting(When using IAR) */
 #define BSP_CFG_SECUID0_VALUE (0x00U)
 #define BSP_CFG_SECUID1_VALUE (0x00U)
@@ -1092,10 +1102,10 @@
 */
 #define BSP_CFG_RTOS_USED               (0)
 
-#define BSP_SUBWAITTIME              (800000U) // Subsystem clock oscillation stabilization time
-#define BSP_FIHWAITTIME              (80U)     // High-speed on-chip oscillator clock oscillation stabilization time(T.B.D)
-#define BSP_FIMWAITTIME              (20U)     // Middle-speed on-chip oscillator clock oscillation stabilization time(T.B.D)
-#define BSP_FILWAITTIME              (20U)     // Low-speed on-chip oscillator clock oscillation stabilization time(T.B.D)
+#define BSP_CFG_SUBWAITTIME              (800000U) // Subsystem clock oscillation stabilization time
+#define BSP_CFG_FIHWAITTIME              (80U)     // High-speed on-chip oscillator clock oscillation stabilization time
+#define BSP_CFG_FIMWAITTIME              (20U)     // Middle-speed on-chip oscillator clock oscillation stabilization time
+#define BSP_CFG_FILWAITTIME              (20U)     // Low-speed on-chip oscillator clock oscillation stabilization time
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the
    following callback definitions AND provide a call back function name for the respective callback

@@ -23,6 +23,11 @@
 ;;/***********************************************************************************************************************
 ;;* History : DD.MM.YYYY Version  Description
 ;;*         : 08.03.2021 1.00     First Release
+;;*         : 23.06.2021 1.11     Renamed the following section
+;;*                               - __mdata
+;;*                               - __ebss
+;;*                               - __bss
+;;*                               - __edata
 ;;
 ;;***********************************************************************************************************************/
 
@@ -50,10 +55,10 @@ ___dso_handle:
 
     .extern _bsp_init_system /*! external Sub-routine to initialise BSP */
     .extern __data
-    .extern _mdata
-    .extern _ebss
-    .extern _bss
-    .extern _edata
+    .extern __mdata
+    .extern __ebss
+    .extern __bss
+    .extern __edata
     .extern _bsp_init_hardware /*! external Sub-routine to initialise Hardware*/
     .extern _main
     .extern __stack
@@ -85,14 +90,14 @@ _PowerON_Reset:
     sel     rb0         /*  ;;bank 0 */
 #endif
 
-    movw    de, #_mdata    /* src ROM address of data section in de */
+    movw    de, #__mdata    /* src ROM address of data section in de */
     movw    hl, #__data     /* dest start RAM address of data section in hl */
 
 #ifndef __RL78_S1__
     sel     rb1              /* bank 1 */
     movw    hl, #__data     /* dest start RAM address of data section in hl */
 #endif
-    movw    ax, #_edata   /*    ;; size of romdata section in ax */
+    movw    ax, #__edata   /*    ;; size of romdata section in ax */
     subw    ax,hl          /* store data size */
     shrw    ax,1
 1:
@@ -128,15 +133,15 @@ _PowerON_Reset:
     sel     rb0         /* bank 0 */
     movw    ax, #0        /* load AX reg with zero */
     sel     rb1         /* bank 1 */
-    movw    ax, #_ebss  /* store the end address (size of) bss section in ax */
-    movw    hl, #_bss      /* store the start address of bss in hl */
+    movw    ax, #__ebss  /* store the end address (size of) bss section in ax */
+    movw    hl, #__bss      /* store the start address of bss in hl */
     subw    ax,hl ;; store data size
     shrw    ax,1
 #endif
 
 #ifdef __RL78_S1__
-    movw    hl, #_bss      /* store the start address of bss in hl */
-    movw    ax, #_ebss  /* store the end address (size of) bss section in ax */
+    movw    hl, #__bss      /* store the start address of bss in hl */
+    movw    ax, #__ebss  /* store the end address (size of) bss section in ax */
     subw    ax,hl ;; store data size
     shrw    ax,1
 #endif
