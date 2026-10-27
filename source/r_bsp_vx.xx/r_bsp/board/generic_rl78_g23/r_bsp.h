@@ -27,6 +27,7 @@
 *         : 22.04.2021 1.10     Added the following include path.
 *                                - r_rtos.h
 *         : 04.08.2021 1.12     Changed the order to include header file.
+*         : 08.09.2021 1.13     Added the include of fsp_common_api.h and r_fsp_error.h
 
 ***********************************************************************************************************************/
 /* Make sure that no other platforms have already been defined. Do not touch this! */
@@ -45,11 +46,14 @@ INCLUDE APPROPRIATE MCU AND BOARD FILES
 #include    "mcu/all/r_bsp_common.h"
 #include    "mcu/all/r_rtos.h"
 
+#include    "mcu/all/fsp_common_api.h"
+#include    "mcu/all/r_fsp_error.h"
+
 #if defined(__CCRL__)
 #include    "mcu/rl78_g23/register_access/ccrl/iodefine.h"
 #elif defined(__ICCRL78__)
-#include "mcu/rl78_g23/register_access/iccrl/ior7f100g.h"
-#include "mcu/rl78_g23/register_access/iccrl/ior7f100g_ext.h"
+#include "mcu/rl78_g23/register_access/iccrl/iodefine.h"
+#include "mcu/rl78_g23/register_access/iccrl/iodefine_ext.h"
 #include "mcu/rl78_g23/register_access/iccrl/intrinsics.h"
 #elif defined(__llvm__)
 #include "mcu/rl78_g23/register_access/llvm/iodefine.h"

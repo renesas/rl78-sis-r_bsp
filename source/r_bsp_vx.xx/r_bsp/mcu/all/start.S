@@ -30,6 +30,7 @@
 ;;*                               - __edata
 ;;*         : 04.08.2021 1.12     Updated base file version 1.05 to 1.06
 ;;*                               Added processing for C++
+;;*         : 25.11.2021 1.13     Deleted processing for C++
 ;;
 ;;***********************************************************************************************************************/
 
@@ -178,24 +179,6 @@ _bss_zero_done:
 
 _bssf_zero_done:
 
-/* Initialize global constructors in case of CPP app */
-#ifdef CPPAPP
-    movw    de, #___ctors
-1:
-    movw    ax, #___ctors_end
-    cmpw    ax, de
-    bnh $2f
-    mov es, #0
-    movw    ax, es:[de]
-    push    de
-    call    ax
-    pop de
-    incw    de
-    incw    de
-    br  $1b
-2:
-#endif
-
 
 /* call the hardware initialiser */
     call    !!_bsp_init_hardware
@@ -208,24 +191,6 @@ _bssf_zero_done:
 	clrw	ax	/* argv */
 	clrw	bc	/* argc */
 	call	!!_main
-
-/* Initialize global destructors in case of CPP app */
-#ifdef CPPAPP
-    movw    de, #___dtors
-1:
-    movw    ax, #___dtors_end
-    cmpw    ax, de
-    bnh     $2f
-    mov     es, #0
-    movw    ax, es:[de]
-    push    de
-    call    ax
-    pop     de
-    incw    de
-    incw    de
-    br      $1b
-2:
-#endif
 
 /* call to exit*/
 _exit:

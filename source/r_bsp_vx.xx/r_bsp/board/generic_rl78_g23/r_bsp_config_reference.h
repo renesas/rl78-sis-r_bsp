@@ -52,6 +52,8 @@
 *                               Modified the comment of oscillation stabilization time.
 *         : 04.08.2021 1.12     Modified the comment of oscillation stabilization time.
 *                               Added include guard.
+*         : 29.10.2021 1.13     Added the following macro definition.
+*                                - BSP_CFG_CONFIGURATOR_VERSION
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -875,6 +877,19 @@
  1 : Enable initialization of peripheral functions by Code Generator/Smart Configurator.
 */
 #define BSP_CFG_CONFIGURATOR_SELECT (0)
+
+/* Version number of Smart Configurator.
+   This macro definitions is updated by Smart Configurator.
+   If you are using e2studio, set the following values.
+   2021-04  : 1001
+   2021-07  : 1010
+   2021-10  : 1010
+   If you are using Smart the standalone version of Smart Configurator,
+   set the following values.
+   v1.0.1   : 1001
+   v1.1.0   : 1010
+*/
+#define BSP_CFG_CONFIGURATOR_VERSION    (1001)
 
 /* API functions disable
  0 : Enable API functions

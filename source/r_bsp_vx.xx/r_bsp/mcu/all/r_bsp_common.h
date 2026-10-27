@@ -25,6 +25,7 @@
 *         : 08.03.2021 1.00     First Release
 *         : 22.04.2021 1.10     Changed Minor version to 1.10
 *         : 04.08.2021 1.12     Added include r_bsp_config.h.
+*         : 29.10.2021 1.13     Added version check of smart configurator.
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -42,6 +43,12 @@
 /* Multiple inclusion prevention macro */
 #ifndef R_BSP_COMMON_H
 #define R_BSP_COMMON_H
+
+#if defined(__llvm__)
+#if BSP_CFG_CONFIGURATOR_VERSION < 1010
+#error "Make sure that the value of BSP_CFG_CONFIGURATOR_VERSION defined in r_config/r_bsp_config.h matches the version of Smart Configurator you are using. If they do not match, change the settings. If they match, you need to upgrade your Smart Configurator. Please upgrade Smart Configurator."
+#endif
+#endif
 
 /* Interrupt disable/enable(assembler instruction) */
 #define BSP_DI()            __DI()                      /* Interrupt disable */
