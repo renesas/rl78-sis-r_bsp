@@ -24,7 +24,7 @@
 ;;/***********************************************************************************************************************
 ;;* History : DD.MM.YYYY Version  Description
 ;;*         : 28.02.2022 1.20     First Release
-;;*
+;;*         : 30.11.2023 1.62     Changed the initial value of RAMSAR register.
 ;;***********************************************************************************************************************/
 
 $IFDEF __r_bsp_config_inc__
@@ -32,6 +32,6 @@ $ELSE
 
 __r_bsp_config_inc__                .EQU    1
 BSP_CFG_ASM_RTOS_USED               .EQU    0
-BSP_CFG_ASM_RAM_GUARD_START_ADDRESS .EQU    0x9F
+BSP_CFG_ASM_RAM_GUARD_START_ADDRESS .EQU    0xCF
 
 $ENDIF    ; __r_bsp_config_inc__

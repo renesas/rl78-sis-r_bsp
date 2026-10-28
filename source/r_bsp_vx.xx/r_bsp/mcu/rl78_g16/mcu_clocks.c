@@ -27,6 +27,10 @@
 *         : 31.08.2023 1.61     Changed comment about setting CMC register.
 *                               Removed the process of setting the CSS bit to 0, 
 *                               when SYSCLK is set as the argument of the R_BSP_SetClockSource function.
+*         : 30.11.2023 1.62     Added processing to check CLS after setting CSS bit.
+*                               Added processing to check MCS after setting MCM0 bit.
+*                               Added parentheses to the #if condition to clarify the order of evaluation.
+*                               Adjusted indentation of equal sign.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -95,7 +99,7 @@ e_bsp_err_t start_clock(e_clock_mode_t mode)
                 /* WAIT_LOOP */
                 do
                 {
-                    tmp_stab_wait = OSTC;
+                    tmp_stab_wait  = OSTC;
                     tmp_stab_wait &= tmp_stab_set;
                 }
                 while (tmp_stab_wait != tmp_stab_set);
@@ -267,6 +271,13 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     }
 
                     MCM0 = 0U;
+
+                    /* WAIT_LOOP */
+                    /* Confirm that high-speed on-chip oscillator clock(fIH) is selected. */
+                    while (1U == MCS)
+                    {
+                        ;
+                    }
                 }
 
                 break;
@@ -294,6 +305,13 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                 else
                 {
                     MCM0 = 1U;
+
+                    /* WAIT_LOOP */
+                    /* Confirm that high-speed system clock(fMX) is selected. */
+                    while (0U == MCS)
+                    {
+                        ;
+                    }
                 }
 
                 break;
@@ -474,7 +492,7 @@ void mcu_clock_setup(void)
     /* X1 oscillation mode */
     /* System clock pin operation mode(EXCLK, OSCSEL) */
     /* Control of X1 clock oscillation frequency(AMPH) setting */
-#if BSP_CFG_FMX_HZ >= 1000000 && BSP_CFG_FMX_HZ <= 10000000
+#if (BSP_CFG_FMX_HZ >= 1000000) && (BSP_CFG_FMX_HZ <= 10000000)
     /* 1MHz <= fX <= 10MHz */
     cmc_tmp |= 0x40U;
 #else
@@ -540,7 +558,7 @@ void mcu_clock_setup(void)
         /* WAIT_LOOP */
         do
         {
-            tmp_stab_wait = OSTC;
+            tmp_stab_wait  = OSTC;
             tmp_stab_wait &= tmp_stab_set;
         }
         while (tmp_stab_wait != tmp_stab_set);
@@ -554,18 +572,34 @@ void mcu_clock_setup(void)
 #if BSP_CFG_MAINCLK_SOURCE == 0
     /* High-speed on-chip oscillator clock(fIH) */
     MCM0 = 0U;
+
+    /* WAIT_LOOP */
+    /* Confirm that high-speed on-chip oscillator clock(fIH) is selected. */
+    while (1U == MCS)
+    {
+        ;
+    }
 #else
     /* High-speed system clock(fMX) */
     MCM0 = 1U;
+
+#if (BSP_CFG_MCU_PART_PIN_NUM > 1) && (BSP_CFG_HISYSCLK_SOURCE != 0) && (BSP_CFG_HISYSCLK_OPERATION == 0)
+    /* WAIT_LOOP */
+    /* Confirm that high-speed system clock(fMX) is selected. */
+    while (0U == MCS)
+    {
+        ;
+    }
+#endif
 #endif
 
     /* Subsystem clock oscillation */
     /* Subsystem clock supply mode control register(OSMC) setting */
-#if BSP_CFG_ALLOW_FSUB_IN_STOPHALT == 0 && BSP_CFG_RTC_OUT_CLK_SOURCE == 0
+#if (BSP_CFG_ALLOW_FSUB_IN_STOPHALT == 0) && (BSP_CFG_RTC_OUT_CLK_SOURCE == 0)
     OSMC |= 0x00U;
-#elif BSP_CFG_ALLOW_FSUB_IN_STOPHALT == 1 && BSP_CFG_RTC_OUT_CLK_SOURCE == 0
+#elif (BSP_CFG_ALLOW_FSUB_IN_STOPHALT == 1) && (BSP_CFG_RTC_OUT_CLK_SOURCE == 0)
     OSMC |= 0x80U;
-#elif BSP_CFG_ALLOW_FSUB_IN_STOPHALT == 0 && BSP_CFG_RTC_OUT_CLK_SOURCE == 1
+#elif (BSP_CFG_ALLOW_FSUB_IN_STOPHALT == 0) && (BSP_CFG_RTC_OUT_CLK_SOURCE == 1)
     OSMC |= 0x10U;
 #else
     OSMC |= 0x90U;
@@ -610,12 +644,14 @@ void mcu_clock_setup(void)
     /* When using subsystem clock */
     CSS = 1U;
 
+#if (BSP_CFG_MCU_PART_PIN_NUM > 1) && (BSP_CFG_SUBCLK_SOURCE != 0) && (BSP_CFG_SUBCLK_OPERATION == 0)
     /* WAIT_LOOP */
     /* Confirm that Subsystem clock(fSUB) is selected. */
     while (0U == CLS)
     {
         ;
     }
+#endif
 #endif
 
     /* Starts high-speed on-chip oscillator */

@@ -24,7 +24,7 @@
 ;;/***********************************************************************************************************************
 ;;* History : DD.MM.YYYY Version  Description
 ;;*         : 28.02.2022 1.20     First Release
-;;*
+;;*         : 30.11.2023 1.62     Changed the initial value of RAMSAR register.
 ;;***********************************************************************************************************************/
 
 #ifdef __r_bsp_config_inc__
@@ -33,6 +33,6 @@
 #define __r_bsp_config_inc__                   (1)
 #define BSP_CFG_ASM_RTOS_USED                  (0)
 #define BSP_CFG_ASM_RAMSAR_ADDRESS             (0x0076)
-#define BSP_CFG_ASM_RAM_GUARD_START_ADDRESS    (0x9F)
+#define BSP_CFG_ASM_RAM_GUARD_START_ADDRESS    (0xCF)
 
 #endif

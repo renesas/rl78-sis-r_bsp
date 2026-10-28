@@ -24,6 +24,7 @@
 * History : DD.MM.YYYY Version  Description
 *         : 11.11.2022 1.40     First Release.
 *         : 31.08.2023 1.61     Updated device file.
+*         : 30.11.2023 1.62     Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __INTRINSIC_FUNCTIONS
@@ -439,6 +440,102 @@ union un_smsc {
 };
 union un_smss {
 	unsigned char smss;
+	__BITS8 BIT;
+};
+union un_ctsucr0 {
+	unsigned char ctsucr0;
+	__BITS8 BIT;
+};
+union un_ctsucr1 {
+	unsigned char ctsucr1;
+	__BITS8 BIT;
+};
+union un_ctsucr2 {
+	unsigned char ctsucr2;
+	__BITS8 BIT;
+};
+union un_ctsucr3 {
+	unsigned char ctsucr3;
+	__BITS8 BIT;
+};
+union un_ctsusdprs {
+	unsigned char ctsusdprs;
+	__BITS8 BIT;
+};
+union un_ctsumfaf {
+	unsigned char ctsumfaf;
+	__BITS8 BIT;
+};
+union un_ctsuchac0 {
+	unsigned char ctsuchac0;
+	__BITS8 BIT;
+};
+union un_ctsuchac1 {
+	unsigned char ctsuchac1;
+	__BITS8 BIT;
+};
+union un_ctsuchac2 {
+	unsigned char ctsuchac2;
+	__BITS8 BIT;
+};
+union un_ctsuchac3 {
+	unsigned char ctsuchac3;
+	__BITS8 BIT;
+};
+union un_ctsuchac4 {
+	unsigned char ctsuchac4;
+	__BITS8 BIT;
+};
+union un_ctsuchac5 {
+	unsigned char ctsuchac5;
+	__BITS8 BIT;
+};
+union un_ctsuchac6 {
+	unsigned char ctsuchac6;
+	__BITS8 BIT;
+};
+union un_ctsuchac7 {
+	unsigned char ctsuchac7;
+	__BITS8 BIT;
+};
+union un_ctsuchtrc0 {
+	unsigned char ctsuchtrc0;
+	__BITS8 BIT;
+};
+union un_ctsuchtrc1 {
+	unsigned char ctsuchtrc1;
+	__BITS8 BIT;
+};
+union un_ctsuchtrc2 {
+	unsigned char ctsuchtrc2;
+	__BITS8 BIT;
+};
+union un_ctsuchtrc3 {
+	unsigned char ctsuchtrc3;
+	__BITS8 BIT;
+};
+union un_ctsuchtrc4 {
+	unsigned char ctsuchtrc4;
+	__BITS8 BIT;
+};
+union un_ctsuchtrc5 {
+	unsigned char ctsuchtrc5;
+	__BITS8 BIT;
+};
+union un_ctsuchtrc6 {
+	unsigned char ctsuchtrc6;
+	__BITS8 BIT;
+};
+union un_ctsuchtrc7 {
+	unsigned char ctsuchtrc7;
+	__BITS8 BIT;
+};
+union un_ctsust1 {
+	unsigned char ctsust1;
+	__BITS8 BIT;
+};
+union un_ctsust {
+	unsigned char ctsust;
 	__BITS8 BIT;
 };
 union un_trngscr0 {
@@ -861,13 +958,18 @@ union un_trngscr0 {
 #define GFLASH2 (*(volatile unsigned short *)0xF048C)
 #define GIAWCTL (*(volatile unsigned short *)0xF048E)
 #define CTSUCRAL (*(volatile unsigned short *)0xF0500)
-#define CTSUCR0 (*(volatile unsigned char *)0xF0500)
-#define CTSUCR1 (*(volatile unsigned char *)0xF0501)
+#define CTSUCR0 (*(volatile union un_ctsucr0 *)0xF0500).ctsucr0
+#define CTSUCR0_bit (*(volatile union un_ctsucr0 *)0xF0500).BIT
+#define CTSUCR1 (*(volatile union un_ctsucr1 *)0xF0501).ctsucr1
+#define CTSUCR1_bit (*(volatile union un_ctsucr1 *)0xF0501).BIT
 #define CTSUCRAH (*(volatile unsigned short *)0xF0502)
-#define CTSUCR2 (*(volatile unsigned char *)0xF0502)
-#define CTSUCR3 (*(volatile unsigned char *)0xF0503)
+#define CTSUCR2 (*(volatile union un_ctsucr2 *)0xF0502).ctsucr2
+#define CTSUCR2_bit (*(volatile union un_ctsucr2 *)0xF0502).BIT
+#define CTSUCR3 (*(volatile union un_ctsucr3 *)0xF0503).ctsucr3
+#define CTSUCR3_bit (*(volatile union un_ctsucr3 *)0xF0503).BIT
 #define CTSUCRBL (*(volatile unsigned short *)0xF0504)
-#define CTSUSDPRS (*(volatile unsigned char *)0xF0504)
+#define CTSUSDPRS (*(volatile union un_ctsusdprs *)0xF0504).ctsusdprs
+#define CTSUSDPRS_bit (*(volatile union un_ctsusdprs *)0xF0504).BIT
 #define CTSUSST (*(volatile unsigned char *)0xF0505)
 #define CTSUCRBH (*(volatile unsigned short *)0xF0506)
 #define CTSUDCLKC (*(volatile unsigned char *)0xF0507)
@@ -875,34 +977,53 @@ union un_trngscr0 {
 #define CTSUMCH0 (*(volatile unsigned char *)0xF0508)
 #define CTSUMCH1 (*(volatile unsigned char *)0xF0509)
 #define CTSUMCHH (*(volatile unsigned short *)0xF050A)
-#define CTSUMFAF (*(volatile unsigned char *)0xF050A)
+#define CTSUMFAF (*(volatile union un_ctsumfaf *)0xF050A).ctsumfaf
+#define CTSUMFAF_bit (*(volatile union un_ctsumfaf *)0xF050A).BIT
 #define CTSUCHACAL (*(volatile unsigned short *)0xF050C)
-#define CTSUCHAC0 (*(volatile unsigned char *)0xF050C)
-#define CTSUCHAC1 (*(volatile unsigned char *)0xF050D)
+#define CTSUCHAC0 (*(volatile union un_ctsuchac0 *)0xF050C).ctsuchac0
+#define CTSUCHAC0_bit (*(volatile union un_ctsuchac0 *)0xF050C).BIT
+#define CTSUCHAC1 (*(volatile union un_ctsuchac1 *)0xF050D).ctsuchac1
+#define CTSUCHAC1_bit (*(volatile union un_ctsuchac1 *)0xF050D).BIT
 #define CTSUCHACAH (*(volatile unsigned short *)0xF050E)
-#define CTSUCHAC2 (*(volatile unsigned char *)0xF050E)
-#define CTSUCHAC3 (*(volatile unsigned char *)0xF050F)
+#define CTSUCHAC2 (*(volatile union un_ctsuchac2 *)0xF050E).ctsuchac2
+#define CTSUCHAC2_bit (*(volatile union un_ctsuchac2 *)0xF050E).BIT
+#define CTSUCHAC3 (*(volatile union un_ctsuchac3 *)0xF050F).ctsuchac3
+#define CTSUCHAC3_bit (*(volatile union un_ctsuchac3 *)0xF050F).BIT
 #define CTSUCHACBL (*(volatile unsigned short *)0xF0510)
-#define CTSUCHAC4 (*(volatile unsigned char *)0xF0510)
-#define CTSUCHAC5 (*(volatile unsigned char *)0xF0511)
+#define CTSUCHAC4 (*(volatile union un_ctsuchac4 *)0xF0510).ctsuchac4
+#define CTSUCHAC4_bit (*(volatile union un_ctsuchac4 *)0xF0510).BIT
+#define CTSUCHAC5 (*(volatile union un_ctsuchac5 *)0xF0511).ctsuchac5
+#define CTSUCHAC5_bit (*(volatile union un_ctsuchac5 *)0xF0511).BIT
 #define CTSUCHACBH (*(volatile unsigned short *)0xF0512)
-#define CTSUCHAC6 (*(volatile unsigned char *)0xF0512)
-#define CTSUCHAC7 (*(volatile unsigned char *)0xF0513)
+#define CTSUCHAC6 (*(volatile union un_ctsuchac6 *)0xF0512).ctsuchac6
+#define CTSUCHAC6_bit (*(volatile union un_ctsuchac6 *)0xF0512).BIT
+#define CTSUCHAC7 (*(volatile union un_ctsuchac7 *)0xF0513).ctsuchac7
+#define CTSUCHAC7_bit (*(volatile union un_ctsuchac7 *)0xF0513).BIT
 #define CTSUCHTRCAL (*(volatile unsigned short *)0xF0514)
-#define CTSUCHTRC0 (*(volatile unsigned char *)0xF0514)
-#define CTSUCHTRC1 (*(volatile unsigned char *)0xF0515)
+#define CTSUCHTRC0 (*(volatile union un_ctsuchtrc0 *)0xF0514).ctsuchtrc0
+#define CTSUCHTRC0_bit (*(volatile union un_ctsuchtrc0 *)0xF0514).BIT
+#define CTSUCHTRC1 (*(volatile union un_ctsuchtrc1 *)0xF0515).ctsuchtrc1
+#define CTSUCHTRC1_bit (*(volatile union un_ctsuchtrc1 *)0xF0515).BIT
 #define CTSUCHTRCAH (*(volatile unsigned short *)0xF0516)
-#define CTSUCHTRC2 (*(volatile unsigned char *)0xF0516)
-#define CTSUCHTRC3 (*(volatile unsigned char *)0xF0517)
+#define CTSUCHTRC2 (*(volatile union un_ctsuchtrc2 *)0xF0516).ctsuchtrc2
+#define CTSUCHTRC2_bit (*(volatile union un_ctsuchtrc2 *)0xF0516).BIT
+#define CTSUCHTRC3 (*(volatile union un_ctsuchtrc3 *)0xF0517).ctsuchtrc3
+#define CTSUCHTRC3_bit (*(volatile union un_ctsuchtrc3 *)0xF0517).BIT
 #define CTSUCHTRCBL (*(volatile unsigned short *)0xF0518)
-#define CTSUCHTRC4 (*(volatile unsigned char *)0xF0518)
-#define CTSUCHTRC5 (*(volatile unsigned char *)0xF0519)
+#define CTSUCHTRC4 (*(volatile union un_ctsuchtrc4 *)0xF0518).ctsuchtrc4
+#define CTSUCHTRC4_bit (*(volatile union un_ctsuchtrc4 *)0xF0518).BIT
+#define CTSUCHTRC5 (*(volatile union un_ctsuchtrc5 *)0xF0519).ctsuchtrc5
+#define CTSUCHTRC5_bit (*(volatile union un_ctsuchtrc5 *)0xF0519).BIT
 #define CTSUCHTRCBH (*(volatile unsigned short *)0xF051A)
-#define CTSUCHTRC6 (*(volatile unsigned char *)0xF051A)
-#define CTSUCHTRC7 (*(volatile unsigned char *)0xF051B)
+#define CTSUCHTRC6 (*(volatile union un_ctsuchtrc6 *)0xF051A).ctsuchtrc6
+#define CTSUCHTRC6_bit (*(volatile union un_ctsuchtrc6 *)0xF051A).BIT
+#define CTSUCHTRC7 (*(volatile union un_ctsuchtrc7 *)0xF051B).ctsuchtrc7
+#define CTSUCHTRC7_bit (*(volatile union un_ctsuchtrc7 *)0xF051B).BIT
 #define CTSUSRL (*(volatile unsigned short *)0xF051C)
-#define CTSUST1 (*(volatile unsigned char *)0xF051C)
-#define CTSUST (*(volatile unsigned char *)0xF051D)
+#define CTSUST1 (*(volatile union un_ctsust1 *)0xF051C).ctsust1
+#define CTSUST1_bit (*(volatile union un_ctsust1 *)0xF051C).BIT
+#define CTSUST (*(volatile union un_ctsust *)0xF051D).ctsust
+#define CTSUST_bit (*(volatile union un_ctsust *)0xF051D).BIT
 #define CTSUSO0 (*(volatile unsigned short *)0xF0520)
 #define CTSUSO1 (*(volatile unsigned short *)0xF0522)
 #define CTSUSC (*(volatile unsigned short *)0xF0524)

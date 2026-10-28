@@ -24,6 +24,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 11.11.2022 1.40     First Release
+*         : 30.11.2023 1.62     Removed space after function name.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -72,7 +73,7 @@ void bsp_init_hardware (void);
  * Arguments    : none
  * Return value : none
 **************************************************/
-void bsp_init_system (void)
+void bsp_init_system(void)
 {
     /* Pin setting */
     PIOR = BSP_CFG_PIOR0 | (BSP_CFG_PIOR1 << 1U) | (BSP_CFG_PIOR2 << 2U) |
@@ -100,7 +101,7 @@ void bsp_init_system (void)
  * Arguments    : none
  * Return value : none
 **************************************************/
-void bsp_init_hardware (void)
+void bsp_init_hardware(void)
 {
     /* If the warm start Post C runtime callback is enabled, the call it. */
 #if BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED == 1

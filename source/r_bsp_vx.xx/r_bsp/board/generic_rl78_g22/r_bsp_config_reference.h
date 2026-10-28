@@ -26,6 +26,7 @@
 *         : 11.11.2022 1.40     First Release
 *         : 28.02.2023 1.60     Added the version number of Smart Configurator.
 *                               Modified the comment related to the version number of Smart Configurator.
+*         : 30.11.2023 1.62     Adjusted comment indentation.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -342,7 +343,7 @@
     EXCLKS/OSCSELS
  0 : Input port mode
  1 : XT1 oscillation mode
-2 : External clock input mode
+ 2 : External clock input mode
 */
 #define BSP_CFG_SUBCLK_SOURCE (1)
 

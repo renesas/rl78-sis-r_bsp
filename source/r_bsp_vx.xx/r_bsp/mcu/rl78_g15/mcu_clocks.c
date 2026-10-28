@@ -25,6 +25,8 @@
 *         : 31.05.2022 1.30     First Release
 *         : 31.08.2023 1.61     Changed comment about setting CMC register.
 *                               Removed AMPH setting when selecting external clock input mode.
+*         : 30.11.2023 1.62     Added processing to check MCS after setting MCM0 bit.
+*                               Added parentheses to the #if condition to clarify the order of evaluation.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -234,6 +236,13 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                 else
                 {
                     MCM0 = 1U;
+
+                    /* WAIT_LOOP */
+                    /* Confirm that high-speed system clock(fMX) is selected. */
+                    while (0U == MCS)
+                    {
+                        ;
+                    }
                 }
 
                 break;
@@ -250,6 +259,13 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                 else
                 {
                     MCM0 = 0U;
+
+                    /* WAIT_LOOP */
+                    /* Confirm that high-speed on-chip oscillator clock(fIH) is selected. */
+                    while (1U == MCS)
+                    {
+                        ;
+                    }
                 }
 
                 break;
@@ -376,7 +392,7 @@ void mcu_clock_setup(void)
     /* X1 oscillation mode */
     /* High-speed system clock pin operation mode(EXCLK/OSCSEL) setting */
     /* Control of X1 clock oscillation frequency(AMPH) setting */
-#if BSP_CFG_FMX_HZ >= 1000000 && BSP_CFG_FMX_HZ <= 10000000
+#if (BSP_CFG_FMX_HZ >= 1000000) && (BSP_CFG_FMX_HZ <= 10000000)
     /* 1MHz <= fX <= 10MHz */
     cmc_tmp |= 0x40U;
 #else
@@ -427,9 +443,25 @@ void mcu_clock_setup(void)
 #if BSP_CFG_MAINCLK_SOURCE == 0
     /* High-speed on-chip oscillator clock(fIH) */
     MCM0 = 0U;
+
+    /* WAIT_LOOP */
+    /* Confirm that high-speed on-chip oscillator clock(fIH) is selected. */
+    while (1U == MCS)
+    {
+        ;
+    }
 #else
     /* High-speed system clock(fMX) */
     MCM0 = 1U;
+
+#if (BSP_CFG_MCU_PART_PIN_NUM > 1) && (BSP_CFG_HISYSCLK_SOURCE != 0) && (BSP_CFG_HISYSCLK_OPERATION == 0)
+    /* WAIT_LOOP */
+    /* Confirm that high-speed system clock(fMX) is selected. */
+    while (0U == MCS)
+    {
+        ;
+    }
+#endif
 #endif
 
     /* Low-speed on-chip oscillator supply mode control register(OSMC) setting */
