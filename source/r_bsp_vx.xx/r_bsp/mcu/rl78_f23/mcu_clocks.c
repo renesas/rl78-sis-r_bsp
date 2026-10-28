@@ -36,6 +36,15 @@
 *                               when ADCLK is set as an argument of the change_clock_setting function.
 *                               Removed OSMC and SELLOSC from the error check
 *                               when LOCLK is set as an argument of the set_fclk_clock_source function.
+*         : 28.02.2023 1.60     Changed the error condition when HIOCLK is set to the argument of
+*                               the set_fclk_clock_source function.
+*                               Changed the error condition when SYSCLK is set to the argument of
+*                               the set_fclk_clock_source function.
+*                               Removed the comment related to ADCLK in the change_clock_setting function.
+*                               Removed processing on the occasion ADCLK is set as an argument of
+*                               the change_clock_setting function.
+*                               Removed processing to set ADCKS.
+*                               Added processing to put the analog block of A/D converter on standby state.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -368,7 +377,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     else if ((SYSCLK == old_mode) && (1U == PLLON))
                     {
                         /* Error if PLL is running. */
-                        status = BSP_ERROR2;
+                        status = BSP_ERROR3;
                     }
                     else
                     {
@@ -443,7 +452,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     else if ((HIOCLK == old_mode) && (1U == PLLON))
                     {
                         /* Error if PLL is running. */
-                        status = BSP_ERROR2;
+                        status = BSP_ERROR3;
                     }
                     else
                     {
@@ -793,8 +802,6 @@ uint32_t get_fclk_freq_hz(void)
  *                           When the high-speed on-chip oscillator is oscillating
  *                           while the high-speed on-chip oscillator is not supplied to fCLK.
  *                           When a PLL with a high-speed on-chip oscillator as input is supplied to fCLK.
- *                           (When ADCLK is specified)
- *                           When the clock supply to the AD converter is stopped.
  *                           (When SYSCLK or PLLCLK is specified)
  *                           When the specified clock is oscillating.
  *                BSP_ARG_ERROR An invalid argument was input.
@@ -943,19 +950,6 @@ e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t * set_values)
 
             break;
 
-        case ADCLK:
-
-            if ((0U == ADCEN) || (0x8000U == (ADCSR & 0x8000U)))
-            {
-                status = BSP_ERROR1;
-            }
-            else
-            {
-                ADCKS = set_values[0];
-            }
-
-            break;
-
         default :
 
             /* Setting prohibited */
@@ -981,7 +975,7 @@ void mcu_clock_setup(void)
     uint8_t    cmc_tmp;
 
 #if ((BSP_CFG_SUBCLK_OPERATION == 0) && (BSP_CFG_SUBCLK_SOURCE == 1)) || \
-    (BSP_CFG_SUBSYSCLK_SOURCE == 1) || (BSP_CFG_PLL_OPERATION == 1)
+    (BSP_CFG_PLL_OPERATION == 1)
     volatile uint32_t    w_count;
 #endif
 
@@ -1246,7 +1240,17 @@ void mcu_clock_setup(void)
      */
 #if BSP_CFG_FIH_START_ON_STARTUP == 1
     HIOSTOP = 0U;
+
+    /* If main system/PLL select clock is stopped
+     * when subsystem/low-speed on-chip oscillator select clock is supplied to fCLK,
+     * put the analog block of A/D converter on standby state.
+     */
 #else
+#if BSP_CFG_HISYSCLK_OPERATION == 1
+    ADCEN = 1U;
+    ADCSR &= 0x7FFFU;
+    ADHVREFCNT |= 0x80U;
+#endif
     HIOSTOP = 1U;
 #endif
 
@@ -1258,11 +1262,5 @@ void mcu_clock_setup(void)
 
     /* Control of supplying or stopping LIN0 communication clock source */
     LIN0MCKE = BSP_CFG_LIN0_CLOCK_OPERATION;
-
-    /* Selects A/D conversion clock */
-#if BSP_CFG_ADC_ENABLE == 1
-    ADCEN = 1U;
-    ADCKS = BSP_CFG_ADCLK_DIVIDE;
-#endif
 } /* End of function mcu_clock_setup() */
 #endif /* BSP_CFG_STARTUP_DISABLE == 0 */

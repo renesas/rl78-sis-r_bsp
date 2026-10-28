@@ -33,6 +33,9 @@
 *                                - BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE
 *                               Deleted the contents of setting prohibition from the comment of
 *                               the macro definition BSP_CFG_HOCO_DIVIDE.
+*         : 28.02.2023 1.60     Deleted the macro definition BSP_CFG_ADC_ENABLE and BSP_CFG_ADCLK_DIVIDE.
+*                               Added the version number of Smart Configurator.
+*                               Modified the comment related to the version number of Smart Configurator.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -872,11 +875,13 @@
    2021-07 : 1010
    2021-10 : 1010
    2022-01 : 1030
+   2023-04 : 1060
    If you are using the standalone version of Smart Configurator,
    set the following values.
    v1.0.1  : 1001
    v1.1.0  : 1010
    v1.3.0  : 1030
+   v1.6.0  : 1060
 */
 #define BSP_CFG_CONFIGURATOR_VERSION    (1001)
 
@@ -1172,27 +1177,6 @@
  6 : Selects fMP/64.
 */
 #define BSP_CFG_FMP_DIVIDE (0)
-
-/* Control over supply of the input clock for the 12-bit A/D converter
-   Peripheral Enable Register 0(PER0)
-   ADCEN
- 0 : Stops input clock supply.
-     - SFR used by the A/D converter cannot be written.
-     - The A/D converter is in the reset status.
- 1 : Enables input clock supply.
-     - SFR used by the A/D converter can be read and written.
-*/
-#define BSP_CFG_ADC_ENABLE (0)
-
-/* Selects A/D conversion clock
-   A/D Conversion Clock Control Register(ADCKS)
-   ADCK1/ADCK0
- 0 : Non divided (fCLK)
- 1 : Divided by 2 (fCLK/2)
- 2 : Divided by 4 (fCLK/4)
- 3 : Divided by 8 (fCLK/8)
-*/
-#define BSP_CFG_ADCLK_DIVIDE (0)
 
 /* Operation setting at initial setting */
 /* Starts the high-speed on-chip oscillator at initialization

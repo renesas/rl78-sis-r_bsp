@@ -23,7 +23,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 11.11.2022 1.40     First Release
-
+*         : 31.01.2023 1.41     Updated device file.
 ***********************************************************************************************************************/
 /*-------------------------------------------------------------------------
  *      Declarations of extended SFR registers for RL78 microcontroller R7F102GGE.
@@ -33,8 +33,8 @@
  *
  *      This header file is generated from the device file:
  *          DR7F102GGE.DVF
- *          Copyright(C) 2021 Renesas
- *          Format version V3.20, File version E1.00a
+ *          Copyright(C) 2022 Renesas
+ *          Format version V3.20, File version V1.00
  *-------------------------------------------------------------------------*/
 
 #ifndef __IOR7F102GGE_EXT_H__
@@ -424,18 +424,6 @@ __near __no_init volatile union
 
 __near __no_bit_access __no_init volatile union
 {
-  const unsigned short FLFADL;
-  const __BITS16       FLFADL_bit;
-} @ 0xF00B8;
-
-__near __no_bit_access __no_init volatile union
-{
-  const unsigned char FLFADH;
-  const __BITS8       FLFADH_bit;
-} @ 0xF00BA;
-
-__near __no_bit_access __no_init volatile union
-{
   unsigned char PFCMD;
   __BITS8       PFCMD_bit;
 } @ 0xF00C0;
@@ -445,12 +433,6 @@ __near __no_init volatile union
   const unsigned char PFS;
   const __BITS8       PFS_bit;
 } @ 0xF00C1;
-
-__near __no_bit_access __no_init volatile union
-{
-  unsigned char FLWE;
-  __BITS8       FLWE_bit;
-} @ 0xF00C6;
 
 __near __no_init volatile union
 {
@@ -1389,18 +1371,6 @@ __near __no_init volatile union
 
 __near __no_init volatile union
 {
-  unsigned char PSMCR;
-  __BITS8       PSMCR_bit;
-  struct
-  {
-    unsigned char  RAMSDS:1;
-    unsigned char  RAMSDMD:1;
-    unsigned char  :6;
-  };
-} @ 0xF0216;
-
-__near __no_init volatile union
-{
   unsigned char LVDFCLR;
   __BITS8       LVDFCLR_bit;
   struct
@@ -1614,12 +1584,6 @@ __near __no_bit_access __no_init volatile union
   unsigned char ELSELR08;
   __BITS8       ELSELR08_bit;
 } @ 0xF0248;
-
-__near __no_bit_access __no_init volatile union
-{
-  unsigned char ELSELR09;
-  __BITS8       ELSELR09_bit;
-} @ 0xF0249;
 
 __near __no_bit_access __no_init volatile union
 {
@@ -2014,15 +1978,6 @@ __near __no_bit_access __no_init volatile union
 {
   const unsigned short ITLCAP00;
   const __BITS16       ITLCAP00_bit;
-  struct
-  {
-    union
-    {
-      const unsigned char ITLCAP000;
-      const __BITS8       ITLCAP000_bit;
-    };
-    unsigned char :8;
-  };
 } @ 0xF0364;
 
 __near __no_init volatile union
@@ -2711,21 +2666,6 @@ __near __no_bit_access __no_init volatile union
 
 __near __no_bit_access __no_init volatile union
 {
-  unsigned short CTSUSRH;
-  __BITS16       CTSUSRH_bit;
-  struct
-  {
-    union
-    {
-      unsigned char CTSUST2;
-      __BITS8       CTSUST2_bit;
-    };
-    unsigned char :8;
-  };
-} @ 0xF051E;
-
-__near __no_bit_access __no_init volatile union
-{
   unsigned short CTSUSO0;
   __BITS16       CTSUSO0_bit;
 } @ 0xF0520;
@@ -2744,8 +2684,8 @@ __near __no_bit_access __no_init volatile union
 
 __near __no_bit_access __no_init volatile union
 {
-  const unsigned short CTSUSUCKCNT;
-  const __BITS16       CTSUSUCKCNT_bit;
+  const unsigned short CTSUUC;
+  const __BITS16       CTSUUC_bit;
 } @ 0xF0526;
 
 __near __no_bit_access __no_init volatile union
@@ -2790,28 +2730,30 @@ __near __no_bit_access __no_init volatile union
   const __BITS8       TRNGSDR_bit;
 } @ 0xF0540;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned char TRNGSCR0;
   __BITS8       TRNGSCR0_bit;
+  struct
+  {
+    unsigned char  :2;
+    unsigned char  TRNGST:1;
+    unsigned char  TRNGEN:1;
+    unsigned char  :3;
+    unsigned char  TRNGRDY:1;
+  };
 } @ 0xF0542;
 
 __near __no_bit_access __no_init volatile union
 {
-  unsigned char TRNGSCR1;
-  __BITS8       TRNGSCR1_bit;
-} @ 0xF0543;
-
-__near __no_bit_access __no_init volatile union
-{
-  unsigned short CTSURTRIM0;
-  __BITS16       CTSURTRIM0_bit;
+  unsigned short CTSUTRIM0;
+  __BITS16       CTSUTRIM0_bit;
   struct
   {
     union
     {
-      unsigned char CTSURTRIM;
-      __BITS8       CTSURTRIM_bit;
+      unsigned char RTRIM;
+      __BITS8       RTRIM_bit;
     };
     union
     {
@@ -2823,8 +2765,8 @@ __near __no_bit_access __no_init volatile union
 
 __near __no_bit_access __no_init volatile union
 {
-  unsigned short CTSURTRIM1;
-  __BITS16       CTSURTRIM1_bit;
+  unsigned short CTSUTRIM1;
+  __BITS16       CTSUTRIM1_bit;
   struct
   {
     union
@@ -2834,16 +2776,16 @@ __near __no_bit_access __no_init volatile union
     };
     union
     {
-      unsigned char SUADJTRIM;
-      __BITS8       SUADJTRIM_bit;
+      unsigned char TRESULT4;
+      __BITS8       TRESULT4_bit;
     };
   };
 } @ 0xF0602;
 
 __near __no_bit_access __no_init volatile union
 {
-  unsigned short CTSURTRIM2;
-  __BITS16       CTSURTRIM2_bit;
+  unsigned short CTSUTRIM2;
+  __BITS16       CTSUTRIM2_bit;
   struct
   {
     union
@@ -2861,8 +2803,8 @@ __near __no_bit_access __no_init volatile union
 
 __near __no_bit_access __no_init volatile union
 {
-  unsigned short CTSURTRIM3;
-  __BITS16       CTSURTRIM3_bit;
+  unsigned short CTSUTRIM3;
+  __BITS16       CTSUTRIM3_bit;
   struct
   {
     union
@@ -2933,11 +2875,8 @@ FLFSWS     DEFINE  0xF00B2
 FLFSWE     DEFINE  0xF00B4
 FSSET      DEFINE  0xF00B6
 FSSE       DEFINE  0xF00B7
-FLFADL     DEFINE  0xF00B8
-FLFADH     DEFINE  0xF00BA
 PFCMD      DEFINE  0xF00C0
 PFS        DEFINE  0xF00C1
-FLWE       DEFINE  0xF00C6
 PER0       DEFINE  0xF00F0
 PRR0       DEFINE  0xF00F1
 MOCODIV    DEFINE  0xF00F2
@@ -3063,7 +3002,6 @@ MIOTRM     DEFINE  0xF0212
 LIOTRM     DEFINE  0xF0213
 MOSCDIV    DEFINE  0xF0214
 WKUPMD     DEFINE  0xF0215
-PSMCR      DEFINE  0xF0216
 LVDFCLR    DEFINE  0xF0218
 SEC        DEFINE  0xF0220
 MIN        DEFINE  0xF0221
@@ -3092,7 +3030,6 @@ ELSELR05   DEFINE  0xF0245
 ELSELR06   DEFINE  0xF0246
 ELSELR07   DEFINE  0xF0247
 ELSELR08   DEFINE  0xF0248
-ELSELR09   DEFINE  0xF0249
 ELSELR10   DEFINE  0xF024A
 ELSELR11   DEFINE  0xF024B
 ELSELR12   DEFINE  0xF024C
@@ -3154,7 +3091,6 @@ ITLCMP01   DEFINE  0xF0362
 ITLCMP012  DEFINE  0xF0362
 ITLCMP013  DEFINE  0xF0363
 ITLCAP00   DEFINE  0xF0364
-ITLCAP000  DEFINE  0xF0364
 ITLCTL0    DEFINE  0xF0366
 ITLCSEL0   DEFINE  0xF0367
 ITLFDIV00  DEFINE  0xF0368
@@ -3261,12 +3197,10 @@ CTSUCHTRC7 DEFINE  0xF051B
 CTSUSRL    DEFINE  0xF051C
 CTSUST1    DEFINE  0xF051C
 CTSUST     DEFINE  0xF051D
-CTSUSRH    DEFINE  0xF051E
-CTSUST2    DEFINE  0xF051E
 CTSUSO0    DEFINE  0xF0520
 CTSUSO1    DEFINE  0xF0522
 CTSUSC     DEFINE  0xF0524
-CTSUSUCKCNT DEFINE  0xF0526
+CTSUUC     DEFINE  0xF0526
 CTSUDBGR0  DEFINE  0xF0528
 CTSUDBGR1  DEFINE  0xF052A
 CTSUSUCLK0 DEFINE  0xF052C
@@ -3275,17 +3209,16 @@ CTSUSUCLK2 DEFINE  0xF0530
 CTSUSUCLK3 DEFINE  0xF0532
 TRNGSDR    DEFINE  0xF0540
 TRNGSCR0   DEFINE  0xF0542
-TRNGSCR1   DEFINE  0xF0543
-CTSURTRIM0 DEFINE  0xF0600
-CTSURTRIM  DEFINE  0xF0600
+CTSUTRIM0  DEFINE  0xF0600
+RTRIM      DEFINE  0xF0600
 DACTRIM    DEFINE  0xF0601
-CTSURTRIM1 DEFINE  0xF0602
+CTSUTRIM1  DEFINE  0xF0602
 SUADJD     DEFINE  0xF0602
-SUADJTRIM  DEFINE  0xF0603
-CTSURTRIM2 DEFINE  0xF0604
+TRESULT4   DEFINE  0xF0603
+CTSUTRIM2  DEFINE  0xF0604
 TRESULT0   DEFINE  0xF0604
 TRESULT1   DEFINE  0xF0605
-CTSURTRIM3 DEFINE  0xF0606
+CTSUTRIM3  DEFINE  0xF0606
 TRESULT2   DEFINE  0xF0606
 TRESULT3   DEFINE  0xF0607
 

@@ -24,6 +24,8 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 31.01.2023 1.50     First Release
+*         : 28.02.2023 1.60     Added the version number of Smart Configurator.
+*                               Modified the comment related to the version number of Smart Configurator.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -844,11 +846,13 @@
    2021-07 : 1010
    2021-10 : 1010
    2022-01 : 1030
+   2023-04 : 1060
    If you are using the standalone version of Smart Configurator,
    set the following values.
    v1.0.1  : 1001
    v1.1.0  : 1010
    v1.3.0  : 1030
+   v1.6.0  : 1060
 */
 #define BSP_CFG_CONFIGURATOR_VERSION    (1001)
 

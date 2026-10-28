@@ -23,7 +23,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 11.11.2022 1.40     First Release
-
+*         : 31.01.2023 1.41     Updated device file.
 ***********************************************************************************************************************/
 /*-------------------------------------------------------------------------
  *      Declarations of SFR registers, interrupt and callt vector addresses
@@ -34,8 +34,8 @@
  *
  *      This header file is generated from the device file:
  *          DR7F102GGE.DVF
- *          Copyright(C) 2021 Renesas
- *          Format version V3.20, File version E1.00a
+ *          Copyright(C) 2022 Renesas
+ *          Format version V3.20, File version V1.00
  *-------------------------------------------------------------------------*/
 
 #ifndef __IOR7F102GGE_H__
@@ -212,10 +212,10 @@ __saddr __no_bit_access __no_init volatile union
   {
     union
     {
-      unsigned char RXD0;
-      __BITS8       RXD0_bit;
       unsigned char SIO01;
       __BITS8       SIO01_bit;
+      unsigned char RXD0;
+      __BITS8       RXD0_bit;
     };
     unsigned char :8;
   };
@@ -401,8 +401,6 @@ __sfr __no_bit_access __no_init volatile union
   {
     union
     {
-      unsigned char SIO10;
-      __BITS8       SIO10_bit;
       unsigned char TXD1;
       __BITS8       TXD1_bit;
     };
@@ -418,10 +416,10 @@ __sfr __no_bit_access __no_init volatile union
   {
     union
     {
-      unsigned char SIO11;
-      __BITS8       SIO11_bit;
       unsigned char RXD1;
       __BITS8       RXD1_bit;
+      unsigned char SIO11;
+      __BITS8       SIO11_bit;
     };
     unsigned char :8;
   };
@@ -435,10 +433,10 @@ __sfr __no_bit_access __no_init volatile union
   {
     union
     {
-      unsigned char SIO20;
-      __BITS8       SIO20_bit;
       unsigned char TXD2;
       __BITS8       TXD2_bit;
+      unsigned char SIO20;
+      __BITS8       SIO20_bit;
     };
     unsigned char :8;
   };
@@ -452,10 +450,10 @@ __sfr __no_bit_access __no_init volatile union
   {
     union
     {
-      unsigned char SIO21;
-      __BITS8       SIO21_bit;
       unsigned char RXD2;
       __BITS8       RXD2_bit;
+      unsigned char SIO21;
+      __BITS8       SIO21_bit;
     };
     unsigned char :8;
   };
@@ -949,18 +947,18 @@ __sfr __no_init volatile union
       __BITS8       IF0H_bit;
       struct
       {
-        unsigned char  STIF2:1;
+        unsigned char  CSIIF20:1;
         unsigned char  SRIF2:1;
         unsigned char  SREIF2:1;
         unsigned char  :1;
         unsigned char  SMSEIF:1;
-        unsigned char  STIF0:1;
+        unsigned char  CSIIF00:1;
         unsigned char  TMIF00:1;
         unsigned char  SREIF0:1;
       };
       struct
       {
-        unsigned char  IICIF20:1;
+        unsigned char  STIF2:1;
         unsigned char  CSIIF21:1;
         unsigned char  :3;
         unsigned char  IICIF00:1;
@@ -969,10 +967,10 @@ __sfr __no_init volatile union
       };
       struct
       {
-        unsigned char  CSIIF20:1;
+        unsigned char  IICIF20:1;
         unsigned char  IICIF21:1;
         unsigned char  :3;
-        unsigned char  CSIIF00:1;
+        unsigned char  STIF0:1;
         unsigned char  :2;
       };
     };
@@ -995,7 +993,7 @@ __sfr __no_init volatile union
         unsigned char  SRIF1:1;
         unsigned char  SREIF1:1;
         unsigned char  IICAIF0:1;
-        unsigned char  SRIF0:1;
+        unsigned char  IICIF01:1;
         unsigned char  TMIF01:1;
         unsigned char  TMIF02:1;
         unsigned char  TMIF03:1;
@@ -1006,7 +1004,7 @@ __sfr __no_init volatile union
         unsigned char  IICIF11:1;
         unsigned char  TMIF03H:1;
         unsigned char  :1;
-        unsigned char  IICIF01:1;
+        unsigned char  CSIIF01:1;
         unsigned char  :3;
       };
       struct
@@ -1014,7 +1012,7 @@ __sfr __no_init volatile union
         unsigned char  :1;
         unsigned char  CSIIF11:1;
         unsigned char  :2;
-        unsigned char  CSIIF01:1;
+        unsigned char  SRIF0:1;
         unsigned char  :3;
       };
     };
@@ -1064,27 +1062,27 @@ __sfr __no_init volatile union
       struct
       {
         unsigned char  STMK2:1;
-        unsigned char  SRMK2:1;
+        unsigned char  CSIMK21:1;
         unsigned char  SREMK2:1;
         unsigned char  :1;
         unsigned char  SMSEMK:1;
-        unsigned char  STMK0:1;
+        unsigned char  CSIMK00:1;
         unsigned char  TMMK00:1;
+        unsigned char  TMMK01H:1;
+      };
+      struct
+      {
+        unsigned char  CSIMK20:1;
+        unsigned char  SRMK2:1;
+        unsigned char  :3;
+        unsigned char  STMK0:1;
+        unsigned char  :1;
         unsigned char  SREMK0:1;
       };
       struct
       {
         unsigned char  IICMK20:1;
         unsigned char  IICMK21:1;
-        unsigned char  :3;
-        unsigned char  CSIMK00:1;
-        unsigned char  :1;
-        unsigned char  TMMK01H:1;
-      };
-      struct
-      {
-        unsigned char  CSIMK20:1;
-        unsigned char  CSIMK21:1;
         unsigned char  :3;
         unsigned char  IICMK00:1;
         unsigned char  :2;
@@ -1106,10 +1104,10 @@ __sfr __no_init volatile union
       struct
       {
         unsigned char  STMK1:1;
-        unsigned char  SRMK1:1;
-        unsigned char  SREMK1:1;
+        unsigned char  IICMK11:1;
+        unsigned char  TMMK03H:1;
         unsigned char  IICAMK0:1;
-        unsigned char  SRMK0:1;
+        unsigned char  CSIMK01:1;
         unsigned char  TMMK01:1;
         unsigned char  TMMK02:1;
         unsigned char  TMMK03:1;
@@ -1117,18 +1115,18 @@ __sfr __no_init volatile union
       struct
       {
         unsigned char  :1;
-        unsigned char  CSIMK11:1;
-        unsigned char  TMMK03H:1;
+        unsigned char  SRMK1:1;
+        unsigned char  SREMK1:1;
         unsigned char  :1;
-        unsigned char  CSIMK01:1;
+        unsigned char  IICMK01:1;
         unsigned char  :3;
       };
       struct
       {
         unsigned char  :1;
-        unsigned char  IICMK11:1;
+        unsigned char  CSIMK11:1;
         unsigned char  :2;
-        unsigned char  IICMK01:1;
+        unsigned char  SRMK0:1;
         unsigned char  :3;
       };
     };
@@ -1182,25 +1180,25 @@ __sfr __no_init volatile union
         unsigned char  SREPR02:1;
         unsigned char  :1;
         unsigned char  SMSEPR0:1;
-        unsigned char  STPR00:1;
+        unsigned char  IICPR000:1;
         unsigned char  TMPR000:1;
-        unsigned char  SREPR00:1;
+        unsigned char  TMPR001H:1;
       };
       struct
       {
         unsigned char  CSIPR020:1;
         unsigned char  CSIPR021:1;
         unsigned char  :3;
-        unsigned char  CSIPR000:1;
+        unsigned char  STPR00:1;
         unsigned char  :1;
-        unsigned char  TMPR001H:1;
+        unsigned char  SREPR00:1;
       };
       struct
       {
         unsigned char  IICPR020:1;
         unsigned char  IICPR021:1;
         unsigned char  :3;
-        unsigned char  IICPR000:1;
+        unsigned char  CSIPR000:1;
         unsigned char  :2;
       };
     };
@@ -1220,10 +1218,10 @@ __sfr __no_init volatile union
       struct
       {
         unsigned char  STPR01:1;
-        unsigned char  SRPR01:1;
+        unsigned char  IICPR011:1;
         unsigned char  SREPR01:1;
         unsigned char  IICAPR00:1;
-        unsigned char  SRPR00:1;
+        unsigned char  IICPR001:1;
         unsigned char  TMPR001:1;
         unsigned char  TMPR002:1;
         unsigned char  TMPR003:1;
@@ -1240,9 +1238,9 @@ __sfr __no_init volatile union
       struct
       {
         unsigned char  :1;
-        unsigned char  IICPR011:1;
+        unsigned char  SRPR01:1;
         unsigned char  :2;
-        unsigned char  IICPR001:1;
+        unsigned char  SRPR00:1;
         unsigned char  :3;
       };
     };
@@ -1291,8 +1289,8 @@ __sfr __no_init volatile union
       __BITS8       PR10H_bit;
       struct
       {
-        unsigned char  STPR12:1;
-        unsigned char  SRPR12:1;
+        unsigned char  IICPR120:1;
+        unsigned char  IICPR121:1;
         unsigned char  SREPR12:1;
         unsigned char  :1;
         unsigned char  SMSEPR1:1;
@@ -1302,8 +1300,8 @@ __sfr __no_init volatile union
       };
       struct
       {
-        unsigned char  CSIPR120:1;
-        unsigned char  IICPR121:1;
+        unsigned char  STPR12:1;
+        unsigned char  SRPR12:1;
         unsigned char  :3;
         unsigned char  IICPR100:1;
         unsigned char  :1;
@@ -1311,7 +1309,7 @@ __sfr __no_init volatile union
       };
       struct
       {
-        unsigned char  IICPR120:1;
+        unsigned char  CSIPR120:1;
         unsigned char  CSIPR121:1;
         unsigned char  :3;
         unsigned char  CSIPR100:1;
@@ -1348,7 +1346,7 @@ __sfr __no_init volatile union
         unsigned char  CSIPR111:1;
         unsigned char  SREPR11:1;
         unsigned char  :1;
-        unsigned char  SRPR10:1;
+        unsigned char  CSIPR101:1;
         unsigned char  :3;
       };
       struct
@@ -1356,7 +1354,7 @@ __sfr __no_init volatile union
         unsigned char  :1;
         unsigned char  SRPR11:1;
         unsigned char  :2;
-        unsigned char  CSIPR101:1;
+        unsigned char  SRPR10:1;
         unsigned char  :3;
       };
     };
@@ -1426,8 +1424,8 @@ SDR00      DEFINE  0xFFF10
 SIO00      DEFINE  0xFFF10
 TXD0       DEFINE  0xFFF10
 SDR01      DEFINE  0xFFF12
-RXD0       DEFINE  0xFFF12
 SIO01      DEFINE  0xFFF12
+RXD0       DEFINE  0xFFF12
 TDR00      DEFINE  0xFFF18
 TDR01      DEFINE  0xFFF1A
 TDR01L     DEFINE  0xFFF1A
@@ -1455,17 +1453,16 @@ EGN0       DEFINE  0xFFF39
 EGP1       DEFINE  0xFFF3A
 EGN1       DEFINE  0xFFF3B
 SDR02      DEFINE  0xFFF44
-SIO10      DEFINE  0xFFF44
 TXD1       DEFINE  0xFFF44
 SDR03      DEFINE  0xFFF46
-SIO11      DEFINE  0xFFF46
 RXD1       DEFINE  0xFFF46
+SIO11      DEFINE  0xFFF46
 SDR10      DEFINE  0xFFF48
-SIO20      DEFINE  0xFFF48
 TXD2       DEFINE  0xFFF48
+SIO20      DEFINE  0xFFF48
 SDR11      DEFINE  0xFFF4A
-SIO21      DEFINE  0xFFF4A
 RXD2       DEFINE  0xFFF4A
+SIO21      DEFINE  0xFFF4A
 IICA0      DEFINE  0xFFF50
 IICS0      DEFINE  0xFFF51
 IICF0      DEFINE  0xFFF52

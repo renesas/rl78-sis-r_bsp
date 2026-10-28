@@ -23,7 +23,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 31.01.2023 1.50     First Release
-
+*         : 28.02.2023 1.60     Added space after *.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -418,7 +418,7 @@ uint32_t get_fclk_freq_hz(void)
  * Attention    : Stop the specified clock before calling this function(excluding HIOCLK).
 **************************************************/
 #if BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE == 0
-e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t *set_values)
+e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t * set_values)
 {
     e_bsp_err_t    status = BSP_OK;
 
