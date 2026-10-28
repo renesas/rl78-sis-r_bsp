@@ -24,6 +24,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 07.06.2024 1.70     First Release
+*         : 06.11.2024 1.80     Changed comments in PIOR41/42/43.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -457,20 +458,28 @@
      SO01  - P120
      SCK01 - P14
      SSI01 - P125
+     SCL01 - P14
+     SDA01 - P13
  1 : SI01  - P53
      SO01  - P51
      SCK01 - P52
      SSI01 - P50
+     SCL01 - -
+     SDA01 - -
 
    48-pin
  0 : SI01  - P13
      SO01  - P120
      SCK01 - P14
      SSI01 - P125
+     SCL01 - P14
+     SDA01 - P13
  1 : SI01  - -
      SO01  - -
      SCK01 - -
      SSI01 - -
+     SCL01 - -
+     SDA01 - -
 */
 #define BSP_CFG_PIOR41 (0)
 
@@ -481,30 +490,42 @@
      SO10/TxD1 - P12
      SCK10     - P10
      SSI10     - P54
+     SCL10     - P10
+     SDA10     - P11
  1 : SI10/RxD1 - P75
      SO10/TxD1 - P74
      SCK10     - P76
      SSI10     - P77
+     SCL10     - -
+     SDA10     - -
 
    64-pin
  0 : SI10/RxD1 - P11
      SO10/TxD1 - P12
      SCK10     - P10
      SSI10     - -
+     SCL10     - P10
+     SDA10     - P11
  1 : SI10/RxD1 - P75
      SO10/TxD1 - P74
      SCK10     - P76
      SSI10     - P77
+     SCL10     - -
+     SDA10     - -
 
    48-pin
  0 : SI10/RxD1 - P11
      SO10/TxD1 - P12
      SCK10     - P10
      SSI10     - -
+     SCL10     - P10
+     SDA10     - P11
  1 : SI10/RxD1 - -
      SO10/TxD1 - -
      SCK10     - -
      SSI10     - -
+     SCL10     - -
+     SDA10     - -
 
  (PIOR91=1)
    100/80-pin
@@ -512,30 +533,42 @@
      SO10/TxD1 - P12
      SCK10     - P120
      SSI10     - P54
+     SCL10     - P10
+     SDA10     - P11
  1 : SI10/RxD1 - P75
      SO10/TxD1 - P74
      SCK10     - P76
      SSI10     - P77
+     SCL10     - -
+     SDA10     - -
 
    64-pin
  0 : SI10/RxD1 - P41
      SO10/TxD1 - P12
      SCK10     - P120
      SSI10     - -
+     SCL10     - P10
+     SDA10     - P11
  1 : SI10/RxD1 - P75
      SO10/TxD1 - P74
      SCK10     - P76
      SSI10     - P77
+     SCL10     - -
+     SDA10     - -
 
    48-pin
  0 : SI10/RxD1 - P41
      SO10/TxD1 - P12
      SCK10     - P120
      SSI10     - -
+     SCL10     - P10
+     SDA10     - P11
  1 : SI10/RxD1 - -
      SO10/TxD1 - -
      SCK10     - -
      SSI10     - -
+     SCL10     - -
+     SDA10     - -
 */
 #define BSP_CFG_PIOR42 (0)
 
@@ -546,20 +579,28 @@
      SO11  - P72
      SCK11 - P71
      SSI11 - P73
+     SCL11 - P71
+     SDA11 - P70
  1 : SI11  - P152
      SO11  - P151
      SCK11 - P153
      SSI11 - P150
+     SCL11 - -
+     SDA11 - -
 
    80/64/48-pin
  0 : SI11  - P70
      SO11  - P72
      SCK11 - P71
      SSI11 - P73
+     SCL11 - P71
+     SDA11 - P70
  1 : SI11  - -
      SO11  - -
      SCK11 - -
      SSI11 - -
+     SCL11 - -
+     SDA11 - -
 
  (PIOR92=1)
    100-pin
@@ -567,20 +608,28 @@
      SO11  - P32
      SCK11 - P71
      SSI11 - P73
+     SCL11 - P71
+     SDA11 - P70
  1 : SI11  - P152
      SO11  - P151
      SCK11 - P153
      SSI11 - P150
+     SCL11 - -
+     SDA11 - -
 
    80/64/48-pin
  0 : SI11  - P70
      SO11  - P32
      SCK11 - P71
      SSI11 - P73
+     SCL11 - P71
+     SDA11 - P70
  1 : SI11  - -
      SO11  - -
      SCK11 - -
      SSI11 - -
+     SCL11 - -
+     SDA11 - -
 */
 #define BSP_CFG_PIOR43 (0)
 
