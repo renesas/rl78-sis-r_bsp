@@ -23,7 +23,10 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 29.11.2024 1.90     First Release
-
+*         : 15.04.2025 1.91     Added processing to check FLMODE
+*                               when using set_fclk_clock_source to change the clock resource
+*                               to something other than the Main on-chip oscillator clock (fOCO).
+*                               Changed the setting method for AMPH and AMPH1.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -378,6 +381,11 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     /* Error if the high-speed system clock is not selected. */
                     status = BSP_ERROR2;
                 }
+                else if ((FLMODE & 0xC0U) == 0x40U)
+                {
+                    /* Error if flash operation mode is set to LP(low-power main) mode. */
+                    status = BSP_ERROR3;
+                }
 #endif
                 else
                 {
@@ -417,6 +425,11 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                 }
                 else if (LOCLK == old_mode)
                 {
+                    status = BSP_ERROR3;
+                }
+                else if ((FLMODE & 0xC0U) == 0x40U)
+                {
+                    /* Error if flash operation mode is set to LP(low-power main) mode. */
                     status = BSP_ERROR3;
                 }
 #endif
@@ -495,6 +508,11 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                 }
                 else if ((SYSCLK == old_mode) && (0U == XTSTOP))
                 {
+                    status = BSP_ERROR3;
+                }
+                else if ((FLMODE & 0xC0U) == 0x40U)
+                {
+                    /* Error if flash operation mode is set to LP(low-power main) mode. */
                     status = BSP_ERROR3;
                 }
                 else
@@ -715,7 +733,6 @@ e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t * set_values)
 void mcu_clock_setup(void)
 {
     uint8_t cmc_tmp;
-    uint8_t modrv_tmp = 0x00U;
 
 #if (BSP_CFG_MOCO_OPERATION == 1) || ((BSP_CFG_SUBCLK_OPERATION == 0) && \
     (BSP_CFG_SUBCLK_SOURCE == 1)) || (BSP_CFG_SUBSYSCLK_SOURCE == 1)
@@ -758,18 +775,12 @@ void mcu_clock_setup(void)
 
     /* System clock pin operation mode(EXCLK/OSCSEL) setting */
     /* Control of the X1 clock oscillation frequency(AMPH) setting */
-#if (BSP_CFG_FMX_HZ >= 1000000) && (BSP_CFG_FMX_HZ <= 5000000)
-    /* 1MHz <= fX <= 5MHz */
+#if (BSP_CFG_FMX_HZ >= 1000000) && (BSP_CFG_FMX_HZ <= 10000000)
+    /* 1MHz <= fX <= 10MHz */
     cmc_tmp |= 0x40U;
-    modrv_tmp = 0x01U;
-#elif (BSP_CFG_FMX_HZ > 5000000) && (BSP_CFG_FMX_HZ <= 10000000)
-    /* 5MHz < fX <= 10MHz */
-    cmc_tmp |= 0x40U;
-    modrv_tmp = 0x00U;
 #else
     /* 10MHz < fX <= 20MHz */
     cmc_tmp |= 0x41U;
-    modrv_tmp = 0x00U;
 #endif
 #else
     /* External clock input mode */
@@ -835,7 +846,11 @@ void mcu_clock_setup(void)
     CMC = cmc_tmp;
 
     /* Main oscillator oscillation mode selection register(MODRV) setting */
-    MODRV = modrv_tmp;
+#if BSP_CFG_MOSC_OPERATING_MODE == 0
+    MODRV = 0x00U;
+#else
+    MODRV = 0x01U;
+#endif
 
     /* Middle-speed on-chip oscillator clock(fIM) setting */
 #if BSP_CFG_MOCO_OPERATION == 1

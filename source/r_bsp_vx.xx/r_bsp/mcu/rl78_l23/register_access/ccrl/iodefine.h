@@ -23,6 +23,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 03.12.2024 1.90     First Release
+*         : 01.04.2025 1.91     Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __R7F100LIODEFINE_HEADER__
@@ -609,12 +610,6 @@ typedef struct
 #define FLWL           (*(volatile __near unsigned short *)0x2CC)
 #define FLWH           (*(volatile __near unsigned short *)0x2CE)
 #define OSDC           (*(volatile __near unsigned short *)0x2D0)
-#define CLKDCTL        (*(volatile __near unsigned char  *)0x2D4)
-#define CLKDCTL_bit    (*(volatile __near __bitf_T *)0x2D4)
-#define CLKDEN0        (((volatile __near __bitf_T *)0x2D4)->no0)
-#define CLKDEN1        (((volatile __near __bitf_T *)0x2D4)->no1)
-#define CLKDEN2        (((volatile __near __bitf_T *)0x2D4)->no2)
-#define CLKDEN3        (((volatile __near __bitf_T *)0x2D4)->no3)
 #define DTCBAR         (*(volatile __near unsigned char  *)0x2E0)
 #define DTCEN0         (*(volatile __near unsigned char  *)0x2E8)
 #define DTCEN0_bit     (*(volatile __near __bitf_T *)0x2E8)
@@ -655,14 +650,6 @@ typedef struct
 #define PECTA0         (((volatile __near __bitf_T *)0x306)->no2)
 #define UTA0CK         (*(volatile __near unsigned char  *)0x310)
 #define UTA0CK_bit     (*(volatile __near __bitf_T *)0x310)
-#define TMC5MG         (*(volatile __near unsigned char  *)0x320)
-#define TMC5MG_bit     (*(volatile __near __bitf_T *)0x320)
-#define TCE5MG         (((volatile __near __bitf_T *)0x320)->no7)
-#define TCL5MG         (*(volatile __near unsigned char  *)0x321)
-#define TCL5MG_bit     (*(volatile __near __bitf_T *)0x321)
-#define TCL5MG0        (((volatile __near __bitf_T *)0x321)->no0)
-#define CR5MGL         (*(volatile __near unsigned char  *)0x322)
-#define CR5MGH         (*(volatile __near unsigned char  *)0x323)
 #define DACS0          (*(volatile __near unsigned char  *)0x330)
 #define DACS1          (*(volatile __near unsigned char  *)0x331)
 #define DAM0           (*(volatile __near unsigned char  *)0x332)
@@ -685,12 +672,6 @@ typedef struct
 #define C0OE           (((volatile __near __bitf_T *)0x342)->no1)
 #define C1IE           (((volatile __near __bitf_T *)0x342)->no4)
 #define C1OE           (((volatile __near __bitf_T *)0x342)->no5)
-#define TM3L           (*(volatile __near unsigned char  *)0x350)
-#define TM3H           (*(volatile __near unsigned char  *)0x351)
-#define TMC3           (*(volatile __near unsigned char  *)0x352)
-#define TMC3_bit       (*(volatile __near __bitf_T *)0x352)
-#define COVF3          (((volatile __near __bitf_T *)0x352)->no0)
-#define TM3ST          (((volatile __near __bitf_T *)0x352)->no7)
 #define ITLCMP00       (*(volatile __near unsigned short *)0x360)
 #define ITLCMP000      (*(volatile __near unsigned char  *)0x360)
 #define ITLCMP001      (*(volatile __near unsigned char  *)0x361)
@@ -1507,9 +1488,6 @@ typedef struct
 #define SDR11          (*(volatile __near unsigned short *)0xFF4A)
 #define RXD2           (*(volatile __near unsigned char  *)0xFF4A)
 #define SIO21          (*(volatile __near unsigned char  *)0xFF4A)
-#define MLCD           (*(volatile __near unsigned char  *)0xFF4C)
-#define MLCD_bit       (*(volatile __near __bitf_T *)0xFF4C)
-#define OPTCKE         (((volatile __near __bitf_T *)0xFF4C)->no4)
 #define IICA0          (*(volatile __near unsigned char  *)0xFF50)
 #define IICS0          (*(volatile __near unsigned char  *)0xFF51)
 #define IICS0_bit      (*(volatile __near __bitf_T *)0xFF51)
@@ -2164,9 +2142,7 @@ typedef struct
 #define INTUR2                          0x0074
 #define INTUT3                          0x0076
 #define INTUR3                          0x0078
-#define INTTM3G                         0x007A
 #define INTTMKB0                        0x007A
 #define INTEXSD                         0x007C
-#define INTTM5MG                        0x007C
 
 #endif /* __R7F100LIODEFINE_HEADER__ */

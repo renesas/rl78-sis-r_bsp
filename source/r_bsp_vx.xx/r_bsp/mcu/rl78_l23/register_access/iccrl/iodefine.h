@@ -23,6 +23,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 05.12.2024 1.90     First Release
+*         : 01.04.2025 1.91     Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __IOR7F100L_H__
@@ -527,18 +528,6 @@ __sfr __no_bit_access __no_init volatile union
     unsigned char :8;
   };
 } @ 0xFFF4A;
-
-__sfr __no_init volatile union
-{
-  unsigned char MLCD;
-  __BITS8       MLCD_bit;
-  struct
-  {
-    unsigned char  :4;
-    unsigned char  OPTCKE:1;
-    unsigned char  :3;
-  };
-} @ 0xFFF4C;
 
 __sfr __no_bit_access __no_init volatile union
 {
@@ -2083,10 +2072,8 @@ PMC        DEFINE  0xFFFFE
 #define INTUR2_vect              (0x74)
 #define INTUT3_vect              (0x76)
 #define INTUR3_vect              (0x78)
-#define INTTM3G_vect             (0x7A)
 #define INTTMKB0_vect            (0x7A)
 #define INTEXSD_vect             (0x7C)
-#define INTTM5MG_vect            (0x7C)
 #define BRK_I_vect               (0x7E)
 
 /*----------------------------------------------

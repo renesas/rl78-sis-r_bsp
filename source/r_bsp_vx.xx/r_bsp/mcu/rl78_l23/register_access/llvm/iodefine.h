@@ -23,6 +23,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 03.12.2024 1.90     First Release.
+*         : 01.04.2025 1.91     Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __INTRINSIC_FUNCTIONS
@@ -206,10 +207,6 @@ union un_egn0 {
 };
 union un_lcdm1 {
 	unsigned char lcdm1;
-	__BITS8 BIT;
-};
-union un_mlcd {
-	unsigned char mlcd;
 	__BITS8 BIT;
 };
 union un_iics0 {
@@ -557,8 +554,6 @@ union un_pmc {
 #define SDR11 (*(volatile unsigned short *)0xFFF4A)
 #define RXD2 (*(volatile unsigned char *)0xFFF4A)
 #define SIO21 (*(volatile unsigned char *)0xFFF4A)
-#define MLCD (*(volatile union un_mlcd *)0xFFF4C).mlcd
-#define MLCD_bit (*(volatile union un_mlcd *)0xFFF4C).BIT
 #define IICA0 (*(volatile unsigned char *)0xFFF50)
 #define IICS0 (*(volatile union un_iics0 *)0xFFF51).iics0
 #define IICS0_bit (*(volatile union un_iics0 *)0xFFF51).BIT
@@ -712,7 +707,6 @@ union un_pmc {
 #define VLCON LCDM1_bit.no5
 #define SCOC LCDM1_bit.no6
 #define LCDON LCDM1_bit.no7
-#define OPTCKE MLCD_bit.no4
 #define SPD0 IICS0_bit.no0
 #define STD0 IICS0_bit.no1
 #define ACKD0 IICS0_bit.no2
@@ -1248,9 +1242,7 @@ union un_pmc {
 #define INTUR2_vect 0x74
 #define INTUT3_vect 0x76
 #define INTUR3_vect 0x78
-#define INTTM3G_vect 0x7A
 #define INTTMKB0_vect 0x7A
 #define INTEXSD_vect 0x7C
-#define INTTM5MG_vect 0x7C
 #define BRK_I_vect 0x7E
 #endif

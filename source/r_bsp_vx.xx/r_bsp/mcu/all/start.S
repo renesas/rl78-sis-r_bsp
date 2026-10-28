@@ -34,11 +34,12 @@
 ;;*         : 28.02.2022 1.20     Added inclusion of r_bsp_config.inc.
 ;;*                               Added RAMSAR register setting.
 ;;*         : 07.06.2024 1.70     Updated base file version 1.06 to 1.10c
+;;*         : 01.04.2025 1.91     Updated base file version 1.10c to 1.10d
 ;;***********************************************************************************************************************/
 
 /************************************************************************/
-/*    File Version: V1.10c                                              */
-/*    Date Generated: 03/29/2024                                        */
+/*    File Version: V1.10d                                              */
+/*    Date Generated: 03/17/2025                                        */
 /************************************************************************/
 
     /*reset_program.asm*/
@@ -49,8 +50,9 @@ ___dso_handle:
 #endif
 
 #if __clang_major__ <= 10
-    #define HIGHW(x) x
-    #define LOWW(x) x
+    #define HIGHW(x) %hi16(x)
+    #define LOWW(x)  x
+    #define LOW(x)   x
 #endif
 
     .extern _bsp_init_system /*! external Sub-routine to initialise BSP*/
@@ -63,21 +65,19 @@ ___dso_handle:
     .extern _main 
     .extern __stack
 
-    .text
-
-    .global _PowerON_Reset /*! global Start routine */
-    .type   _PowerON_Reset,@function
-
     .include "r_bsp_config.inc"
 
     .text
 
+    .global _PowerON_Reset /*! global Start routine */
+    .type   _PowerON_Reset,@function
 /* call to _PowerON_Reset */
 _PowerON_Reset:
 /* initialise RAMSAR register */
 .ifdef BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
-    movw hl, #BSP_CFG_ASM_RAMSAR_ADDRESS
-    mov  [hl], #BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+    mov !BSP_CFG_ASM_RAMSAR_ADDRESS, #BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+    nop
+    nop
 .endif
 
 /* initialise user stack pointer */
@@ -90,7 +90,7 @@ _PowerON_Reset:
 /* load data section from ROM to RAM */    
 ;; block move to initialize .data
 
-    mov     es, #0
+    mov     es, #LOW(HIGHW(__romdatastart))
     movw    bc, #LOWW(__romdatacopysize)
 1:
     movw    ax, bc
@@ -103,7 +103,7 @@ _PowerON_Reset:
     br  $1b
 
 1:
-    mov es, #0
+    mov es, #LOW(HIGHW(__romsdatastart))
     movw    bc, #LOWW(__romsdatacopysize)
 1:
     movw    ax, bc

@@ -23,6 +23,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 03.12.2024 1.90     First Release.
+*         : 01.04.2025 1.91     Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __INTRINSIC_FUNCTIONS
@@ -600,10 +601,6 @@ union un_fsasth {
 	unsigned char fsasth;
 	__BITS8 BIT;
 };
-union un_clkdctl {
-	unsigned char clkdctl;
-	__BITS8 BIT;
-};
 union un_dtcen0 {
 	unsigned char dtcen0;
 	__BITS8 BIT;
@@ -656,10 +653,6 @@ union un_tmc5mg {
 	unsigned char tmc5mg;
 	__BITS8 BIT;
 };
-union un_tcl5mg {
-	unsigned char tcl5mg;
-	__BITS8 BIT;
-};
 union un_dam0 {
 	unsigned char dam0;
 	__BITS8 BIT;
@@ -678,10 +671,6 @@ union un_compfir {
 };
 union un_compocr {
 	unsigned char compocr;
-	__BITS8 BIT;
-};
-union un_tmc3 {
-	unsigned char tmc3;
 	__BITS8 BIT;
 };
 union un_itlctl0 {
@@ -1450,12 +1439,6 @@ union un_tkbpactl12 {
 #define ASCTA0_bit (*(volatile union un_ascta0 *)0xF0306).BIT
 #define UTA0CK (*(volatile union un_uta0ck *)0xF0310).uta0ck
 #define UTA0CK_bit (*(volatile union un_uta0ck *)0xF0310).BIT
-#define TMC5MG (*(volatile union un_tmc5mg *)0xF0320).tmc5mg
-#define TMC5MG_bit (*(volatile union un_tmc5mg *)0xF0320).BIT
-#define TCL5MG (*(volatile union un_tcl5mg *)0xF0321).tcl5mg
-#define TCL5MG_bit (*(volatile union un_tcl5mg *)0xF0321).BIT
-#define CR5MGL (*(volatile unsigned char *)0xF0322)
-#define CR5MGH (*(volatile unsigned char *)0xF0323)
 #define DACS0 (*(volatile unsigned char *)0xF0330)
 #define DACS1 (*(volatile unsigned char *)0xF0331)
 #define DAM0 (*(volatile union un_dam0 *)0xF0332).dam0
@@ -1469,10 +1452,6 @@ union un_tkbpactl12 {
 #define COMPFIR_bit (*(volatile union un_compfir *)0xF0341).BIT
 #define COMPOCR (*(volatile union un_compocr *)0xF0342).compocr
 #define COMPOCR_bit (*(volatile union un_compocr *)0xF0342).BIT
-#define TM3L (*(volatile unsigned char *)0xF0350)
-#define TM3H (*(volatile unsigned char *)0xF0351)
-#define TMC3 (*(volatile union un_tmc3 *)0xF0352).tmc3
-#define TMC3_bit (*(volatile union un_tmc3 *)0xF0352).BIT
 #define ITLCMP00 (*(volatile unsigned short *)0xF0360)
 #define ITLCMP000 (*(volatile unsigned char *)0xF0360)
 #define ITLCMP001 (*(volatile unsigned char *)0xF0361)
@@ -2139,10 +2118,6 @@ union un_tkbpactl12 {
 #define EXSDD01 EXSDM0_bit.no7
 #define FSSTP FSSQ_bit.no6
 #define SQST FSSQ_bit.no7
-#define CLKDEN0 CLKDCTL_bit.no0
-#define CLKDEN1 CLKDCTL_bit.no1
-#define CLKDEN2 CLKDCTL_bit.no2
-#define CLKDEN3 CLKDCTL_bit.no3
 #define CRC0EN CRC0CTL_bit.no7
 #define ISRMA0 ASIMA00_bit.no0
 #define ISSMA0 ASIMA00_bit.no1
@@ -2152,8 +2127,6 @@ union un_tkbpactl12 {
 #define OVECTA0 ASCTA0_bit.no0
 #define FECTA0 ASCTA0_bit.no1
 #define PECTA0 ASCTA0_bit.no2
-#define TCE5MG TMC5MG_bit.no7
-#define TCL5MG0 TCL5MG_bit.no0
 #define DACE0 DAM0_bit.no4
 #define DACE1 DAM0_bit.no5
 #define DACE2 DAM1_bit.no4
@@ -2163,8 +2136,6 @@ union un_tkbpactl12 {
 #define C0OE COMPOCR_bit.no1
 #define C1IE COMPOCR_bit.no4
 #define C1OE COMPOCR_bit.no5
-#define COVF3 TMC3_bit.no0
-#define TM3ST TMC3_bit.no7
 #define ITLEN00 ITLCTL0_bit.no0
 #define ITLEN01 ITLCTL0_bit.no1
 #define ITLEN02 ITLCTL0_bit.no2

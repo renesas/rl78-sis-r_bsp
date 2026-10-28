@@ -23,6 +23,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 05.12.2024 1.90     First Release
+*         : 01.04.2025 1.91     Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __IOR7F100L_EXT_H__
@@ -2281,20 +2282,6 @@ __near __no_bit_access __no_init volatile union
   __BITS16       OSDC_bit;
 } @ 0xF02D0;
 
-__near __no_init volatile union
-{
-  unsigned char CLKDCTL;
-  __BITS8       CLKDCTL_bit;
-  struct
-  {
-    unsigned char  CLKDEN0:1;
-    unsigned char  CLKDEN1:1;
-    unsigned char  CLKDEN2:1;
-    unsigned char  CLKDEN3:1;
-    unsigned char  :4;
-  };
-} @ 0xF02D4;
-
 __near __no_bit_access __no_init volatile union
 {
   unsigned char DTCBAR;
@@ -2430,40 +2417,6 @@ __near __no_init volatile union
   __BITS8       UTA0CK_bit;
 } @ 0xF0310;
 
-__near __no_init volatile union
-{
-  unsigned char TMC5MG;
-  __BITS8       TMC5MG_bit;
-  struct
-  {
-    unsigned char  :7;
-    unsigned char  TCE5MG:1;
-  };
-} @ 0xF0320;
-
-__near __no_init volatile union
-{
-  unsigned char TCL5MG;
-  __BITS8       TCL5MG_bit;
-  struct
-  {
-    unsigned char  TCL5MG0:1;
-    unsigned char  :7;
-  };
-} @ 0xF0321;
-
-__near __no_bit_access __no_init volatile union
-{
-  unsigned char CR5MGL;
-  __BITS8       CR5MGL_bit;
-} @ 0xF0322;
-
-__near __no_bit_access __no_init volatile union
-{
-  unsigned char CR5MGH;
-  __BITS8       CR5MGH_bit;
-} @ 0xF0323;
-
 __near __no_bit_access __no_init volatile union
 {
   unsigned char DACS0;
@@ -2540,30 +2493,6 @@ __near __no_init volatile union
     unsigned char  :2;
   };
 } @ 0xF0342;
-
-__near __no_bit_access __no_init volatile union
-{
-  const unsigned char TM3L;
-  const __BITS8       TM3L_bit;
-} @ 0xF0350;
-
-__near __no_bit_access __no_init volatile union
-{
-  const unsigned char TM3H;
-  const __BITS8       TM3H_bit;
-} @ 0xF0351;
-
-__near __no_init volatile union
-{
-  unsigned char TMC3;
-  __BITS8       TMC3_bit;
-  struct
-  {
-    unsigned char  COVF3:1;
-    unsigned char  :6;
-    unsigned char  TM3ST:1;
-  };
-} @ 0xF0352;
 
 __near __no_bit_access __no_init volatile union
 {

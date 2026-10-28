@@ -24,6 +24,9 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 21.02.2025 1.90     First Release
+*         : 15.04.2025 1.91     Added the following macro definitions.
+*                                - BSP_CFG_MOSC_OPERATING_MODE
+*                               Modified the comment about AMPH1.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -1959,13 +1962,18 @@
 /* Control of the X1 clock oscillation frequency
    Clock Operation Mode Control Register(CMC)
     AMPH
-   Main oscillator oscillation mode selection register(MODRV)
-   AMPH1
- 0 : 5 MHz < fX <= 10 MHz
- 1 : 1 MHz <= fX <= 5 MHz(T.B.D)
- 2 : 10 MHz < fX <= 20 MHz
+ 0 : 1 MHz <= fX <= 10 MHz
+ 1 : 10 MHz < fX <= 20 MHz
  Set the value corresponding to the setting of BSP_CFG_FMX_HZ
 */
+
+/* MOSC operating mode
+   Main oscillator oscillation mode select register(MODRV)
+    AMPH1
+ 0 : Normal mode
+ 1 : Low driving mode
+*/
+#define BSP_CFG_MOSC_OPERATING_MODE (0)
 
 /* Selection of the oscillation stabilization time
    Oscillation stabilization time select register(OSTS)
