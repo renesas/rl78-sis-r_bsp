@@ -27,6 +27,11 @@
 *         : 28.02.2023 1.60     Added the version number of Smart Configurator.
 *                               Modified the comment related to the version number of Smart Configurator.
 *         : 30.11.2023 1.62     Adjusted comment indentation.
+*         : 21.02.2025 1.90     Added notes to the following macro definitions.
+*                               - BSP_CFG_SUBWAITTIME
+*                               - BSP_CFG_FIHWAITTIME
+*                               - BSP_CFG_FIMWAITTIME
+*                               - BSP_CFG_FILWAITTIME
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -525,21 +530,25 @@
 #define BSP_CFG_RTOS_USED               (0)
 
 /* Loop count using the main system clock. */
-/* The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction. */
-/* Subsystem clock oscillation stabilization wait time */
-/* If the main system clock is 32 MHz, 800000 means 550 ms. */
+/* The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction.
+   The loop count values are just example.
+   Since the actual number of cycles will differ according to factors such as the optimization option,
+   you will need to specify a setting that matches your environment. */
+
+/* Subsystem clock oscillation stabilization wait time.
+   If the main system clock is 32 MHz, 800000 means 550 ms. */
 #define BSP_CFG_SUBWAITTIME              (800000U)
 
-/* High-speed on-chip oscillator clock oscillation stabilization wait time */
-/* If the main system clock 32 MHz, 30 means 22.7us. */
+/* High-speed on-chip oscillator clock oscillation stabilization wait time.
+   If the main system clock 32 MHz, 30 means 22.7us. */
 #define BSP_CFG_FIHWAITTIME              (30U)
 
-/* Middle-speed on-chip oscillator clock oscillation stabilization wait time. */
-/* If the main system  clock 32 MHz, 5 means 4.8us. */
+/* Middle-speed on-chip oscillator clock oscillation stabilization wait time.
+   If the main system  clock 32 MHz, 5 means 4.8us. */
 #define BSP_CFG_FIMWAITTIME              (5U)
 
-/* Low-speed on-chip oscillator clock oscillation stabilization wait time */
-/* If the main system clock 32 MHz, 450 means 325us. */
+/* Low-speed on-chip oscillator clock oscillation stabilization wait time.
+   If the main system clock 32 MHz, 450 means 325us. */
 #define BSP_CFG_FILWAITTIME              (450U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the

@@ -26,6 +26,13 @@
 *         : 28.02.2023 1.60     First Release
 *         : 31.08.2023 1.61     Changed the initial value of the following macro definition.
 *                                - BSP_CFG_FLASH_MODE
+*         : 21.02.2025 1.90     Added notes to the following macro definitions.
+*                               - BSP_CFG_SUBWAITTIME
+*                               - BSP_CFG_FIHWAITTIME
+*                               - BSP_CFG_FIMWAITTIME
+*                               - BSP_CFG_FILWAITTIME
+*                               - BSP_CFG_PLLWAITTIME
+*                               - BSP_CFG_LOCKUP_WAITTIME
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -1078,29 +1085,33 @@
 #define BSP_CFG_RTOS_USED               (0)
 
 /* Loop count using the main system clock. */
-/* The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction. */
-/* Subsystem clock oscillation stabilization wait time */
-/* If the main system clock 48 MHz, 1050000 means 306 ms. */
+/* The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction.
+   The loop count values are just example.
+   Since the actual number of cycles will differ according to factors such as the optimization option,
+   you will need to specify a setting that matches your environment. */
+
+/* Subsystem clock oscillation stabilization wait time.
+   If the main system clock 48 MHz, 1050000 means 306 ms. */
 #define BSP_CFG_SUBWAITTIME              (1050000U)
 
-/* High-speed on-chip oscillator  clock oscillation stabilization wait time */
-/* If the main system clock 48 MHz, 30 means 5.12 us. */
+/* High-speed on-chip oscillator  clock oscillation stabilization wait time.
+   If the main system clock 48 MHz, 30 means 5.12 us. */
 #define BSP_CFG_FIHWAITTIME              (30U)
 
-/* Middle-speed on-chip oscillator clock oscillation stabilization wait time. */
-/* If the main system clock 48 MHz, 6 means 1.14 us. */
+/* Middle-speed on-chip oscillator clock oscillation stabilization wait time.
+   If the main system clock 48 MHz, 6 means 1.14 us. */
 #define BSP_CFG_FIMWAITTIME              (6U)
 
-/*  Low-speed on-chip oscillator clock oscillation stabilization wait time */
-/* If the main system clock 48 MHz, 500 means 83.5 us. */
+/*  Low-speed on-chip oscillator clock oscillation stabilization wait time.
+   If the main system clock 48 MHz, 500 means 83.5 us. */
 #define BSP_CFG_FILWAITTIME              (500U)
 
-/* PLL effective wait time */
-/* If the main system clock 48 MHz, 6 means 1.14 us. */
+/* PLL effective wait time.
+   If the main system clock 48 MHz, 6 means 1.14 us. */
 #define BSP_CFG_PLLWAITTIME              (6U)
 
-/* PLL lock-up wait time */
-/* If the main system clock 48 MHz, 100 means 16.8 us. */
+/* PLL lock-up wait time.
+   If the main system clock 48 MHz, 100 means 16.8 us. */
 #define BSP_CFG_LOCKUP_WAITTIME    (100U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the

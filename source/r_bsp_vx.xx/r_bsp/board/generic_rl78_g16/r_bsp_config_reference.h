@@ -29,6 +29,9 @@
 *         : 31.08.2023 1.61     Changed the initial values comments in the following macro definitions.
 *                                - BSP_CFG_SUBWAITTIME
 *                                - BSP_CFG_FIHWAITTIME
+*         : 06.02.2025 1.90     Added notes to the following macro definitions.
+*                               - BSP_CFG_SUBWAITTIME
+*                               - BSP_CFG_FIHWAITTIME
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -1044,7 +1047,11 @@
 #define BSP_CFG_RTOS_USED               (0)
 
 /* Loop count using the main system clock. */
-/* The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction. */
+/* The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction.
+   The loop count values are just example.
+   Since the actual number of cycles will differ according to factors such as the optimization option,
+   you will need to specify a setting that matches your environment. */
+
 /* Subsystem clock oscillation stabilization time.
    If the main system clock is 16 MHz, 350000 means 306 ms. */
 #define BSP_CFG_SUBWAITTIME              (350000U)

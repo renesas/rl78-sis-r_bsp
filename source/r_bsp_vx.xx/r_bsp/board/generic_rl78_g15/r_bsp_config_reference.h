@@ -32,6 +32,8 @@
 *         : 31.01.2023 1.50     Fixed typo in history.
 *         : 28.02.2023 1.60     Added the version number of Smart Configurator.
 *                               Modified the comment related to the version number of Smart Configurator.
+*         : 21.02.2025 1.90     Added notes to the following macro definitions.
+*                               - BSP_CFG_FIHWAITTIME
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -544,8 +546,14 @@ Set PIOR13 to 0.
  */
 #define BSP_CFG_RTOS_USED (0)
 
-/* High-speed on-chip oscillator clock stabilization time. */
-/* If the main system clock is 16 MHz, 75 means 28.5us. */
+/* Loop count using the main system clock. */
+/* The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction.
+   The loop count values are just example.
+   Since the actual number of cycles will differ according to factors such as the optimization option,
+   you will need to specify a setting that matches your environment. */
+
+/* High-speed on-chip oscillator clock stabilization time.
+   If the main system clock is 16 MHz, 75 means 28.5us. */
 #define BSP_CFG_FIHWAITTIME              (75U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the

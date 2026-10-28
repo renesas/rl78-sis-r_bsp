@@ -25,6 +25,11 @@
 * History : DD.MM.YYYY Version  Description
 *         : 07.06.2024 1.70     First Release
 *         : 06.11.2024 1.80     Changed comments in PIOR41/42/43.
+*         : 21.02.2025 1.90     Added notes to the following macro definitions.
+*                               - BSP_CFG_SUBWAITTIME
+*                               - BSP_CFG_FIHWAITTIME
+*                               - BSP_CFG_PLLWAITTIME
+*                               - BSP_CFG_SETUP_WAITTIME
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -1464,18 +1469,25 @@
 #define BSP_CFG_RTOS_USED (0)
 
 /* Loop count using the main system clock. */
-/* The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction. */
+/* The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction.
+   The loop count values are just example.
+   Since the actual number of cycles will differ according to factors such as the optimization option,
+   you will need to specify a setting that matches your environment. */
 
-/* Subsystem clock oscillation stabilization wait time(T.B.D) */
+/* Subsystem clock oscillation stabilization wait time.
+   If the main system clock 32 MHz, 800000 means 300 ms. */
 #define BSP_CFG_SUBWAITTIME (800000U)
 
-/* High-speed on-chip oscillator clock oscillation stabilization wait time(T.B.D) */
+/* High-speed on-chip oscillator clock oscillation stabilization wait time.
+   If the main system clock 32 MHz, 560 means 105 us. */
 #define BSP_CFG_FIHWAITTIME (560U)
 
-/* PLL multiplication effective wait time(T.B.D) */
+/* PLL multiplication effective wait time.
+   If the main system clock 32 MHz, 5 means 970 ns. */
 #define BSP_CFG_PLLWAITTIME (5U)
 
-/* Wait time for the setup to finish when the data flash access is enabled(T.B.D) */
+/* Wait time for the setup to finish when the data flash access is enabled.
+   If the main system clock 32 MHz, 2 means 400 ns. */
 #define BSP_CFG_SETUP_WAITTIME (2U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the
