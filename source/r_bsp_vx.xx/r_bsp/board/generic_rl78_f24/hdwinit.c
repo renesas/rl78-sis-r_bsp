@@ -43,13 +43,13 @@
  * Private global variables and functions
  *************************************************/
 /* MCU I/O port configuration function declaration */
-static void output_ports_configure(void);
+static void output_ports_configure (void);
 
 /* Interrupt configuration function declaration */
-static void interrupts_configure(void);
+static void interrupts_configure (void);
 
 /* MCU peripheral module configuration function declaration */
-static void peripheral_modules_enable(void);
+static void peripheral_modules_enable (void);
 
 /*************************************************
  * Function definition

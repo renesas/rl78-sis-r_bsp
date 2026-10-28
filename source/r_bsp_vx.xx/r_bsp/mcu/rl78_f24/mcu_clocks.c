@@ -762,7 +762,7 @@ uint32_t get_fclk_freq_hz(void)
  * Attention    : Stop the specified clock before calling this function.
 **************************************************/
 #if BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE == 0
-e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t *set_values)
+e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t * set_values)
 {
     e_bsp_err_t    status = BSP_OK;
     uint8_t        w_count;

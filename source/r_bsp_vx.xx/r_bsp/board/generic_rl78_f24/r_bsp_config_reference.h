@@ -24,7 +24,8 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 28.02.2022 1.20     First Release
-*
+*         : 31.05.2022 1.30     Added the following macro definition.
+*                                - BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -1039,6 +1040,12 @@
 */
 #define BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE (0)
 
+/* API function disable(R_BSP_SoftwareDelay)
+ 0 : Enable API functions
+ 1 : Disable API functions
+*/
+#define BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE (0)
+
 /* Parameter check enable
  0 : Disable parameter check.
  1 : Enable parameter check.
@@ -1078,7 +1085,7 @@
 
 /* Input clock frequency in Hz(High-speed system clock(fMX))
 */
-#define BSP_CFG_FMX_HZ (20000000)  // ★T.B.D
+#define BSP_CFG_FMX_HZ (20000000)
 
 /* Control of X1 clock oscillation frequency
    Clock Operation Mode Control Register(CMC)
@@ -1331,7 +1338,7 @@
    Peripheral Enable Register 0(PER0)
    ADCEN
  0 : Stops input clock supply.
-     - SFR used by the A/D converter cannnot be written.
+     - SFR used by the A/D converter cannot be written.
      - The A/D converter is in the reset status.
  1 : Enables input clock supply.
      - SFR used by the A/D converter can be read and written.
@@ -1348,7 +1355,7 @@
 */
 #define BSP_CFG_ADCLK_DIVIDE (0)
 
-// Operation setting at initial setting
+/* Operation setting at initial setting */
 /* Starts the high-speed on-chip oscillator at initialization
  0 : Stops the high-speed on-chip oscillator at initialization
  1 : Starts the high-speed on-chip oscillator at initialization
@@ -1390,12 +1397,12 @@
 #define BSP_CFG_USER_WARM_START_POST_C_FUNCTION             my_sw_warmstart_postc_function
 
 /* If the user sets the window open period of watchdog timer to 50% or 75%,
-   set the following macro definition(BSP_CFG_WDT_REFRESH_ENABLE) to 2(50%) ot 3(75%)
+   set the following macro definition(BSP_CFG_WDT_REFRESH_ENABLE) to 2(50%) or 3(75%)
    and specify the callback function name for each callback function(to be defined by the user).
    Setting BSP_CFG_WDT_REFRESH_ENABLE == 2 or 3 will result in a callback to the user defined
    my_sw_wdt_refresh_init_function just prior to the clock is set by bsp_init_system.
    In addition, a callback to the user defined my_sw_wdt_refresh_setting_function occurs
-   during the oscillation stabilization wait time od the subsystem clock.
+   during the oscillation stabilization wait time of the subsystem clock.
 */
 #define BSP_CFG_WDT_REFRESH_ENABLE                (0)
 #define BSP_CFG_USER_WDT_REFRESH_INIT_FUNCTION    my_sw_wdt_refresh_init_function

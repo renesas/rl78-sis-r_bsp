@@ -26,6 +26,8 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 28.02.2022 1.20     First Release
+*         : 31.05.2022 1.30     Added the following macro definition.
+*                                - BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
   Purpose: Module Description File (MDF) Example (Schema Version 2.0)
@@ -114,6 +116,13 @@ NOTE:Pxx(Port register) is not guarded.</description>
         <property id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_ChangeClockSetting)" default="0" type="combobox">
             <option id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
             <option id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable API functions.
+1 = Disable API functions.</description>
+        </property>
+        <property id="BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_SoftwareDelay)" default="0" type="combobox">
+            <constraint display="when using R_BSP_SoftwareDelay function, enable R_BSP_GetFclkFreqHz function." actionOnFail="error">!((${BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE} == ${BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE.1}) &amp;&amp; (${BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE} == ${BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE.0}))</constraint>
+            <option id="BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
             <description>0 = Enable API functions.
 1 = Disable API functions.</description>
         </property>
