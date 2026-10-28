@@ -52,6 +52,8 @@
 *                               Added processing to check SELPLLS after setting SELPLL bit.
 *                               Added parentheses to the #if condition to clarify the order of evaluation.
 *         : 07.06.2024 1.70     Edited comments as necessary.
+*         : 26.07.2024 1.71     Fixed a bug where register settings were made even if an error
+*                               occurred when BSP_CFG_PARAM_CHECKING_ENABLE was set to 0.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -566,9 +568,9 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                 {
                     status = BSP_ERROR3;
                 }
+#endif
                 else
                 {
-#endif
                     SELLOSC = 1U;
 
                     CSS = 1U;
@@ -579,10 +581,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     {
                         ;
                     }
-
-#if BSP_CFG_PARAM_CHECKING_ENABLE == 1
                 }
-#endif
 
                 break;
 

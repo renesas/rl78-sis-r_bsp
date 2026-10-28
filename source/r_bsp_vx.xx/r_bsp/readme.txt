@@ -1,3 +1,3 @@
-Version          : BSP v1.70
-Release Date     : 2024/06/07
+Version          : BSP v1.71
+Release Date     : 2024/07/26
 Support Compiler : CCRL, LLVM, ICCRL

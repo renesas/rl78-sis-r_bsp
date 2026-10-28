@@ -23,6 +23,10 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 07.06.2024 1.70     First Release
+*         : 26.07.2024 1.71     Prohibited the use of the PLL clock
+*                               that uses the high-speed on-chip oscillator clock as an input.
+*                               Fixed a bug where register settings were made even if an error
+*                               occurred when BSP_CFG_PARAM_CHECKING_ENABLE was set to 0.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -321,29 +325,13 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     /* Error if high-speed on-chip oscillator is stopped. */
                     status = BSP_ERROR1;
                 }
+#if BSP_CFG_PARAM_CHECKING_ENABLE == 1
                 else if (PLLCLK == old_mode)
                 {
-#if BSP_CFG_PARAM_CHECKING_ENABLE == 1
-                    if (1U == MCS)
-                    {
-                        /* Error if PLL input is SYSCLK. */
-                        status = BSP_ERROR3;
-                    }
-                    else
-                    {
-#endif
-                        SELPLL = 0U;
-
-                        /* WAIT_LOOP */
-                        /* Confirm that clock through mode is selected. */
-                        while (1U == SELPLLS)
-                        {
-                            ;
-                        }
-#if BSP_CFG_PARAM_CHECKING_ENABLE == 1
-                    }
-#endif
+                    /* Error if fCLK is PLLCLK. */
+                    status = BSP_ERROR3;
                 }
+#endif
                 else
                 {
 #if BSP_CFG_PARAM_CHECKING_ENABLE == 1
@@ -352,7 +340,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                         /* Error if high-speed on-chip oscillator is not selected. */
                         status = BSP_ERROR2;
                     }
-                    else if ((SYSCLK == old_mode) && (1U == PLLON))
+                    else if (1U == PLLON)
                     {
                         /* Error if PLL is running. */
                         status = BSP_ERROR3;
@@ -530,9 +518,9 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                 {
                     status = BSP_ERROR3;
                 }
+#endif
                 else
                 {
-#endif
                     SELLOSC = 1U;
 
                     CSS = 1U;
@@ -543,10 +531,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     {
                         ;
                     }
-
-#if BSP_CFG_PARAM_CHECKING_ENABLE == 1
                 }
-#endif
 
                 break;
 
@@ -560,6 +545,11 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
 #if BSP_CFG_PARAM_CHECKING_ENABLE == 1
                 else if (1U == CLS)
                 {
+                    status = BSP_ERROR3;
+                }
+                else if (HIOCLK == old_mode)
+                {
+                    /* An unsupported state transition was specified. */
                     status = BSP_ERROR3;
                 }
 #endif
@@ -653,71 +643,79 @@ uint32_t get_fclk_freq_hz(void)
         /* fPLL : PLL clock */
         if (1U == SELPLLS)
         {
-            uint8_t temp1;
-
-            /* PLL input clock division selection */
-            temp1  = CKSEL;
-            temp1 &= 0x60U;
-
-            if (0x40U == temp1)
+            if (0U == MCS)
             {
-                /* Divided by 2(fMAIN = 16 MHz input only) */
-                sys_clock_src_freq /= 2;
-            }
-            else if (0x60U == temp1)
-            {
-                /* Divided by 4(fMAIN = 20 MHz input only) */
-                sys_clock_src_freq /= 4;
+                /* Use of the PLL clock with HIOCLK as input is prohibited. */
+                sys_clock_src_freq = 0U;
             }
             else
             {
-                /* No division or Setting prohibited */
-                ;
-            }
+                uint8_t temp1;
 
-            /* PLL multiplication selection */
-            temp1  = PLLCTL;
-            temp1 &= 0x0A;
+                /* PLL input clock division selection */
+                temp1  = CKSEL;
+                temp1 &= 0x60U;
 
-            if (0x00U == temp1)
-            {
-                /* Multiples the clock frequency by 12 */
-                sys_clock_src_freq *= 12;
-            }
-            else if (0x02U == temp1)
-            {
-                /* Multiples the clock frequency by 16 */
-                sys_clock_src_freq *= 16;
-            }
-            else if (0x08U == temp1)
-            {
-                /* Multiples the clock frequency by 10 */
-                sys_clock_src_freq *= 10;
-            }
-            else
-            {
-                /* Multiples the clock frequency by 20 */
-                sys_clock_src_freq *= 20;
-            }
-
-            /* PLL frequency division selection */
-            if (0U == FPLLDIV)
-            {
-                if (0U == PLLDIV0)
+                if (0x40U == temp1)
                 {
-                    /* Divides the clock frequency by 2 */
+                    /* Divided by 2(fMAIN = 16 MHz input only) */
                     sys_clock_src_freq /= 2;
+                }
+                else if (0x60U == temp1)
+                {
+                    /* Divided by 4(fMAIN = 20 MHz input only) */
+                    sys_clock_src_freq /= 4;
                 }
                 else
                 {
-                    /* Divides the clock frequency by 4 */
-                    sys_clock_src_freq /= 4;
+                    /* No division or Setting prohibited */
+                    ;
                 }
-            }
-            else
-            {
-                /* No division */
-                ;
+
+                /* PLL multiplication selection */
+                temp1  = PLLCTL;
+                temp1 &= 0x0A;
+
+                if (0x00U == temp1)
+                {
+                    /* Multiples the clock frequency by 12 */
+                    sys_clock_src_freq *= 12;
+                }
+                else if (0x02U == temp1)
+                {
+                    /* Multiples the clock frequency by 16 */
+                    sys_clock_src_freq *= 16;
+                }
+                else if (0x08U == temp1)
+                {
+                    /* Multiples the clock frequency by 10 */
+                    sys_clock_src_freq *= 10;
+                }
+                else
+                {
+                    /* Multiples the clock frequency by 20 */
+                    sys_clock_src_freq *= 20;
+                }
+
+                /* PLL frequency division selection */
+                if (0U == FPLLDIV)
+                {
+                    if (0U == PLLDIV0)
+                    {
+                        /* Divides the clock frequency by 2 */
+                        sys_clock_src_freq /= 2;
+                    }
+                    else
+                    {
+                        /* Divides the clock frequency by 4 */
+                        sys_clock_src_freq /= 4;
+                    }
+                }
+                else
+                {
+                    /* No division */
+                    ;
+                }
             }
         }
         /* fMP clock source is fMAIN */
