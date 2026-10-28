@@ -1,0 +1,29 @@
+SPDXVersion: SPDX-2.3
+DataLicense: CC0-1.0
+DocumentNamespace: https://www.renesas.com/spdx/r_bsp_v2.01_sbom
+DocumentName: r_bsp_v2.01_sbom
+SPDXID: SPDXRef-DOCUMENT
+
+## Creation Information
+Creator: Organization: Renesas Electronics Corporation
+Created: 2026-08-21T01:53:43Z
+LicenseListVersion: 3.28
+
+## Relationships
+Relationship: SPDXRef-DOCUMENT DESCRIBES SPDXRef-package-r-bsp
+
+## Package Information
+PackageName: r_bsp_v2.01
+SPDXID: SPDXRef-package-r-bsp
+PackageVersion: v2.01
+PackageFileName: r_bsp_v2.01.zip
+PackageSupplier: Organization: Renesas Electronics
+PackageOriginator: Organization: Renesas Electronics
+PackageDownloadLocation: https://www.renesas.com/document/scd/rl78-family-board-support-package-module-using-software-integration-system
+PackageChecksum: SHA256: 594f5be6f5fb32ec113662b8c7cf9423157f5825b7471acbab95dbc87fc07323
+PackageHomePage: https://www.renesas.com/en/software-tool/sis
+PackageLicenseConcluded: BSD-3-Clause
+PackageLicenseDeclared: BSD-3-Clause
+PackageCopyrightText: <text>Renesas Electronics Corporation. All rights reserved.</text>
+PackageDescription: <text>See the documentation included in the package.</text>
+FilesAnalyzed: false

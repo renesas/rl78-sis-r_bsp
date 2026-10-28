@@ -1,0 +1,36 @@
+{
+  "SPDXID" : "SPDXRef-DOCUMENT",
+  "spdxVersion" : "SPDX-2.3",
+  "creationInfo" : {
+    "created" : "2026-08-21T01:53:43Z",
+    "creators" : [ "Organization: Renesas Electronics Corporation" ],
+    "licenseListVersion" : "3.28"
+  },
+  "name" : "r_bsp_v2.01_sbom",
+  "dataLicense" : "CC0-1.0",
+  "documentNamespace" : "https://www.renesas.com/spdx/r_bsp_v2.01_sbom",
+  "packages" : [ {
+    "SPDXID" : "SPDXRef-package-r-bsp",
+    "checksums" : [ {
+      "algorithm" : "SHA256",
+      "checksumValue" : "594f5be6f5fb32ec113662b8c7cf9423157f5825b7471acbab95dbc87fc07323"
+    } ],
+    "copyrightText" : "Renesas Electronics Corporation. All rights reserved.",
+    "description" : "See the documentation included in the package.",
+    "downloadLocation" : "https://www.renesas.com/document/scd/rl78-family-board-support-package-module-using-software-integration-system",
+    "filesAnalyzed" : false,
+    "homepage" : "https://www.renesas.com/en/software-tool/sis",
+    "licenseConcluded" : "BSD-3-Clause",
+    "licenseDeclared" : "BSD-3-Clause",
+    "name" : "r_bsp_v2.01",
+    "originator" : "Organization: Renesas Electronics",
+    "packageFileName" : "r_bsp_v2.01.zip",
+    "supplier" : "Organization: Renesas Electronics",
+    "versionInfo" : "v2.01"
+  } ],
+  "relationships" : [ {
+    "spdxElementId" : "SPDXRef-DOCUMENT",
+    "relationshipType" : "DESCRIBES",
+    "relatedSpdxElement" : "SPDXRef-package-r-bsp"
+  } ]
+}
