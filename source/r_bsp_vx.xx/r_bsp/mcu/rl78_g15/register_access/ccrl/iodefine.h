@@ -23,10 +23,11 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 31.05.2022 1.30     First Release
-*
+*         : 07.06.2024 1.70     Changed macro definition for include guard.
 ***********************************************************************************************************************/
-#ifndef __R5F12068IODEFINE_HEADER__
-#define __R5F12068IODEFINE_HEADER__
+
+#ifndef __R5F120IODEFINE_HEADER__
+#define __R5F120IODEFINE_HEADER__
 
 typedef struct
 {

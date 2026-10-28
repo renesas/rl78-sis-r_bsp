@@ -23,25 +23,16 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 31.01.2023 1.50     First Release
-
+*         : 07.06.2024 1.70     Fixed error message.
+*                               Removed unnecessary comments.
+*                               Changed macro definition for include guard.
 ***********************************************************************************************************************/
-/*-------------------------------------------------------------------------
- *      Declarations of extended SFR registers for RL78 microcontroller R5F121BC.
- *
- *      This file can be used by both the RL78,
- *      Assembler, ARL78, and the C/C++ compiler, ICCRL78.
- *
- *      This header file is generated from the device file:
- *          DR5F121BC.DVF
- *          Copyright(C) 2022 Renesas
- *          Format version V3.20, File version E1.00a
- *-------------------------------------------------------------------------*/
 
-#ifndef __IOR5F121BC_EXT_H__
-#define __IOR5F121BC_EXT_H__
+#ifndef __IOR5F121_EXT_H__
+#define __IOR5F121_EXT_H__
 
 #if !defined(__IASMRL78__) && !defined(__ICCRL78__)
-  #error "IOR5F121BC_EXT.H file for use with RL78 Assembler or Compiler only"
+  #error "iodefine_ext.h file for use with RL78 Assembler or Compiler only"
 #endif
 
 #if !defined(__S2__)
@@ -56,12 +47,12 @@
 
 #if defined(__IASMRL78__)
   #if __CORE__ != __S2__
-    #error "IOR5F121BC_EXT.H file for use with IASMRL78 option --core S2 only"
+    #error "iodefine_ext.h file for use with IASMRL78 option --core S2 only"
   #endif
 #endif
 #if defined(__ICCRL78__)
   #if __CORE__ != __S2__
-    #error "IOR5F121BC_EXT.H file for use with ICCRL78 option --core S2 only"
+    #error "iodefine_ext.h file for use with ICCRL78 option --core S2 only"
   #endif
 #endif
 
@@ -1603,4 +1594,4 @@ CTSUTRESULT DEFINE  0xF0731
 
 #endif /* __IAR_SYSTEMS_ASM__ */
 
-#endif /* __IOR5F121BC_EXT_H__ */
+#endif /* __IOR5F121_EXT_H__ */

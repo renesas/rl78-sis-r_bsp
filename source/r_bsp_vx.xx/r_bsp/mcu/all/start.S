@@ -33,24 +33,25 @@
 ;;*         : 25.11.2021 1.13     Deleted processing for C++
 ;;*         : 28.02.2022 1.20     Added inclusion of r_bsp_config.inc.
 ;;*                               Added RAMSAR register setting.
-;;
+;;*         : 07.06.2024 1.70     Updated base file version 1.06 to 1.10c
 ;;***********************************************************************************************************************/
 
 /************************************************************************/
-/*    File Version: V1.06                                               */
-/*    Date Generated: 09/06/2021                                        */
+/*    File Version: V1.10c                                              */
+/*    Date Generated: 03/29/2024                                        */
 /************************************************************************/
 
     /*reset_program.asm*/
 
-    .global _PowerON_Reset  /*! global Start routine */
-    .short _PowerON_Reset
-    
-#ifdef CPPAPP    
+#ifdef CPPAPP
 ___dso_handle:
     .global ___dso_handle
 #endif
 
+#if __clang_major__ <= 10
+    #define HIGHW(x) x
+    #define LOWW(x) x
+#endif
 
     .extern _bsp_init_system /*! external Sub-routine to initialise BSP*/
     .extern __data
@@ -61,14 +62,11 @@ ___dso_handle:
     .extern _bsp_init_hardware /*! external Sub-routine to initialise Hardware*/
     .extern _main 
     .extern __stack
-    .extern _exit
-    .extern ___do_init
-    .extern ___do_fini
 
-    /*  ;; HL = start of list
-        ;; DE = end of list
-        ;; BC = step direction (+2 or -2)
-    */
+    .text
+
+    .global _PowerON_Reset /*! global Start routine */
+    .type   _PowerON_Reset,@function
 
     .include "r_bsp_config.inc"
 
@@ -92,103 +90,74 @@ _PowerON_Reset:
 /* load data section from ROM to RAM */    
 ;; block move to initialize .data
 
-	mov	es, #0
-	movw	bc, #__romdatacopysize
+    mov     es, #0
+    movw    bc, #LOWW(__romdatacopysize)
 1:
-	movw	ax, bc
-	cmpw	ax, #0
-	bz	$1f
-	decw	bc
-	decw	bc
-	movw	ax, es:__romdatastart[bc]
-	movw	__datastart[bc], ax
-	br	$1b
+    movw    ax, bc
+    cmpw    ax, #0
+    bz $1f
+    decw    bc
+    decw    bc
+    movw    ax, es:LOWW(__romdatastart)[bc]
+    movw    LOWW(__datastart)[bc], ax
+    br  $1b
 
 1:
-	mov	es, #0
-	movw	bc, #__romdatafcopysize
+    mov es, #0
+    movw    bc, #LOWW(__romsdatacopysize)
 1:
-	movw	ax, bc
-	cmpw	ax, #0
-	bz	$1f
-	decw	bc
-	decw	bc
-	movw	ax, es:__romdatafstart[bc]
-	movw	__datafstart[bc], ax
-	br	$1b
-
-1:
-	mov	es, #0
-	movw	bc, #__romsdatacopysize
-1:
-	movw	ax, bc
-	cmpw	ax, #0
-	bz	$1f
-	decw	bc
-	decw	bc
-	movw	ax, es:__romsdatastart[bc]
-	movw	__sdatastart[bc], ax
-	br	$1b
-
-1:
-	mov	es, #0
-	movw	bc, #__romsaddrcopysize
-1:
-	movw	ax, bc
-	cmpw	ax, #0
-	bz	$1f
-	decw	bc
-	decw	bc
-	movw	ax, es:__romsaddrstart[bc]
-	movw	__saddrstart[bc], ax
-	br	$1b
-1:
+    movw    ax, bc
+    cmpw    ax, #0
+    bz $1f
+    decw    bc
+    decw    bc
+    movw    ax, es:LOWW(__romsdatastart)[bc]
+    movw    LOWW(__sdatastart)[bc], ax
+    br  $1b
 
 ;; block fill to .sbss
-	movw    bc, #__sbsssize
-	movw    ax, #0
-	cmpw    ax, bc
-	bz      $_sbss_zero_done
 1:
-	decw    bc
-	decw    bc
-	movw    __sbssstart[bc], ax
-	cmpw    ax, bc
-	bnz      $1b
+#ifdef __OPTIMIZE_SIZE__
+    movw de, #LOWW(__sbsssize)
+    movw ax, #LOWW(__sbssstart)
+    clrw bc
+    call !!_memset
+#else
+    movw    bc, #LOWW(__sbsssize)
+    clrw    ax
+    cmpw    ax, bc
+    bz      $_sbss_zero_done
+1:
+    decw    bc
+    decw    bc
+    movw    LOWW(__sbssstart)[bc], ax
+    cmpw    ax, bc
+    bnz      $1b
 
 _sbss_zero_done:
+#endif
 
 ;; block fill to .bss
 
-	movw    bc, #__bsssize
-	movw    ax, #0
-	cmpw    ax, bc
-	bz      $_bss_zero_done
+#ifdef __OPTIMIZE_SIZE__
+    movw de, #LOWW(__bsssize)
+    movw ax, #LOWW(__bssstart)
+    clrw bc
+    call !!_memset
+#else
+    movw    bc, #LOWW(__bsssize)
+    clrw    ax
+    cmpw    ax, bc
+    bz      $_bss_zero_done
 1:
-	decw    bc
-	decw    bc
-	movw    __bssstart[bc], ax
-	cmpw    ax, bc
-	bnz      $1b
+    decw    bc
+    decw    bc
+    movw    LOWW(__bssstart)[bc], ax
+    cmpw    ax, bc
+    bnz      $1b
 
 _bss_zero_done:
-    
-
-;; block fill to .bssf
-
-	movw    bc, #__bssfsize
-	movw    ax, #0
-	cmpw    ax, bc
-	bz      $_bssf_zero_done
-1:
-	decw    bc
-	decw    bc
-	movw    __bssfstart[bc], ax
-	cmpw    ax, bc
-	bnz      $1b
-
-_bssf_zero_done:
-
+#endif
 
 /* call the hardware initialiser */
     call    !!_bsp_init_hardware
@@ -198,78 +167,97 @@ _bssf_zero_done:
 
 /* start user program */
 
-	clrw	ax	/* argv */
-	clrw	bc	/* argc */
-	call	!!_main
+    clrw    ax /* argv */
+    clrw    bc /* argc */
+    call    !!_main
 
+
+    call    !!__rl78_fini
+
+    .global _exit
+    .type   _exit,@function
 /* call to exit*/
 _exit:
-     br    $_exit
+     br  $_exit
 
 
-.global	_rl78_run_preinit_array
-.type	_rl78_run_preinit_array,@function
-_rl78_run_preinit_array:
-	movw	hl, #__preinit_array_start
-	movw	de, #__preinit_array_end
-	movw	bc, #-2
-	br	$_rl78_run_inilist
-
-	.global	_rl78_run_init_array
-	.type	_rl78_run_init_array,@function
+/*  ;; HL = start of list
+    ;; DE = end of list
+    ;; BC = step direction (+2 or -2)
+*/
+    .global _rl78_run_init_array
+    .type   _rl78_run_init_array,@function
 _rl78_run_init_array:
-	movw	hl, #__init_array_start
-	movw	de, #__init_array_end
-	movw	bc, #2
-	br	$_rl78_run_inilist
+    movw    hl, #__init_array_start
+    movw    de, #__init_array_end
+#ifdef __RL78_MEDIUM__
+    movw    bc, #4
+#else
+    movw    bc, #2
+#endif
+    br  $_rl78_run_inilist
 
-	.global	_rl78_run_fini_array
-	.type	_rl78_run_fini_array,@function
+    .global _rl78_run_fini_array
+    .type   _rl78_run_fini_array,@function
 _rl78_run_fini_array:
-	movw	hl, #__fini_array_start
-	movw	de, #__fini_array_end
-	movw	bc, #-2
-	/* fall through */
+    movw    hl, #__fini_array_start
+    movw    de, #__fini_array_end
+#ifdef __RL78_MEDIUM__
+    movw    bc, #4
+#else
+    movw    bc, #2
+#endif
+    /* fall through */
 
-	;; HL = start of list
-	;; DE = end of list
-	;; BC = step direction (+2 or -2)
+    ;; HL = start of list
+    ;; DE = end of list
+    ;; BC = step direction (+2 or -2)
 _rl78_run_inilist:
 next_inilist:
-	movw	ax, hl
-	cmpw	ax, de
-	bz	$done_inilist
-	movw	ax, [hl]
-	cmpw	ax, #-1
-	bz	$skip_inilist
-	cmpw	ax, #0
-	bz	$skip_inilist
-	push	ax
-	push	bc
-	push	de
-	push	hl
-	call	ax
-	pop	hl
-	pop	de
-	pop	bc
-	pop	ax
+    movw    ax, hl
+    cmpw    ax, de
+    bz  $done_inilist
+    movw    ax, [hl]
+    cmpw    ax, #-1
+    bz  $skip_inilist
+    cmpw    ax, #0
+    bz  $skip_inilist
+    push    ax
+    push    bc
+    push    de
+    push    hl
+#ifdef __RL78_MEDIUM__
+    push    ax
+    mov     a, [hl+2]
+    mov     cs, a
+    pop     ax
+#endif
+    call    ax
+    pop hl
+    pop de
+    pop bc
+    pop ax
 skip_inilist:
-	movw	ax, hl
-	addw	ax, bc
-	movw	hl, ax
-	br	$next_inilist
+    movw    ax, hl
+    addw    ax, bc
+    movw    hl, ax
+    br  $next_inilist
 done_inilist:
-	ret
+    ret
 
-    .section  .init,"ax"
 
     .global __rl78_init
+    .type  __rl78_init,@function
 __rl78_init:
-	call	!!_rl78_run_preinit_array
-	call	!!_rl78_run_init_array
-	ret
+    call    !!_rl78_run_init_array
+    ret
 
-    .section    .fini,"ax"
 
     .global __rl78_fini
+    .type   __rl78_fini,@function
+__rl78_fini:
+    call    !!_rl78_run_fini_array
+    ret
+
+
 .end

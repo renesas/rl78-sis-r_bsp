@@ -24,25 +24,16 @@
 * History : DD.MM.YYYY Version  Description
 *         : 11.11.2022 1.40     First Release
 *         : 31.01.2023 1.41     Updated device file.
+*         : 07.06.2024 1.70     Fixed error message.
+*                               Removed unnecessary comments.
+*                               Changed macro definition for include guard.
 ***********************************************************************************************************************/
-/*-------------------------------------------------------------------------
- *      Declarations of SFR registers, interrupt and callt vector addresses
- *      for RL78 microcontroller R7F102GGE.
- *
- *      This file can be used by both the RL78
- *      Assembler, IASMRL78, and the C/C++ compiler, ICCRL78.
- *
- *      This header file is generated from the device file:
- *          DR7F102GGE.DVF
- *          Copyright(C) 2022 Renesas
- *          Format version V3.20, File version V1.00
- *-------------------------------------------------------------------------*/
 
-#ifndef __IOR7F102GGE_H__
-#define __IOR7F102GGE_H__
+#ifndef __IOR7F102G_H__
+#define __IOR7F102G_H__
 
 #if !defined(__IASMRL78__) && !defined(__ICCRL78__)
-  #error "IOR7F102GGE.H file for use with RL78 Assembler or Compiler only"
+  #error "iodefine.h file for use with RL78 Assembler or Compiler only"
 #endif
 
 #if !defined(__S2__)
@@ -57,12 +48,12 @@
 
 #if defined(__IASMRL78__)
   #if __CORE__ != __S3__
-    #error "IOR7F102GGE.H file for use with IASMRL78 option --core S3 only"
+    #error "iodefine.h file for use with IASMRL78 option --core S3 only"
   #endif
 #endif
 #if defined(__ICCRL78__)
   #if __CORE__ != __S3__
-    #error "IOR7F102GGE.H file for use with ICCRL78 option --core S3 only"
+    #error "iodefine.h file for use with ICCRL78 option --core S3 only"
   #endif
 #endif
 
@@ -1635,4 +1626,4 @@ PMC        DEFINE  0xFFFFE
 #define CALLT_BC_vect            (0xBC)
 #define CALLT_BE_vect            (0xBE)
 
-#endif /* __IOR7F102GGE_H__ */
+#endif /* __IOR7F102G_H__ */

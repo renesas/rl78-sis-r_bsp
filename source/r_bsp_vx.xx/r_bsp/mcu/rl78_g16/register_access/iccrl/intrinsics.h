@@ -23,25 +23,15 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 31.01.2023 1.50     First Release
-
+*         : 07.06.2024 1.70     Fixed error message.
+*                               Removed unnecessary comments.
 ***********************************************************************************************************************/
-/*-------------------------------------------------------------------------
- *      Declarations of intrinsic functions.
- *
- *      This header file can be used with the
- *      IAR RL78 C/C++ compilers, ICCRL78.
- *
- *      Copyright 2011 IAR Systems AB.
- *
- *      $Revision: 4525 $
- *
- *-----------------------------------------------------------------------*/
 
 #ifndef __INTRINSICS_INCLUDED
 #define __INTRINSICS_INCLUDED
 
 #ifndef __ICCRL78__
-  #error "INTRINSICS.H file for use with ICCRL78 only"
+  #error "intrinsics.h file for use with ICCRL78 only"
 #endif
 
 #ifndef _SYSTEM_BUILD

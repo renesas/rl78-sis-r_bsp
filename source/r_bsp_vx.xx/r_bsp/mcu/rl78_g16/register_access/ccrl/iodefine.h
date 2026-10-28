@@ -24,9 +24,11 @@
 * History : DD.MM.YYYY Version  Description
 *         : 31.01.2023 1.50     First Release
 *         : 31.08.2023 1.61     Updated device file.
+*         : 07.06.2024 1.70     Changed macro definition for include guard.
 ***********************************************************************************************************************/
-#ifndef __R5F121BCIODEFINE_HEADER__
-#define __R5F121BCIODEFINE_HEADER__
+
+#ifndef __R5F121IODEFINE_HEADER__
+#define __R5F121IODEFINE_HEADER__
 
 typedef struct
 {

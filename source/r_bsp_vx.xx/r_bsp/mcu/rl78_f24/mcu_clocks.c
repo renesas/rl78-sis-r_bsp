@@ -51,6 +51,7 @@
 *                               Added processing to check MCS after setting MCM0 bit.
 *                               Added processing to check SELPLLS after setting SELPLL bit.
 *                               Added parentheses to the #if condition to clarify the order of evaluation.
+*         : 07.06.2024 1.70     Edited comments as necessary.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -553,7 +554,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
 
                 if (0x10U != (CMC & 0x10U))
                 {
-                    /* Error if the low-speed on-chip oscillator clock is stopped. */
+                    /* Error if the low-speed on-chip oscillator clock is invalid. */
                     status = BSP_ERROR1;
                 }
 #if BSP_CFG_PARAM_CHECKING_ENABLE == 1
@@ -1032,8 +1033,8 @@ void mcu_clock_setup(void)
 #if BSP_CFG_HISYSCLK_SOURCE == 0
     /* Input port mode */
     /* Not used.
-     * When using high-speed on-chip oscillator,
-     * when not using main system clock
+     * When using high-speed on-chip oscillator.
+     * When not using main system clock.
      */
 #elif BSP_CFG_HISYSCLK_SOURCE == 1
     /* X1 oscillation mode */
@@ -1046,17 +1047,16 @@ void mcu_clock_setup(void)
     /* 2 MHz <= fX <= 20 MHz */
     cmc_tmp |= 0x41U;
 #endif
-#else
+#else /* BSP_CFG_HISYSCLK_SOURCE == 0 */
     /* External clock input mode */
     /* High-speed system clock pin operation mode(EXCLK/OSCSEL) setting */
     cmc_tmp |= 0xC0U;
-#endif
+#endif /* BSP_CFG_HISYSCLK_SOURCE == 0 */
 
-    /* Subsystem clock oscillator clock(fSX) setting */
+    /* Subsystem clock(fSUB) and low-speed on-chip oscillator(fIL) setting */
 #if BSP_CFG_SUBCLK_SOURCE == 0
     /* Not used.
-     * When using the low-speed on-chip oscillator or
-     * when not using subsystem clock(fSUB)
+     * When neither low-speed on-chip oscillator(fIL) nor subsystem clock(fSUB) is used.
      */
 #elif BSP_CFG_SUBCLK_SOURCE == 1
 #if BSP_CFG_MCU_PART_PIN_NUM < 1
@@ -1065,7 +1065,7 @@ void mcu_clock_setup(void)
     /* EXCLKS/OSCSELS setting */
     cmc_tmp |= 0x10U;
 #else
-    /* XT1 oscillation mode */
+    /* XT1 oscillation mode(low-speed on-chip oscillator operation mode) */
 #if BSP_CFG_XT1_OSCMODE == 0
     /* Low power consumption oscillation (default) Oscillation margin : Medium */
     /* EXCLKS/OSCSELS/AMPHS1/AMPHS0 setting */
@@ -1074,20 +1074,20 @@ void mcu_clock_setup(void)
     /* Normal oscillation Oscillation margin : High */
     /* EXCLKS/OSCSELS/AMPHS1/AMPHS0 setting */
     cmc_tmp |= 0x12U;
-#else
+#else /* BSP_CFG_XT1_OSCMODE == 0 */
     /* Ultra-low power consumption oscillation Oscillation margin : Low */
     /* EXCLKS/OSCSELS/AMPHS1/AMPHS0 setting */
     cmc_tmp |= 0x14U;
+#endif /* BSP_CFG_XT1_OSCMODE == 0 */
 #endif
-#endif
-#else
+#else /* BSP_CFG_SUBCLK_SOURCE == 0 */
 #if BSP_CFG_MCU_PART_PIN_NUM < 1
     /* 32-pin device */
     /* Input port mode(low-speed on-chip oscillator operation mode) */
     /* EXCLKS/OSCSELS setting */
     cmc_tmp |= 0x30U;
 #else
-    /* External clock input mode */
+    /* External clock input mode(low-speed on-chip oscillator operation mode) */
     /* EXCLKS/OSCSELS setting */
     cmc_tmp |= 0x30U;
 #endif
@@ -1096,7 +1096,7 @@ void mcu_clock_setup(void)
     /* Clock Operation Mode Control Register(CMC) setting */
     CMC = cmc_tmp;
 
-    /* When to use X1 clock oscillator(fX) */
+    /* When using X1 clock oscillator(fX) */
 #if BSP_CFG_HISYSCLK_SOURCE == 1
     /* Oscillation Stabilization Time Select Register(OSTS) setting */
     OSTS = BSP_CFG_X1_WAIT_TIME_SEL;
@@ -1120,7 +1120,7 @@ void mcu_clock_setup(void)
     while (tmp_stab_wait != tmp_stab_set);
 #endif
 #else
-    /* X1 oscillation stopped if high-speed system clock is not used */
+    /* High-speed system clock oscillation stops if it is not used */
     MSTOP = 1U;
 #endif
 
@@ -1147,9 +1147,7 @@ void mcu_clock_setup(void)
         ;
     }
 #endif
-#endif
-
-    /* Subsystem clock oscillation */
+#endif /* BSP_CFG_MAINCLK_SOURCE == 0 */
 
     /* Operation Speed Mode Control Register(OSMC) setting */
 #if (BSP_CFG_ALLOW_FSL_IN_STOPHALT == 0) && (BSP_CFG_FIL_OPERATION == 0)
@@ -1162,8 +1160,8 @@ void mcu_clock_setup(void)
     OSMC |= 0x90U;
 #endif
 
-    /* When to use subsystem clock oscillator clock(fSX) */
-    /* Subsystem clock oscillator clock oscillation */
+    /* When using subsystem clock(fSUB) */
+    /* Subsystem clock oscillation */
 #if BSP_CFG_SUBCLK_OPERATION == 0
     /* Start oscillation */
     XTSTOP = 0U;
@@ -1181,20 +1179,21 @@ void mcu_clock_setup(void)
         BSP_CFG_USER_WDT_REFRESH_SETTING_FUNCTION();
 #endif
     }
-#endif
+#endif /* BSP_CFG_SUBCLK_SOURCE == 1 */
 
-#else
-    /* XT1 oscillator stopped if subsystem clock oscillator clock is not used */
+#else /* BSP_CFG_SUBCLK_OPERATION == 0 */
+    /* Subsystem clock oscillation stops if it is not used */
     XTSTOP = 1U;
 #endif
 
 #if BSP_CFG_SUBSYSCLK_SOURCE == 1
+    /* Selects fIL and running the low-speed on-chip oscillator */
     SELLOSC = 1U;
 #endif
 
     /* fCLK selection */
 #if BSP_CFG_FCLK_SOURCE == 0
-    /* When using a high-speed system clock */
+    /* When using high-speed system clock, high-speed on-chip oscillator, or PLL clock */
     CSS = 0U;
 
     /* WAIT_LOOP */
@@ -1204,7 +1203,7 @@ void mcu_clock_setup(void)
         ;
     }
 #else
-    /* When using subsystem clock of low-speed on-chip oscillator */
+    /* When using subsystem clock or low-speed on-chip oscillator */
     CSS = 1U;
 
 #if ((BSP_CFG_SUBCLK_SOURCE != 0) && (BSP_CFG_SUBSYSCLK_SOURCE == 0) && (BSP_CFG_SUBCLK_OPERATION == 0)) || ((BSP_CFG_SUBCLK_SOURCE != 0) && (BSP_CFG_SUBSYSCLK_SOURCE == 1))
@@ -1215,7 +1214,7 @@ void mcu_clock_setup(void)
         ;
     }
 #endif
-#endif
+#endif /* BSP_CFG_FCLK_SOURCE == 0 */
 
     /* Control of PLL operation. */
 #if BSP_CFG_PLL_OPERATION == 1
@@ -1285,6 +1284,7 @@ void mcu_clock_setup(void)
         BSP_NOP();
     }
 
+    /* PLL clock oscillation starts */
     PLLON = 1U;
 
     /* WAIT_LOOP */
@@ -1294,6 +1294,7 @@ void mcu_clock_setup(void)
         ;
     }
 #else /* BSP_CFG_PLL_OPERATION == 1 */
+    /* PLL clock oscillation stops if it is not used */
     PLLON = 0U;
 #endif /* BSP_CFG_PLL_OPERATION == 1 */
 
@@ -1302,6 +1303,7 @@ void mcu_clock_setup(void)
 
     /* Control of clock mode selection */
 #if BSP_CFG_PLL_MODE == 0
+    /* Selects clock through mode (fMAIN) */
     SELPLL = 0U;
 
     /* WAIT_LOOP */
@@ -1311,6 +1313,7 @@ void mcu_clock_setup(void)
         ;
     }
 #else
+    /* Selects PLL-clock-selected mode (fPLL) */
     SELPLL = 1U;
 
 #if BSP_CFG_PLL_OPERATION == 1
@@ -1321,7 +1324,7 @@ void mcu_clock_setup(void)
         ;
     }
 #endif
-#endif
+#endif /* BSP_CFG_PLL_MODE == 0 */
 
     /* Starts high-speed on-chip oscillator */
     /* Only the high-speed on-chip oscillator is activated after reset,

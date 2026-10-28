@@ -24,9 +24,11 @@
 * History : DD.MM.YYYY Version  Description
 *         : 11.11.2022 1.40     First Release
 *         : 30.11.2023 1.62     Updated device file.
+*         : 07.06.2024 1.70     Changed macro definition for include guard.
 ***********************************************************************************************************************/
-#ifndef __R7F102GGEIODEFINE_HEADER__
-#define __R7F102GGEIODEFINE_HEADER__
+
+#ifndef __R7F102GIODEFINE_HEADER__
+#define __R7F102GIODEFINE_HEADER__
 
 typedef struct
 {

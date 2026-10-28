@@ -23,26 +23,16 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 31.05.2022 1.30     First Release
-
+*         : 07.06.2024 1.70     Fixed error message.
+*                               Removed unnecessary comments.
+*                               Changed macro definition for include guard.
 ***********************************************************************************************************************/
-/*-------------------------------------------------------------------------
- *      Declarations of SFR registers, interrupt and callt vector addresses
- *      for RL78 microcontroller R5F12068.
- *
- *      This file can be used by both the RL78
- *      Assembler, IASMRL78, and the C/C++ compiler, ICCRL78.
- *
- *      This header file is generated from the device file:
- *          DR5F12068.DVF
- *          Copyright(C) 2021 Renesas
- *          Format version V3.20, File version E1.00c
- *-------------------------------------------------------------------------*/
 
-#ifndef __IOR5F12068_H__
-#define __IOR5F12068_H__
+#ifndef __IOR5F120_H__
+#define __IOR5F120_H__
 
 #if !defined(__IASMRL78__) && !defined(__ICCRL78__)
-  #error "IOR5F12068.H file for use with RL78 Assembler or Compiler only"
+  #error "iodefine.h file for use with RL78 Assembler or Compiler only"
 #endif
 
 #if !defined(__S2__)
@@ -57,12 +47,12 @@
 
 #if defined(__IASMRL78__)
   #if __CORE__ != __S2__
-    #error "IOR5F12068.H file for use with IASMRL78 option --core S2 only"
+    #error "iodefine.h file for use with IASMRL78 option --core S2 only"
   #endif
 #endif
 #if defined(__ICCRL78__)
   #if __CORE__ != __S2__
-    #error "IOR5F12068.H file for use with ICCRL78 option --core S2 only"
+    #error "iodefine.h file for use with ICCRL78 option --core S2 only"
   #endif
 #endif
 
@@ -1030,4 +1020,4 @@ PR11H      DEFINE  0xFFFEF
 #define CALLT_BC_vect            (0xBC)
 #define CALLT_BE_vect            (0xBE)
 
-#endif /* __IOR5F12068_H__ */
+#endif /* __IOR5F120_H__ */

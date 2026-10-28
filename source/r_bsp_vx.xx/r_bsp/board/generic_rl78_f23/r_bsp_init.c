@@ -24,7 +24,7 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 28.02.2022 1.20     First Release
-*
+*         : 07.06.2024 1.70     Edited comments as necessary.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -140,7 +140,7 @@ void bsp_init_system(void)
             (BSP_CFG_PIOR93 << 3U);
 #endif
 
-    /* If the window open period of watchdog timer is set to 50%, then call it. */
+    /* If the window open period of watchdog timer is set to 50% or 75%, then call it. */
 #if (BSP_CFG_WDT_REFRESH_ENABLE == 2) || (BSP_CFG_WDT_REFRESH_ENABLE == 3)
     BSP_CFG_USER_WDT_REFRESH_INIT_FUNCTION();
 #endif

@@ -24,31 +24,25 @@
 * History : DD.MM.YYYY Version  Description
 *         : 08.03.2021 1.00     First Release
 *         : 08.09.2021 1.13     Changed the file name
-
+*         : 07.06.2024 1.70     Fixed error message.
+*                               Removed unnecessary comments.
 ***********************************************************************************************************************/
-/*-------------------------------------------------------------------------
- *      Declarations of SFR registers, interrupt and callt vector addresses
- *      for RL78 microcontroller R7F100G.
- *
- *      This file can be used by both the RL78
- *      Assembler, IASMRL78, and the C/C++ compiler, ICCRL78.
- *-------------------------------------------------------------------------*/
 
 #ifndef __IOR7F100G_H__
 #define __IOR7F100G_H__
 
 #if !defined(__IASMRL78__) && !defined(__ICCRL78__)
-  #error "IOR7F100G.H file for use with RL78 Assembler or Compiler only"
+  #error "iodefine.h file for use with RL78 Assembler or Compiler only"
 #endif
 
 #if defined(__IASMRL78__)
   #if __CORE__ != __S3__
-    #error "IOR7F100G.H file for use with IASMRL78 option --core S3 only"
+    #error "iodefine.h file for use with IASMRL78 option --core S3 only"
   #endif
 #endif
 #if defined(__ICCRL78__)
   #if __CORE__ != __S3__
-    #error "IOR7F100G.H file for use with ICCRL78 option --core S3 only"
+    #error "iodefine.h file for use with ICCRL78 option --core S3 only"
   #endif
 #endif
 

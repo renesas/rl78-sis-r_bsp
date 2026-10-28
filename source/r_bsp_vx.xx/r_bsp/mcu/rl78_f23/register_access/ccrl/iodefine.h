@@ -23,10 +23,11 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 28.02.2022 1.20     First Release
-*
+*         : 07.06.2024 1.70     Changed macro definition for include guard.
 ***********************************************************************************************************************/
-#ifndef __R7F123FMGIODEFINE_HEADER__
-#define __R7F123FMGIODEFINE_HEADER__
+
+#ifndef __R7F123FIODEFINE_HEADER__
+#define __R7F123FIODEFINE_HEADER__
 
 typedef struct
 {
