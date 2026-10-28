@@ -17,6 +17,7 @@
 *         : 30.11.2023 1.62     Changed option byte comment.
 *         : 30.08.2025 1.92     Changed the disclaimer.
 *                               Added a macro function for wait processing.
+*         : 27/07/2026 2.01     Support for built-in wait functions for LLVM.
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -105,8 +106,13 @@
 #define BSP_NOP()                  NOP()
 #define BSP_DISABLE_INTERRUPT()    DI()
 #define BSP_ENABLE_INTERRUPT()     EI()
+#if __has_builtin(__delay_cycles)
+#define BSP_DELAY_ms(delay)        __delay_cycles((uint32_t)( ((uint64_t)(delay) * (uint64_t)(BSP_CFG_FCLK_HZ) + (1000ULL - 1ULL)) / 1000ULL ))
+#define BSP_DELAY_us(delay)        __delay_cycles((uint32_t)( ((uint64_t)(delay) * (uint64_t)(BSP_CFG_FCLK_HZ) + (1000000ULL - 1ULL)) / 1000000ULL ))
+#else
 #define BSP_DELAY_ms(delay)        delay_wait((uint32_t)( ((uint64_t)(delay) * (uint64_t)(BSP_CFG_FCLK_HZ) + (6000ULL - 1ULL)) / 6000ULL ))
 #define BSP_DELAY_us(delay)        delay_wait((uint32_t)( ((uint64_t)(delay) * (uint64_t)(BSP_CFG_FCLK_HZ) + (6000000ULL - 1ULL)) / 6000000ULL ))
+#endif
 #endif
 
 /* Sections */
