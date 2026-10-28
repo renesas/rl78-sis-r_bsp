@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2021 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : r_bsp_common.h
 * Description  : 
@@ -47,6 +34,9 @@
 *         : 06.11.2024 1.80     Added RL78/F22 resource to clock mode comment.
 *         : 29.11.2024 1.90     Added RL78/L23 resource to clock mode comment.
 *         : 15.04.2025 1.91     Changed the version of smart configurator to check to 1140.
+*         : 30.08.2025 1.92     Changed the disclaimer.
+*                               Changed the version of smart configurator to check to 1160.
+*                               Added extern declaration for wait processing.
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -65,7 +55,7 @@
 #ifndef R_BSP_COMMON_H
 #define R_BSP_COMMON_H
 
-#if BSP_CFG_CONFIGURATOR_VERSION < 1140
+#if BSP_CFG_CONFIGURATOR_VERSION < 1160
 #error "Make sure that the value of BSP_CFG_CONFIGURATOR_VERSION defined in r_config/r_bsp_config.h matches the version of Smart Configurator you are using. If they do not match, change the settings. If they match, you need to upgrade your Smart Configurator. Please upgrade Smart Configurator."
 #endif
 
@@ -119,6 +109,8 @@ typedef enum
 /*************************************************
  * Function declaration
  *************************************************/
+extern void delay_wait (uint32_t count);
+
 #if BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE == 0
 e_bsp_err_t R_BSP_StartClock (e_clock_mode_t mode);
 e_bsp_err_t R_BSP_StopClock (e_clock_mode_t mode);

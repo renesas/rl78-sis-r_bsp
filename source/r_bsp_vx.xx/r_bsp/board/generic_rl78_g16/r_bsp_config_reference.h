@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2023 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2023 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : r_bsp_config_reference.h
 * H/W Platform : GENERIC_RL78_G16
@@ -32,6 +19,10 @@
 *         : 06.02.2025 1.90     Added notes to the following macro definitions.
 *                               - BSP_CFG_SUBWAITTIME
 *                               - BSP_CFG_FIHWAITTIME
+*         : 05.08.2025 1.92     Changed the disclaimer.
+*                               Reviewed the initial values of macro definitions.
+*                               Reviewed the comments of macro definitions.
+*                               Added macro definitions for waiting process.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -55,7 +46,7 @@
 */
 
 /* ROM capacity
- B = 16(KB) : 0x0
+ A = 16(KB) : 0x0
  C = 32   : 0x1
 */
 #define BSP_CFG_MCU_PART_ROM_SIZE (0x1)
@@ -67,7 +58,7 @@
  7 = 24-pin  : 0x4
  B = 32-pin  : 0x5
 */
-#define BSP_CFG_MCU_PART_PIN_NUM (0x4)
+#define BSP_CFG_MCU_PART_PIN_NUM (0x5)
 
 /* group
  121 = RL78/G16 : (true)
@@ -81,10 +72,10 @@
 
 #if defined(__ICCRL78__)
 /* Option byte setting(When using IAR) */
-#define BSP_CFG_OPTBYTE0_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE1_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE2_VALUE (0xE0U)
-#define BSP_CFG_OPTBYTE3_VALUE (0x04U)
+#define BSP_CFG_OPTBYTE0_VALUE (0xEFU)
+#define BSP_CFG_OPTBYTE1_VALUE (0xF7U)
+#define BSP_CFG_OPTBYTE2_VALUE (0xF9U)
+#define BSP_CFG_OPTBYTE3_VALUE (0x85U)
 /* Security ID Codes for On-Chip Debugging setting(When using IAR) */
 #define BSP_CFG_SECUID0_VALUE (0x00U)
 #define BSP_CFG_SECUID1_VALUE (0x00U)
@@ -102,32 +93,37 @@
  * Pin assignment setting
  *************************************************/
 /* Peripheral I/O redirection register(PIOR0-PIOR01/PIOR00)
-   10/16 pins
- 00 : TO00 - P03
-      TI00 - P137
- 01 : TO00 - P03
-      TI00 - P03
+   10 pins
+ 00 : TI00 - P137
+      TO00 - P03
+ 01 : TI00 - P03
+      TO00 - P03
+ Set PIOR01 to 0. 
+
+   16 pins
+ 00 : TI00 - P137
+ 01 : TI00 - P03
  Set PIOR01 to 0. 
 
    20/24 pins
- 00 : TO00 - P03
-      TI00 - P137
- 01 : TO00 - P03
-      TI00 - P03
- 10 : TO00 - P21
-      TI00 - P20
- 11 : TO00 - P20
-      TI00 - -
+ 00 : TI00 - P137
+      TO00 - P03
+ 01 : TI00 - P03
+      TO00 - P03
+ 10 : TI00 - P20
+      TO00 - P21
+ 11 : TI00 - -
+      TO00 - P20
 
    32 pins
- 00 : TO00 - P03
-      TI00 - P137
- 01 : TO00 - P03
-      TI00 - P03
- 10 : TO00 - P21
-      TI00 - P20
- 11 : TO00 - P20
-      TI00 - P42
+ 00 : TI00 - P137
+      TO00 - P03
+ 01 : TI00 - P03
+      TO00 - P03
+ 10 : TI00 - P20
+      TO00 - P21
+ 11 : TI00 - P42
+      TO00 - P20
 */
 #define BSP_CFG_PIOR01 (0)
 #define BSP_CFG_PIOR00 (0)
@@ -167,94 +163,81 @@
  000 : Fixed
 
    16 pins 
- 000 : TO03 - P41
-       TI03 - P41
- 001 : TO03 - P07
-       TI03 - P41
- 010 : TO03 - P06
-       TI03 - P06
- 011 : TO03 - -
-       TI03 - -
+ 000 : TI03 - P41
+       TO03 - P41
+ 001 : TI03 - P41
+       TO03 - P07
+ 010 : TI03 - P06
+       TO03 - P06
+ 011 : TI03 - -
+       TO03 - -
  Set PIOR12 to 0.
 
    20 pins 
- 000 : TO03 - P41
-       TI03 - P41
- 001 : TO03 - P07
-       TI03 - P41
- 010 : TO03 - P06
-       TI03 - P06
- 011 : TO03 - P20
-       TI03 - P20
+ 000 : TI03 - P41
+       TO03 - P41
+ 001 : TI03 - P41
+       TO03 - P07
+ 010 : TI03 - P06
+       TO03 - P06
+ 011 : TI03 - P20
+       TO03 - P20
   Set PIOR12 to 0.
 
    24 pins 
- 000 : TO03 - P41
-       TI03 - P41
- 001 : TO03 - P07
-       TI03 - P41
- 010 : TO03 - P06
-       TI03 - P06
- 011 : TO03 - P20
-       TI03 - P20
- 100 : TO03 - P10
-       TI03 - P10
- 101 : TO03 - P11
-       TI03 - P11
- 110 : TO03 - -
-       TI03 - -
- 111 : TO03 - -
-       TI03 - -
+ 000 : TI03 - P41
+       TO03 - P41
+ 001 : TI03 - P41
+       TO03 - P07
+ 010 : TI03 - P06
+       TO03 - P06
+ 011 : TI03 - P20
+       TO03 - P20
+ 100 : TI03 - P10
+       TO03 - P10
+ 101 : TI03 - P11
+       TO03 - P11
+ 110 : TI03 - -
+       TO03 - -
+ 111 : TI03 - -
+       TO03 - -
 
    32 pins 
- 000 : TO03 - P41
-       TI03 - P41
- 001 : TO03 - P07
-       TI03 - P41
- 010 : TO03 - P06
-       TI03 - P06
- 011 : TO03 - P20
-       TI03 - P20
- 100 : TO03 - P10
-       TI03 - P10
- 101 : TO03 - P11
-       TI03 - P11
- 110 : TO03 - P16
-       TI03 - P16
- 111 : TO03 - -
-       TI03 - -
+ 000 : TI03 - P41
+       TO03 - P41
+ 001 : TI03 - P41
+       TO03 - P07
+ 010 : TI03 - P06
+       TO03 - P06
+ 011 : TI03 - P20
+       TO03 - P20
+ 100 : TI03 - P10
+       TO03 - P10
+ 101 : Ti03 - P11
+       TO03 - P11
+ 110 : TI03 - P16
+       TO03 - P16
+ 111 : TI03 - -
+       TO03 - -
 */
 #define BSP_CFG_PIOR12 (0)
 #define BSP_CFG_PIOR11 (0)
 #define BSP_CFG_PIOR10 (0)
 
 /* Peripheral I/O redirection register(PIOR1-PIOR14/PIOR13)
-   10 pins 
+   10/16 pins 
  00 : Fixed
 
-   16 pins
- 00 : TI04/TO04 - P07
- 01 : TI04/TO04 - Setting prohibited
- 10 : TI04/TO04 - Setting prohibited
- 11 : TI04/TO04 - Setting prohibited
-
-   20 pins 
+   20/24 pins 
  00 : TI04/TO04 - P07
  01 : TI04/TO04 - P23
- 10 : TI04/TO04 - Setting prohibited
- 11 : TI04/TO04 - Setting prohibited
-
-   24 pins 
- 00 : TI04/TO04 - P07
- 01 : TI04/TO04 - P23
- 10 : TI04/TO04 - Setting prohibited
- 11 : TI04/TO04 - P07
+  Set PIOR14 to 0.
 
    32 pins 
  00 : TI04/TO04 - P07
  01 : TI04/TO04 - P23
  10 : TI04/TO04 - P17
- 11 : TI04/TO04 - P07
+ 11 : TI04/TO04 - -
 */
 #define BSP_CFG_PIOR14 (0)
 #define BSP_CFG_PIOR13 (0)
@@ -294,18 +277,18 @@
  00 : Fixed
 
    16/20/24/32 pins 
- 00 : SO00/TxD0       - P00
+ 00 : SCK00/SCL00     - P02
       SI00/RxD0/SDA00 - P01
-      SCK00/SCL00     - P02
- 01 : SO00/TxD0       - P04
+      SO00/TxD0       - P00
+ 01 : SCK00/SCL00     - P06
       SI00/RxD0/SDA00 - P05
-      SCK00/SCL00     - P06
- 10 : SO00/TxD0       - P03
+      SO00/TxD0       - P04
+ 10 : SCK00/SCL00     - P05
       SI00/RxD0/SDA00 - P04
-      SCK00/SCL00     - P05
- 11 : SO00/TxD0       - -
+      SO00/TxD0       - P03
+ 11 : SCK00/SCL00     - -
       SI00/RxD0/SDA00 - -
-      SCK00/SCL00     - -
+      SO00/TxD0       - -
 */
 #define BSP_CFG_PIOR21 (0)
 #define BSP_CFG_PIOR20 (0)
@@ -314,175 +297,147 @@
    10 pins 
  000 : Fixed
 
-   16pins 
- 000 : SO11  - P05
-       SDA11 - P06
-       SI11  - P06
+   16 pins 
+ 000 : SCK11 - P07
        SCL11 - P07
-       SCK11 - P07
- 001 : SO11  - P02
-       SDA11 - P01
-       SI11  - P01
-       SCL11 - P00
-       SCK11 - P00
- 010 : SO11  - Setting prohibited
-       SDA11 - Setting prohibited
-       SI11  - Setting prohibited
-       SCL11 - Setting prohibited
-       SCK11 - Setting prohibited
- 011 : SO11  - P05
-       SDA11 - Setting prohibited
        SI11  - P06
-       SCL11 - Setting prohibited
-       SCK11 - P07
-  Set PIOR24 to 0. 
+       SDA11 - P06
+       SO11  - P05
+ 001 : SCK11 - P00
+       SCL11 - P00
+       SI11  - P01
+       SDA11 - P01
+       SO11  - P02
+  Set PIOR24,23 to 0. 
 
    20 pins 
- 000 : SO11  - P05
-       SDA11 - P06
-       SI11  - P06
+ 000 : SCK11 - P07
        SCL11 - P07
-       SCK11 - P07
- 001 : SO11  - P02
-       SDA11 - P01
-       SI11  - P01
-       SCL11 - P00
-       SCK11 - P00
- 010 : SO11  - P41
-       SDA11 - P41
-       SI11  - P125
-       SCL11 - P20
-       SCK11 - P20
- 011 : SO11  - P05
-       SDA11 - P22
        SI11  - P06
+       SDA11 - P06
+       SO11  - P05
+ 001 : SCK11 - P00
+       SCL11 - P00
+       SI11  - P01
+       SDA11 - P01
+       SO11  - P02
+ 010 : SCK11 - P20
+       SCL11 - P20
+       SI11  - P125
+       SDA11 - P41
+       SO11  - P41
+ 011 : SCK11 - P07
        SCL11 - P23
-       SCK11 - P07
- Set PIOR24 to 0. 
+       SI11  - P06
+       SDA11 - P22
+       SO11  - P05
+  Set PIOR24 to 0. 
 
    24 pins 
- 000 : SO11  - P05
-       SDA11 - P06
-       SI11  - P06
+ 000 : SCK11 - P07
        SCL11 - P07
-       SCK11 - P07
- 001 : SO11  - P02
-       SDA11 - P01
-       SI11  - P01
-       SCL11 - P00
-       SCK11 - P00
- 010 : SO11  - P41
-       SDA11 - P41
-       SI11  - P125
-       SCL11 - P20
-       SCK11 - P20
- 011 : SO11  - P05
-       SDA11 - P22
        SI11  - P06
+       SDA11 - P06
+       SO11  - P05
+ 001 : SCK11 - P00
+       SCL11 - P00
+       SI11  - P01
+       SDA11 - P01
+       SO11  - P02
+ 010 : SCK11 - P20
+       SCL11 - P20
+       SI11  - P125
+       SDA11 - P41
+       SO11  - P41
+ 011 : SCK11 - P07
        SCL11 - P23
-       SCK11 - P07
- 100 : SO11  - P61
-       SDA11 - P61
-       SI11  - P60
+       SI11  - P06
+       SDA11 - P22
+       SO11  - P05
+ 100 : SCK11 - P10
        SCL11 - P10
-       SCK11 - P10
- 101 : SO11  - P01
-       SDA11 - P00
-       SI11  - P00
+       SI11  - P60
+       SDA11 - P61
+       SO11  - P61
+ 101 : SCK11 - P11
        SCL11 - P11
-       SCK11 - P11
- 110 : SO11  - -
-       SDA11 - -
-       SI11  - -
+       SI11  - P00
+       SDA11 - P00
+       SO11  - P01
+ 110 : SCK11 - -
        SCL11 - -
-       SCK11 - -
- 111 : SO11  - -
-       SDA11 - -
        SI11  - -
+       SDA11 - -
+       SO11  - -
+ 111 : SCK11 - -
        SCL11 - -
-       SCK11 - -
+       SI11  - -
+       SDA11 - -
+       SO11  - -
 
    32 pins 
- 000 : SO11  - P05
-       SDA11 - P06
-       SI11  - P06
+ 000 : SCK11 - P07
        SCL11 - P07
-       SCK11 - P07
- 001 : SO11  - P02
-       SDA11 - P01
-       SI11  - P01
-       SCL11 - P00
-       SCK11 - P00
- 010 : SO11  - P41
-       SDA11 - P41
-       SI11  - P125
-       SCL11 - P20
-       SCK11 - P20
- 011 : SO11  - P05
-       SDA11 - P22
        SI11  - P06
+       SDA11 - P06
+       SO11  - P05
+ 001 : SCK11 - P00
+       SCL11 - P00
+       SI11  - P01
+       SDA11 - P01
+       SO11  - P02
+ 010 : SCK11 - P20
+       SCL11 - P20
+       SI11  - P125
+       SDA11 - P41
+       SO11  - P41
+ 011 : SCK11 - P07
        SCL11 - P23
-       SCK11 - P07
- 100 : SO11  - P61
-       SDA11 - P61
-       SI11  - P60
+       SI11  - P06
+       SDA11 - P22
+       SO11  - P05
+ 100 : SCK11 - P10
        SCL11 - P10
-       SCK11 - P10
- 101 : SO11  - P01
-       SDA11 - P00
-       SI11  - P00
+       SI11  - P60
+       SDA11 - P61
+       SO11  - P61
+ 101 : SCK11 - P11
        SCL11 - P11
-       SCK11 - P11
- 110 : SO11  - P15
-       SDA11 - P14
-       SI11  - P14
+       SI11  - P00
+       SDA11 - P00
+       SO11  - P01
+ 110 : SCK11 - P13
        SCL11 - P13
-       SCK11 - P13
- 111 : SO11  - -
-       SDA11 - -
-       SI11  - -
+       SI11  - P14
+       SDA11 - P14
+       SO11  - P15
+ 111 : SCK11 - -
        SCL11 - -
-       SCK11 - -
+       SI11  - -
+       SDA11 - -
+       SO11  - -
 */
 #define BSP_CFG_PIOR24 (0)
 #define BSP_CFG_PIOR23 (0)
 #define BSP_CFG_PIOR22 (0)
 
 /* Peripheral I/O redirection register(PIOR2-PIOR26/PIOR25)
-   10/16 pins 
+   10/16/20/24 pins 
  00 : Fixed
 
-   20 pins 
- 00 : SO20/TxD2       - P21
-      SI20/RxD2/SDA20 - P20
-      SCK20/SCL20     - P41
- 01 : SO20/TxD2       - -
-      SI20/RxD2/SDA20 - -
-      SCK20/SCL20     - -
- Set PIOR26 to 0. 
- 
-   24 pins 
- 00 : SO20/TxD2       - P21
-      SI20/RxD2/SDA20 - P20
-      SCK20/SCL20     - P41
- 01 : SO20/TxD2       - P17
-      SI20/RxD2/SDA20 - P16
-      SCK20/SCL20     - P02
- Set PIOR26 to 0. 
-
    32 pins
- 00 : SO20/TxD2       - P21
+ 00 : SCK20/SCL20     - P41
       SI20/RxD2/SDA20 - P20
-      SCK20/SCL20     - P41
- 01 : SO20/TxD2       - P17
+      SO20/TxD2       - P21
+ 01 : SCK20/SCL20     - P02
       SI20/RxD2/SDA20 - P16
-      SCK20/SCL20     - P02
- 10 : SO20/TxD2       - P15
+      SO20/TxD2       - P17
+ 10 : SCK20/SCL20     - P13
       SI20/RxD2/SDA20 - P14
-      SCK20/SCL20     - P13
- 11 : SO20/TxD2       - -
+      SO20/TxD2       - P15
+ 11 : SCK20/SCL20     - -
       SI20/RxD2/SDA20 - -
-      SCK20/SCL20     - -
+      SO20/TxD2       - -
 */
 #define BSP_CFG_PIOR26 (0)
 #define BSP_CFG_PIOR25 (0)
@@ -492,59 +447,69 @@
  00 : Fixed
 
    20 pins
- 00 : TxD1 - P04
-      RxD1 - P03
- 01 : TxD1 - P20
-      RxD1 - P21
+ 00 : RxD1 - P03
+      TxD1 - P04
+ 01 : RxD1 - P21
+      TxD1 - P20
  Set PIOR31 to 0. 
 
-24 pins
- 00 : TxD1 - P04
-      RxD1 - P03
- 01 : TxD1 - P20
-      RxD1 - P21
- 10 : TxD1 - P11
-      RxD1 - P10
- 11 : TxD1 - -
-      RxD1 - -
+   24 pins
+ 00 : RxD1 - P03
+      TxD1 - P04
+ 01 : RxD1 - P21
+      TxD1 - P20
+ 10 : RxD1 - P10
+      TxD1 - P11
+ 11 : RxD1 - -
+      TxD1 - -
 
-32 pins 
- 00 : TxD1 - P04
-      RxD1 - P03
- 01 : TxD1 - P20
-      RxD1 - P21
- 10 : TxD1 - P11
-      RxD1 - P10
- 11 : TxD1 - P42
-      RxD1 - P20
+   32 pins
+ 00 : RxD1 - P03
+      TxD1 - P04
+ 01 : RxD1 - P21
+      TxD1 - P20
+ 10 : RxD1 - P10
+      TxD1 - P11
+ 11 : RxD1 - P20
+      TxD1 - P42
 */
 #define BSP_CFG_PIOR31 (0)
 #define BSP_CFG_PIOR30 (0)
 
 /* Peripheral I/O redirection register(PIOR3-PIOR33/PIOR32)
    10 pins 
- 00 : SDAA0 - P04
-      SCLA0 - P03
- 01 : SDAA0 - P01
-      SCLA0 - P00
+ 00 : SCLA0 - P03
+      SDAA0 - P04
+ 01 : SCLA0 - P00
+      SDAA0 - P01
  Set PIOR33 to 0.
 
    16/20 pins 
- 00 : SDAA0 - P07
-      SCLA0 - P06
- 01 : SDAA0 - P01
-      SCLA0 - P00
+ 00 : SCLA0 - P06
+      SDAA0 - P07
+ 01 : SCLA0 - P00
+      SDAA0 - P01
  Set PIOR33 to 0.
 
-   24/32 pins 
- 00 : SDAA0 - P07
-      SCLA0 - P06
- 01 : SDAA0 - P01
-      SCLA0 - P00
- 10 : SDAA0 - P01
-      SCLA0 - P00
- 11 : SDAA0 - P61
-      SCLA0 - P60
+   24 pins 
+ 00 : SCLA0 - P60
+      SDAA0 - P61
+ 01 : SCLA0 - P06
+      SDAA0 - P07
+ 10 : SCLA0 - P00
+      SDAA0 - P01
+ 11 : SCLA0 - -
+      SDAA0 - -
+
+   32 pins 
+ 00 : SCLA0 - P60
+      SDAA0 - P61
+ 01 : SCLA0 - P06
+      SDAA0 - P07
+ 10 : SCLA0 - P00
+      SDAA0 - P01
+ 11 : SCLA0 - P16
+      SDAA0 - P17
 */
 #define BSP_CFG_PIOR33 (0)
 #define BSP_CFG_PIOR32 (0)
@@ -650,7 +615,7 @@
  01 : INTP6 - P05
  Set PIOR53 to 0.
 
-   24 pins 
+   20 pins 
  00 : INTP6 - P00
  01 : INTP6 - P05
  10 : INTP6 - P23
@@ -740,30 +705,25 @@
    10 pins 
  000 : VCOUT0 - P02
  001 : VCOUT0 - P125
- 010 : VCOUT0 - P02
- 011 : VCOUT0 - -
- 100 : VCOUT0 - P02
- 101 : VCOUT0 - -
- 110 : VCOUT0 - P125
- 111 : VCOUT0 - -
+ Set PIOR65,64 to 0.
 
    16/20/24/32pin 
- 000 : VCOUT0 - P02
-       VCOUT1 - P07
- 001 : VCOUT0 - P125
-       VCOUT1 - P07
- 010 : VCOUT0 - P02
-       VCOUT1 - P125
- 011 : VCOUT0 - P41
-       VCOUT1 - P07
- 100 : VCOUT0 - P02
-       VCOUT1 - P41
- 101 : VCOUT0 - P41
-       VCOUT1 - P125
- 110 : VCOUT0 - P125
-       VCOUT1 - P41
- 111 : VCOUT0 - -
-       VCOUT1 - -
+ 000 : VCOUT1 - P07
+       VCOUT0 - P02
+ 001 : VCOUT1 - P07
+       VCOUT0 - P125
+ 010 : VCOUT1 - P125
+       VCOUT0 - P02
+ 011 : VCOUT1 - P07
+       VCOUT0 - P41
+ 100 : VCOUT1 - P41
+       VCOUT0 - P02
+ 101 : VCOUT1 - P125
+       VCOUT0 - P41
+ 110 : VCOUT1 - P41
+       VCOUT0 - P125
+ 111 : VCOUT1 - -
+       VCOUT0 - -
 */
 #define BSP_CFG_PIOR65 (0)
 #define BSP_CFG_PIOR64 (0)
@@ -796,36 +756,43 @@
 /***********************************************************
  * Invalid memory access detection control register (IAWCTL)
  ***********************************************************/
-/* RAM guard space(GRAM0-1)
- 0 : Disabled. RAM can be written to.
- 1 : The 128 bytes of space starting at the start address in the RAM.
- 2 : The 256 bytes of space starting at the start address in the RAM.
- 3 : The 512 bytes of space starting at the start address in the RAM.
+/* Protected area in RAM
+   Invalid Memory Access Detection Control Register (IAWCTL)
+   GRAM1/GRAM0
+ 0 : Disabled. Writing to the RAM is allowed.
+ 1 : 128 bytes from the base address of the RAM.
+ 2 : 256 bytes from the base address of the RAM.
+ 3 : 512 bytes from the base address of the RAM.
 */
 #define BSP_CFG_RAM_GUARD_FUNC (0)
 
-/* Guard of control registers of port function(GPORT)
- 0 : Disabled. Control registers of the port function can be read from or written to.
- 1 : Enabled. Writing to control registers of the port function is disabled. Reading is enabled.
- [Guarded SFRs] PMxx, PUxx, POMxx, PMCxx, PIOR0-PIOR6, TSSEL0-1, VTSEL
- Note:Pxx(Port register) is not guarded.
+/* Protection of port control registers
+   Invalid Memory Access Detection Control Register (IAWCTL)
+   GPORT
+ 0 : Disabled. Reading from and writing to the port control registers are possible.
+ 1 : Enabled. Writing to the port control registers is not allowed. Reading is possible.
+ [Protected SFRs] PMxx, PUxx, POMxx, PMCxx, PIOR0 to PIOR6, TSSEL0, 1, VTSEL
+ Note:The port registers(Pxx) are not protected.
 */
 #define BSP_CFG_PORT_FUNCTION_GUARD (0)
 
-/* Guard of registers of interrupt function(GINT)
- 0 : Disabled. Registers of the interrupt function can be read from or written to.
- 1 : Enabled. Writing to registers of the interrupt function is disabled. Reading is enabled.
- [Guarded SFRs] IFxx, MKxx, PRxx, EGPx, EGNx
+/* Protection of interrupt control registers
+   Invalid Memory Access Detection Control Register (IAWCTL)
+   GINT
+ 0 : Disabled. Reading from and writing to the interrupt control registers are allowed.
+ 1 : Enabled. Writing to the interrupt control registers is not allowed. Reading is possible.
+ [Protected SFRs] IFxx, MKxx, PRxx, EGPx, EGNx
 */
 #define BSP_CFG_INT_FUNCTION_GUARD (0)
 
-/* Guard of control registers of clock control function, voltage detector,
-   and RAM parity error detection function(GCSC)
- 0 : Disabled. Control registers of the clock control function, voltage detector
-     and RAM parity error detection function can be read from or written to.
- 1 : Enabled. Writing to control registers of the clock control function, voltage detector
-     and RAM parity error detection function is disabled. Reading is enabled.
- [Guarded SFRs] CMC, CSC, OSTS, CKC, PERx, OSMC, RPECTL
+/* Protection of clock and RAM parity error detection control registers
+   Invalid Memory Access Detection Control Register (IAWCTL)
+   GCSC
+ 0 : Disabled. Reading from and writing to the clock and RAM parity error detection
+      control registers are allowed.
+ 1 : Enabled. Writing to the clock and RAM parity error detection control registers is 
+      not allowed. Reading is possible.
+ [Protected SFRs] CMC, CSC, OSTS, CKC, PERx, OSMC, RPECTL
 */
 #define BSP_CFG_CHIP_STATE_CTRL_GUARD (0)
 
@@ -901,16 +868,16 @@
 /*************************************************
  * Clock settings
  *************************************************/
-/* High-speed system clock frequency(fMX)
+/* High-speed system clock pin operation mode
    Clock operation mode control register(CMC)
     XTSEL/EXCLK/OSCSEL
- 0 : Port
- 1 : fX(Crystal/ceramic resonator connection)
- 2 : fEX(External clock input)
+ 0 : Port mode
+ 1 : X1 oscillation mode
+ 2 : External clock input mode
 */
-#define BSP_CFG_HISYSCLK_SOURCE (1)
+#define BSP_CFG_HISYSCLK_SOURCE (0)
 
-/* High-speed system clock frequency(fMX)
+/* High-speed system clock operation control
    Clock operation status control register(CSC)
    MSTOP
  (X1 oscillation mode)
@@ -919,35 +886,35 @@
  (External clock input mode)
   0 : External clock from EXCLK pin is valid
   1 : External clock from EXCLK pin is invalid
- (Port mode)
-  0 : Port
-  1 : Port
+ (Input port mode)
+  0 : Input port
+  1 : Input port
 */
-#define BSP_CFG_HISYSCLK_OPERATION (0)
+#define BSP_CFG_HISYSCLK_OPERATION (1)
 
-/* Subsystem clock oscillator clock frequency(fSX)
+/* Subsystem clock pin operation mode
    Clock operation mode control register(CMC)
     XTSEL/EXCLKS/OSCSELS
- 0 : Port
- 1 : fXT(Crystal resonator connection)
- 2 : fEXS(External clock input)
+ 0 : Port mode
+ 1 : XT1 oscillation mode
+ 2 : External clock input mode
 */
-#define BSP_CFG_SUBCLK_SOURCE (1)
+#define BSP_CFG_SUBCLK_SOURCE (0)
 
-/* Subsystem clock oscillator clock frequency(fSX)
+/* Subsystem clock operation control
    Clock operation status control register(CSC)
    XTSTOP
  (XT1 oscillation mode)
   0 : XT1 oscillator operating
   1 : XT1 oscillator stopped
  (External clock input mode)
-  0 : External clock from EXCLKS pin is valid
-  1 : External clock from EXCLKS pin is invalid
- (Port mode)
+  0 : External clock from the EXCLKS pin is valid
+  1 : External clock from the EXCLKS pin is invalid
+ (Input port mode)
   0 : Input port
   1 : Input port
 */
-#define BSP_CFG_SUBCLK_OPERATION (0)
+#define BSP_CFG_SUBCLK_OPERATION (1)
 
 /* Main system clock(fMAIN) operation control
    System clock control register(CKC)
@@ -965,12 +932,12 @@
 */
 #define BSP_CFG_FCLK_SOURCE (0)
 
-/* XT1 oscillator oscillation mode selection
+/* Selection of XT1 oscillator oscillation mode
    Clock operation mode control register(CMC)
    AMPHS1, AMPHS0
  0 : Low power consumption oscillation (default)
  1 : Normal oscillation
- 2 : Extra low power consumption oscillation 
+ 2 : Ultra-low power consumption oscillation 
  3 : Setting prohibited
 */
 #define BSP_CFG_XT1_OSCMODE (0)
@@ -987,39 +954,44 @@
  Set the value corresponding to the setting of BSP_CFG_FMX_HZ
 */
 
-/* X1 clock oscillation stabilization time selection
+/* CPU/peripheral hardware clock frequency in Hz
+   (The frequency set when code generation is executed)
+*/
+#define BSP_CFG_FCLK_HZ (16000000)
+
+/* Oscillation stabilization time selection
    Oscillation stabilization time select register(OSTS)
    OSTS2, OSTS1, OSTS0
- 0 : 2^8/fX(fX = 10MHz : 25.6us, fX = 20MHz : 12.8us)
- 1 : 2^9/fX(fX = 10MHz : 51.2us, fX = 20MHz : 25.6us)
- 2 : 2^10/fX(fX = 10MHz : 102us, fX = 20MHz : 51.2us)
- 3 : 2^11/fX(fX = 10MHz : 204us, fX = 20MHz : 102us)
- 4 : 2^13/fX(fX = 10MHz : 819us, fX = 20MHz : 409us)
- 5 : 2^15/fX(fX = 10MHz : 3.27ms, fX = 20MHz : 1.63ms)
- 6 : 2^17/fX(fX = 10MHz : 13.1ms, fX = 20MHz : 6.55ms)
- 7 : 2^18/fX(fX = 10MHz : 26.2ms, fX = 20MHz : 13.1ms)
+ 0 : 2^8/fX(fX = 10MHz : 27.2us, fX = 16MHz : 17.0us)
+ 1 : 2^9/fX(fX = 10MHz : 52.8us, fX = 16MHz : 33.0us)
+ 2 : 2^10/fX(fX = 10MHz : 104us, fX = 16MHz : 65.0us)
+ 3 : 2^11/fX(fX = 10MHz : 206us, fX = 16MHz : 129us)
+ 4 : 2^13/fX(fX = 10MHz : 820us, fX = 16MHz : 513us)
+ 5 : 2^15/fX(fX = 10MHz : 3.27ms, fX = 16MHz : 2.05ms)
+ 6 : 2^17/fX(fX = 10MHz : 13.1ms, fX = 16MHz : 8.19ms)
+ 7 : 2^18/fX(fX = 10MHz : 26.2ms, fX = 16MHz : 16.4ms)
 */
-#define BSP_CFG_X1_WAIT_TIME_SEL (0)
+#define BSP_CFG_X1_WAIT_TIME_SEL (7)
 
-/* Setting in STOP mode or in HALT mode while the CPU is opeating with subsystem clock.
+/* Setting in STOP mode and in HALT mode while the CPU is opeating with subsystem clock.
    Operation speed mode control register(OSMC)
    RTCLPC
- 0 : Enables supply of subsystem clock X to peripheral functions.
+ 0 : Enables supply of the subsystem clock to peripheral functions.
  1 : Stops supply of the subsystem clock to peripheral functions
-     other than the realtime clock2 and 12-bit interval timer.
+     other than real-time clock 2 and 12-bit interval timer.
 */
-#define BSP_CFG_ALLOW_FSUB_IN_STOPHALT (1)
+#define BSP_CFG_ALLOW_FSUB_IN_STOPHALT (0)
 
-/* Selection of the operating clock for the realtime clock2, 32-bit interval timer.
+/* Selection of the operating clock for real-time clock 2, 12-bit interval timer.
    Operation speed mode control register(OSMC)
    WUTMMCK0
  0 : Subsystem clock
- 1 : Low-speed on-chip oscillator clock
+ 1 : Low-speed on-chip oscillator clock(fIL)
 */
-#define BSP_CFG_RTC_OUT_CLK_SOURCE (1)
+#define BSP_CFG_RTC_OUT_CLK_SOURCE (0)
 
-/* Selection of high-speed on-chip oscillator clock frequency
-   High-Speed On-Chip Oscillator Frequency Select Register(HOCODIV)
+/* High-speed on-chip oscillator clock frequency selection
+   High-speed on-chip oscillator frequency select register(HOCODIV)
    HOCODIV2/HOCODIV1/HOCODIV0
   1 : fIH = 16 MHz
   2 : fIH = 8 MHz
@@ -1053,12 +1025,14 @@
    you will need to specify a setting that matches your environment. */
 
 /* Subsystem clock oscillation stabilization time.
-   If the main system clock is 16 MHz, 350000 means 306 ms. */
-#define BSP_CFG_SUBWAITTIME              (350000U)
+   If the main system clock is 16 MHz, 400000 means 300.2 ms. */
+#define BSP_CFG_SUBWAITTIME              (400000U)
 
 /* High-speed on-chip oscillator clock stabilization time.
-   If the main system clock is 16 MHz, 7 means 7 us. */
-#define BSP_CFG_FIHWAITTIME              (7U)
+   If the main system clock is 16 MHz, 75 means 28.2 us.
+    Required wait time : 27 us.
+    Referenced Users Manual version : Rev.1.30 */
+#define BSP_CFG_FIHWAITTIME              (75U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the
    following callback definitions AND provide a call back function name for the respective callback
@@ -1074,7 +1048,7 @@
 #define BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED    (0)
 #define BSP_CFG_USER_WARM_START_POST_C_FUNCTION                my_sw_warmstart_postc_function
 
-#define BSP_CFG_WDT_REFRESH_ENABLE                             (1)
+#define BSP_CFG_WDT_REFRESH_ENABLE                             (0)
 
 #endif /* R_BSP_CONFIG_REF_HEADER_FILE */
 

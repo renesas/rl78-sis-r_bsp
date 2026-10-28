@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2024 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : iodefine_ext.h
 * Description  : 
@@ -24,6 +11,8 @@
 * History : DD.MM.YYYY Version  Description
 *         : 03.12.2024 1.90     First Release.
 *         : 01.04.2025 1.91     Updated device file.
+*         : 25.09.2025 1.92     Changed the disclaimer.
+*                               Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __INTRINSIC_FUNCTIONS
@@ -805,10 +794,6 @@ union un_ctsuchac4 {
 	unsigned char ctsuchac4;
 	__BITS8 BIT;
 };
-union un_ctsuchac5 {
-	unsigned char ctsuchac5;
-	__BITS8 BIT;
-};
 union un_ctsuchtrc0 {
 	unsigned char ctsuchtrc0;
 	__BITS8 BIT;
@@ -827,10 +812,6 @@ union un_ctsuchtrc3 {
 };
 union un_ctsuchtrc4 {
 	unsigned char ctsuchtrc4;
-	__BITS8 BIT;
-};
-union un_ctsuchtrc5 {
-	unsigned char ctsuchtrc5;
 	__BITS8 BIT;
 };
 union un_ctsust1 {
@@ -1737,8 +1718,6 @@ union un_tkbpactl12 {
 #define CTSUCHACBL (*(volatile unsigned short *)0xF0510)
 #define CTSUCHAC4 (*(volatile union un_ctsuchac4 *)0xF0510).ctsuchac4
 #define CTSUCHAC4_bit (*(volatile union un_ctsuchac4 *)0xF0510).BIT
-#define CTSUCHAC5 (*(volatile union un_ctsuchac5 *)0xF0511).ctsuchac5
-#define CTSUCHAC5_bit (*(volatile union un_ctsuchac5 *)0xF0511).BIT
 #define CTSUCHTRCAL (*(volatile unsigned short *)0xF0514)
 #define CTSUCHTRC0 (*(volatile union un_ctsuchtrc0 *)0xF0514).ctsuchtrc0
 #define CTSUCHTRC0_bit (*(volatile union un_ctsuchtrc0 *)0xF0514).BIT
@@ -1752,8 +1731,6 @@ union un_tkbpactl12 {
 #define CTSUCHTRCBL (*(volatile unsigned short *)0xF0518)
 #define CTSUCHTRC4 (*(volatile union un_ctsuchtrc4 *)0xF0518).ctsuchtrc4
 #define CTSUCHTRC4_bit (*(volatile union un_ctsuchtrc4 *)0xF0518).BIT
-#define CTSUCHTRC5 (*(volatile union un_ctsuchtrc5 *)0xF0519).ctsuchtrc5
-#define CTSUCHTRC5_bit (*(volatile union un_ctsuchtrc5 *)0xF0519).BIT
 #define CTSUSRL (*(volatile unsigned short *)0xF051C)
 #define CTSUST1 (*(volatile union un_ctsust1 *)0xF051C).ctsust1
 #define CTSUST1_bit (*(volatile union un_ctsust1 *)0xF051C).BIT

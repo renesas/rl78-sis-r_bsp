@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products.
-* No other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
-* applicable laws, including copyright laws.
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIESREGARDING THIS SOFTWARE, WHETHER EXPRESS, IMPLIED
-* OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-* NON-INFRINGEMENT.  ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY
-* LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE FOR ANY DIRECT,
-* INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR
-* ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability
-* of this software. By using this software, you agree to the additional terms and conditions found by accessing the
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2025 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 -->
 <refinfo>
 
@@ -69,10 +56,10 @@
     <package>
         <type>RL78</type>
         <name>r_bsp</name>
-        <version>1.91</version>
-        <zipsource>r_bsp_v1.91.zip</zipsource>
+        <version>1.92</version>
+        <zipsource>r_bsp_v1.92.zip</zipsource>
         <application>Generic</application>
-        <desc>Board Support Packages. - v1.91</desc>
+        <desc>Board Support Packages. - v1.92</desc>
         <details>The r_bsp package provides a foundation for code to be built on top of. It provides startup code, iodefines, and MCU information for different boards. There are 2 folders that make up the r_bsp package. The 'mcu' folder contains files that are common to a MCU group. These files provide functionality such as easy register access, CPU functions, and a file named 'mcu_info.h' for each MCU group. The 'mcu_info.h' file has information about the MCU on the board and is configured based on the information given in r_bsp_config.h. The information in 'mcu_info.h' is used to help configure Renesas middleware that uses the r_bsp package. The 'board' folder has a folder with startup code for each supported board.  Which MCU and board is chosen is decided by the settings in 'platform.h'. The user can choose which board they are using by uncommenting the include path that applies to their board. For example, if you are using the RSK+RX64M then you would uncomment the #include "./board/generic_rx64m/r_bsp.h" include path. Users are encouraged to add their own boards to the 'board' directory. BSPs are configured by using the r_bsp_config.h file. Each board will have a reference configuration file named r_bsp_config_reference.h. The user should copy this file to their project, rename it to r_bsp_config.h, and use the options inside the file to configure the BSP for their project.</details>
         <function>BSP</function>
         <incdir>r_bsp</incdir>
@@ -92,6 +79,7 @@
             <file>register_access/iccrl/iodefine_ext.h</file>
             <file>register_access/llvm/iodefine.h</file>
             <file>register_access/llvm/iodefine_ext.h</file>
+            <file>License.txt</file>
         </toolchainfile>
         <toolchainfile>
             <product>ICCRL78</product>
@@ -103,6 +91,7 @@
             <file>register_access/ccrl/iodefine.h</file>
             <file>register_access/llvm/iodefine.h</file>
             <file>register_access/llvm/iodefine_ext.h</file>
+            <file>License.txt</file>
         </toolchainfile>
         <toolchainfile>
             <product>LLVMRL78</product>
@@ -116,6 +105,7 @@
             <file>register_access/iccrl/intrinsics.h</file>
             <file>register_access/iccrl/iodefine.h</file>
             <file>register_access/iccrl/iodefine_ext.h</file>
+            <file>License.txt</file>
         </toolchainfile>
     </unsupportedfile>
 </refinfo>  

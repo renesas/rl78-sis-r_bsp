@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2024 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : r_bsp_init.c
 * H/W Platform : GENERIC_RL78_L23
@@ -24,7 +11,8 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 29.11.2024 1.90     First Release
-
+*         : 06.08.2025 1.92     Changed the disclaimer.
+*                               Changed to set only valid bits of BSP_CFG_PIORxx.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -114,16 +102,48 @@ void bsp_init_system(void)
             (BSP_CFG_PIOR103 << 3U) | (BSP_CFG_PIOR104 << 4U) | (BSP_CFG_PIOR105 << 5U) |
             (BSP_CFG_PIOR106 << 6U) | (BSP_CFG_PIOR107 << 7U);
 
+#if BSP_CFG_MCU_PART_PIN_NUM < 3
+    /* 52,48,44-pin */
+    PIOR11 = BSP_CFG_PIOR110 | (BSP_CFG_PIOR111 << 1U) | (BSP_CFG_PIOR112 << 2U) |
+            (BSP_CFG_PIOR113 << 3U) | (BSP_CFG_PIOR114 << 4U) | (BSP_CFG_PIOR115 << 5U);
+#else
+    /* 100,80,64-pin */
     PIOR11 = BSP_CFG_PIOR110 | (BSP_CFG_PIOR111 << 1U) | (BSP_CFG_PIOR112 << 2U) |
             (BSP_CFG_PIOR113 << 3U) | (BSP_CFG_PIOR114 << 4U) | (BSP_CFG_PIOR115 << 5U) |
             (BSP_CFG_PIOR116 << 6U) | (BSP_CFG_PIOR117 << 7U);
+#endif
 
     PIOR12 = BSP_CFG_PIOR120 | (BSP_CFG_PIOR121 << 1U) | (BSP_CFG_PIOR122 << 2U) |
             (BSP_CFG_PIOR123 << 3U);
 
+#if BSP_CFG_MCU_PART_ROM_SIZE < 2
+    /* ROM capacity 64 or 128 KB */
+#if BSP_CFG_MCU_PART_PIN_NUM < 4
+    /* 64,52,48,44-pin */
+    PIOR13 = BSP_CFG_PIOR130 | (BSP_CFG_PIOR131 << 1U) | (BSP_CFG_PIOR132 << 2U) |
+            (BSP_CFG_PIOR133 << 3U);
+#else
+    /* 100,80-pin */
     PIOR13 = BSP_CFG_PIOR130 | (BSP_CFG_PIOR131 << 1U) | (BSP_CFG_PIOR132 << 2U) |
             (BSP_CFG_PIOR133 << 3U) | (BSP_CFG_PIOR134 << 4U) | (BSP_CFG_PIOR135 << 5U) |
             (BSP_CFG_PIOR136 << 6U) | (BSP_CFG_PIOR137 << 7U);
+#endif
+#else
+#if BSP_CFG_MCU_PART_PIN_NUM < 1
+    /* 44-pin */
+    PIOR13 = BSP_CFG_PIOR130 | (BSP_CFG_PIOR131 << 1U) | (BSP_CFG_PIOR132 << 2U) |
+            (BSP_CFG_PIOR133 << 3U);
+#elif BSP_CFG_MCU_PART_PIN_NUM < 4
+    /* 64,52,48-pin */
+    PIOR13 = BSP_CFG_PIOR130 | (BSP_CFG_PIOR131 << 1U) | (BSP_CFG_PIOR132 << 2U) |
+            (BSP_CFG_PIOR133 << 3U) | (BSP_CFG_PIOR134 << 4U) | (BSP_CFG_PIOR135 << 5U);
+#else
+    /* 100,80-pin */
+    PIOR13 = BSP_CFG_PIOR130 | (BSP_CFG_PIOR131 << 1U) | (BSP_CFG_PIOR132 << 2U) |
+            (BSP_CFG_PIOR133 << 3U) | (BSP_CFG_PIOR134 << 4U) | (BSP_CFG_PIOR135 << 5U) |
+            (BSP_CFG_PIOR136 << 6U) | (BSP_CFG_PIOR137 << 7U);
+#endif
+#endif
 
     /* If the window open period of watchdog timer is set to 50%, then call it. */
 #if BSP_CFG_WDT_REFRESH_ENABLE == 2

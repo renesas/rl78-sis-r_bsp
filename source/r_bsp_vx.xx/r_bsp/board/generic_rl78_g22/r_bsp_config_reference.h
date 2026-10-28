@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2022 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2022 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : r_bsp_config_reference.h
 * H/W Platform : GENERIC_RL78_G22
@@ -32,6 +19,10 @@
 *                               - BSP_CFG_FIHWAITTIME
 *                               - BSP_CFG_FIMWAITTIME
 *                               - BSP_CFG_FILWAITTIME
+*         : 05.08.2025 1.92     Changed the disclaimer.
+*                               Reviewed the initial values of macro definitions.
+*                               Reviewed the comments of macro definitions.
+*                               Added macro definitions for waiting process.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -86,10 +77,10 @@
 
 #if defined(__ICCRL78__)
 /* Option byte setting(When using IAR) */
-#define BSP_CFG_OPTBYTE0_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE1_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE2_VALUE (0xE0U)
-#define BSP_CFG_OPTBYTE3_VALUE (0x04U)
+#define BSP_CFG_OPTBYTE0_VALUE (0xEFU)
+#define BSP_CFG_OPTBYTE1_VALUE (0x3AU)
+#define BSP_CFG_OPTBYTE2_VALUE (0xE8U)
+#define BSP_CFG_OPTBYTE3_VALUE (0x84U)
 /* Security ID Codes for On-Chip Debugging setting(When using IAR) */
 #define BSP_CFG_SECUID0_VALUE (0x00U)
 #define BSP_CFG_SECUID1_VALUE (0x00U)
@@ -323,7 +314,7 @@
  1 : X1 oscillation mode
  2 : External clock input mode
 */
-#define BSP_CFG_HISYSCLK_SOURCE (1)
+#define BSP_CFG_HISYSCLK_SOURCE (0)
 
 /* High-speed system clock operation control
    Clock operation status control register(CSC)
@@ -338,7 +329,7 @@
   0 : I/O port
   1 : I/O port
 */
-#define BSP_CFG_HISYSCLK_OPERATION (0)
+#define BSP_CFG_HISYSCLK_OPERATION (1)
 
 /* Subsystem clock pin operation mode
    Clock operation mode control register(CMC)
@@ -350,7 +341,7 @@
  1 : XT1 oscillation mode
  2 : External clock input mode
 */
-#define BSP_CFG_SUBCLK_SOURCE (1)
+#define BSP_CFG_SUBCLK_SOURCE (0)
 
 /* Subsystem clock operation control
    Clock operation status control register(CSC)
@@ -365,7 +356,7 @@
   0 : Input port
   1 : Input port
 */
-#define BSP_CFG_SUBCLK_OPERATION (0)
+#define BSP_CFG_SUBCLK_OPERATION (1)
 
 /* Middle-speed on-chip oscillator clock operation control
    Clock operation status control register(CSC)
@@ -373,7 +364,7 @@
  0 : The middle-speed on-chip oscillator is stopped.
  1 : The middle-speed on-chip oscillator runs.
 */
-#define BSP_CFG_MOCO_OPERATION (1)
+#define BSP_CFG_MOCO_OPERATION (0)
 
 /* Main on-chip oscillator clock(fOCO) operation control
    System clock control register(CKC)
@@ -429,6 +420,11 @@
  Set the value corresponding to the setting of BSP_CFG_FMX_HZ
 */
 
+/* CPU/peripheral hardware clock frequency in Hz
+   (The frequency set when code generation is executed)
+*/
+#define BSP_CFG_FCLK_HZ (32000000)
+
 /* Selection of the oscillation stabilization time
    Oscillation stabilization time select register(OSTS)
    OSTS2, OSTS1, OSTS0
@@ -441,7 +437,7 @@
  6 : 2^17/fX(fX = 10MHz : 13.1ms, fX = 20MHz : 6.55ms)
  7 : 2^18/fX(fX = 10MHz : 26.2ms, fX = 20MHz : 13.1ms)
 */
-#define BSP_CFG_X1_WAIT_TIME_SEL (0)
+#define BSP_CFG_X1_WAIT_TIME_SEL (7)
 
 /* Setting in STOP mode or in HALT mode while the CPU is operating with subsystem clock X.
    Subsystem clock supply mode control register(OSMC)
@@ -449,7 +445,7 @@
  0 : Enables supply of subsystem clock X to peripheral functions.
  1 : Stops supply of the subsystem clock to peripheral functions other than the realtime clock.
 */
-#define BSP_CFG_ALLOW_FSUB_IN_STOPHALT (1)
+#define BSP_CFG_ALLOW_FSUB_IN_STOPHALT (0)
 
 /* Selection of the operating clock for the realtime clock, 32-bit interval timer, 
    serial interface UARTA0, and clock output/buzzer output controller
@@ -458,7 +454,7 @@
  0 : Subsystem clock X
  1 : Low-speed on-chip oscillator clock
 */
-#define BSP_CFG_RTC_OUT_CLK_SOURCE (1)
+#define BSP_CFG_RTC_OUT_CLK_SOURCE (0)
 
 /* Selection of the high-speed on-chip oscillator clock frequency
    High-speed on-chip oscillator frequency select register(HOCODIV)
@@ -489,7 +485,7 @@
  0 : Starting of the high-speed on-chip oscillator is at normal speed.
  1 : Starting of the high-speed on-chip oscillator is at high speed.
 */
-#define BSP_CFG_WAKEUP_MODE (1)
+#define BSP_CFG_WAKEUP_MODE (0)
 
 /* Selected division ratio for the high-speed system clock
    High-speed system clock division register(MOSCDIV)
@@ -536,19 +532,25 @@
    you will need to specify a setting that matches your environment. */
 
 /* Subsystem clock oscillation stabilization wait time.
-   If the main system clock is 32 MHz, 800000 means 550 ms. */
+   If the main system clock is 32 MHz, 800000 means 300.44 ms. */
 #define BSP_CFG_SUBWAITTIME              (800000U)
 
 /* High-speed on-chip oscillator clock oscillation stabilization wait time.
-   If the main system clock 32 MHz, 30 means 22.7us. */
+   If the main system clock 32 MHz, 30 means 5.62 us.
+    Required wait time : 5 us.
+    Referenced Users Manual version : Rev.1.10 */
 #define BSP_CFG_FIHWAITTIME              (30U)
 
 /* Middle-speed on-chip oscillator clock oscillation stabilization wait time.
-   If the main system  clock 32 MHz, 5 means 4.8us. */
-#define BSP_CFG_FIMWAITTIME              (5U)
+   If the main system  clock 32 MHz, 6 means 1.13 us.
+    Required wait time : 1 us.
+    Referenced Users Manual version : Rev.1.10 */
+#define BSP_CFG_FIMWAITTIME              (6U)
 
 /* Low-speed on-chip oscillator clock oscillation stabilization wait time.
-   If the main system clock 32 MHz, 450 means 325us. */
+   If the main system clock 32 MHz, 450 means 84.84 us.
+    Required wait time : 80 us.
+    Referenced Users Manual version : Rev.1.10 */
 #define BSP_CFG_FILWAITTIME              (450U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the

@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2022 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2022 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : r_bsp_init.c
 * H/W Platform : GENERIC_RL78_F24
@@ -25,6 +12,8 @@
 * History : DD.MM.YYYY Version  Description
 *         : 28.02.2022 1.20     First Release
 *         : 07.06.2024 1.70     Edited comments as necessary.
+*         : 04.07.2025 1.92     Changed the disclaimer.
+*                               Reviewed the comments of macro definition BSP_CFG_PIORxx.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -91,7 +80,7 @@ void bsp_init_system(void)
             (BSP_CFG_PIOR16 << 6U) | (BSP_CFG_PIOR17 << 7U);
 
 #if BSP_CFG_MCU_PART_PIN_NUM < 3
-    /* The 64-, 48-, and 32-pin products do not have the PIOR2 register. */
+    /* The 64,48,32-pin products do not have the PIOR2 register. */
 #else
     /* 100,80-pin */
     PIOR2 = BSP_CFG_PIOR20 | (BSP_CFG_PIOR21 << 1U) | (BSP_CFG_PIOR22 << 2U) |
@@ -100,7 +89,7 @@ void bsp_init_system(void)
 #endif
 
 #if BSP_CFG_MCU_PART_PIN_NUM < 3
-    /* The 64-, 48-, and 32-pin products do not have the PIOR3 register. */
+    /* The 64,48,32-pin products do not have the PIOR3 register. */
 #else
     /* 100,80-pin */
     PIOR3 = BSP_CFG_PIOR30 | (BSP_CFG_PIOR31 << 1U) | (BSP_CFG_PIOR32 << 2U) |
@@ -123,7 +112,7 @@ void bsp_init_system(void)
     PIOR5 = BSP_CFG_PIOR50 | (BSP_CFG_PIOR52 << 2U) | (BSP_CFG_PIOR53 << 3U);
 
 #if BSP_CFG_MCU_PART_PIN_NUM < 3
-    /* The 64-, 48-, and 32-pin products do not have the PIOR6 register. */
+    /* The 64,48,32-pin products do not have the PIOR6 register. */
 #else
     /* 100,80-pin */
     PIOR6 = BSP_CFG_PIOR60 | (BSP_CFG_PIOR61 << 1U) | (BSP_CFG_PIOR62 << 2U) |
@@ -135,7 +124,7 @@ void bsp_init_system(void)
     PIOR7 = BSP_CFG_PIOR70 | (BSP_CFG_PIOR71 << 1U) | (BSP_CFG_PIOR73 << 3U);
 
 #if BSP_CFG_MCU_PART_PIN_NUM < 4
-    /* The 80-, 64-, 48-, and 32-pin products do not have the PIOR8 register. */
+    /* The 80,64,48,32-pin products do not have the PIOR8 register. */
 #else
     /* 100-pin */
     PIOR8 = BSP_CFG_PIOR80;

@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2021 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : r_bsp_config_reference.h
 * H/W Platform : GENERIC_RL78_G23
@@ -78,6 +65,10 @@
 *                               - BSP_CFG_FIHWAITTIME
 *                               - BSP_CFG_FIMWAITTIME
 *                               - BSP_CFG_FILWAITTIME
+*         : 05.08.2025 1.92     Changed the disclaimer.
+*                               Reviewed the initial values of macro definitions.
+*                               Reviewed the comments of macro definitions.
+*                               Added macro definitions for waiting process.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -109,7 +100,7 @@
  L = 512    : 0x5
  N = 768    : 0x6
 */
-#define BSP_CFG_MCU_PART_ROM_SIZE (0x3)
+#define BSP_CFG_MCU_PART_ROM_SIZE (0x6)
 
 /* Pin count
  A = 30-pin  : 0x0
@@ -138,10 +129,10 @@
 
 #if defined(__ICCRL78__)
 /* Option byte setting(When using IAR) */
-#define BSP_CFG_OPTBYTE0_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE1_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE2_VALUE (0xE0U)
-#define BSP_CFG_OPTBYTE3_VALUE (0x04U)
+#define BSP_CFG_OPTBYTE0_VALUE (0xEFU)
+#define BSP_CFG_OPTBYTE1_VALUE (0x3AU)
+#define BSP_CFG_OPTBYTE2_VALUE (0xE8U)
+#define BSP_CFG_OPTBYTE3_VALUE (0x84U)
 /* Security ID Codes for On-Chip Debugging setting(When using IAR) */
 #define BSP_CFG_SECUID0_VALUE (0x00U)
 #define BSP_CFG_SECUID1_VALUE (0x00U)
@@ -173,7 +164,7 @@
      TI06/TO06 - P11
      TI07/TO07 - P10
 
-   44-pin
+   52/48/44-pin
  0 : TI02/TO02 - P17
      TI03/TO03 - P31
      TI04/TO04 - These functions are not available for use.
@@ -187,49 +178,7 @@
      TI06/TO06 - P11
      TI07/TO07 - P10
 
-   48-pin
- 0 : TI02/TO02 - P17
-     TI03/TO03 - P31
-     TI04/TO04 - These functions are not available for use.
-     TI05/TO05 - These functions are not available for use.
-     TI06/TO06 - These functions are not available for use.
-     TI07/TO07 - P41
- 1 : TI02/TO02 - P15
-     TI03/TO03 - P14
-     TI04/TO04 - P13
-     TI05/TO05 - P12
-     TI06/TO06 - P11
-     TI07/TO07 - P10
-
-   52-pin
- 0 : TI02/TO02 - P17
-     TI03/TO03 - P31
-     TI04/TO04 - These functions are not available for use.
-     TI05/TO05 - These functions are not available for use.
-     TI06/TO06 - These functions are not available for use.
-     TI07/TO07 - P41
- 1 : TI02/TO02 - P15
-     TI03/TO03 - P14
-     TI04/TO04 - P13
-     TI05/TO05 - P12
-     TI06/TO06 - P11
-     TI07/TO07 - P10
-
-   64-pin
- 0 : TI02/TO02 - P17
-     TI03/TO03 - P31
-     TI04/TO04 - P42
-     TI05/TO05 - P05
-     TI06/TO06 - P06
-     TI07/TO07 - P41
- 1 : TI02/TO02 - P15
-     TI03/TO03 - P14
-     TI04/TO04 - P13
-     TI05/TO05 - P12
-     TI06/TO06 - P11
-     TI07/TO07 - P10
-
-   80-pin
+   80/64-pin
  0 : TI02/TO02 - P17
      TI03/TO03 - P31
      TI04/TO04 - P42
@@ -260,75 +209,7 @@
 #define BSP_CFG_PIOR0 (0)
 
 /* Peripheral I/O redirection register(PIOR-PIOR1)
-   40/36/32/30-pin
- 0 : INTP10 - These functions are not available for use.
-     INTP11 - These functions are not available for use.
-     TxD2   - P13
-     RxD2   - P14
-     SCL20  - P15
-     SDA20  - P14
-     SI20   - P14
-     SO20   - P13
-     SCK20  - P15
-     TxD0   - P12
-     RxD0   - P11
-     SCL00  - P10
-     SDA00  - P11
-     SI00   - P11
-     SO00   - P12
-     SCK00  - P10
- 1 : INTP10 - These functions are not available for use.
-     INTP11 - These functions are not available for use.
-     TxD2   - These functions are not available for use.
-     RxD2   - These functions are not available for use.
-     SCL20  - These functions are not available for use.
-     SDA20  - These functions are not available for use.
-     SI20   - These functions are not available for use.
-     SO20   - These functions are not available for use.
-     SCK20  - These functions are not available for use.
-     TxD0   - P17
-     RxD0   - P16
-     SCL00  - These functions are not available for use.
-     SDA00  - These functions are not available for use.
-     SI00   - These functions are not available for use.
-     SO00   - These functions are not available for use.
-     SCK00  - These functions are not available for use.
-
-   44-pin
- 0 : INTP10 - These functions are not available for use.
-     INTP11 - These functions are not available for use.
-     TxD2   - P13
-     RxD2   - P14
-     SCL20  - P15
-     SDA20  - P14
-     SI20   - P14
-     SO20   - P13
-     SCK20  - P15
-     TxD0   - P12
-     RxD0   - P11
-     SCL00  - P10
-     SDA00  - P11
-     SI00   - P11
-     SO00   - P12
-     SCK00  - P10
- 1 : INTP10 - These functions are not available for use.
-     INTP11 - These functions are not available for use.
-     TxD2   - These functions are not available for use.
-     RxD2   - These functions are not available for use.
-     SCL20  - These functions are not available for use.
-     SDA20  - These functions are not available for use.
-     SI20   - These functions are not available for use.
-     SO20   - These functions are not available for use.
-     SCK20  - These functions are not available for use.
-     TxD0   - P17
-     RxD0   - P16
-     SCL00  - These functions are not available for use.
-     SDA00  - These functions are not available for use.
-     SI00   - These functions are not available for use.
-     SO00   - These functions are not available for use.
-     SCK00  - These functions are not available for use.
-
-   48-pin
+   48/44/40/36/32/30-pin
  0 : INTP10 - These functions are not available for use.
      INTP11 - These functions are not available for use.
      TxD2   - P13
@@ -430,41 +311,7 @@
      SO00   - P17
      SCK00  - P55
 
-   80-pin
- 0 : INTP10 - P76
-     INTP11 - P77
-     TxD2   - P13
-     RxD2   - P14
-     SCL20  - P15
-     SDA20  - P14
-     SI20   - P14
-     SO20   - P13
-     SCK20  - P15
-     TxD0   - P12
-     RxD0   - P11
-     SCL00  - P10
-     SDA00  - P11
-     SI00   - P11
-     SO00   - P12
-     SCK00  - P10
- 1 : INTP10 - P110
-     INTP11 - P111
-     TxD2   - P77
-     RxD2   - P76
-     SCL20  - These functions are not available for use.
-     SDA20  - These functions are not available for use.
-     SI20   - These functions are not available for use.
-     SO20   - These functions are not available for use.
-     SCK20  - These functions are not available for use.
-     TxD0   - P17
-     RxD0   - P16
-     SCL00  - These functions are not available for use.
-     SDA00  - These functions are not available for use.
-     SI00   - P16
-     SO00   - P17
-     SCK00  - P55
-
-   128/100-pin
+   128/100/80-pin
  0 : INTP10 - P76
      INTP11 - P77
      TxD2   - P13
@@ -501,43 +348,7 @@
 #define BSP_CFG_PIOR1 (0)
 
 /* Peripheral I/O redirection register(PIOR-PIOR2)
-   40/36/32/30-pin
- 0 : SCLA0 - P60
-     SDAA0 - P61
- 1 : SCLA0 - P14
-     SDAA0 - P13
-
-   44-pin
- 0 : SCLA0 - P60
-     SDAA0 - P61
- 1 : SCLA0 - P14
-     SDAA0 - P13
-
-   48-pin
- 0 : SCLA0 - P60
-     SDAA0 - P61
- 1 : SCLA0 - P14
-     SDAA0 - P13
-
-   52-pin
- 0 : SCLA0 - P60
-     SDAA0 - P61
- 1 : SCLA0 - P14
-     SDAA0 - P13
-
-   64-pin
- 0 : SCLA0 - P60
-     SDAA0 - P61
- 1 : SCLA0 - P14
-     SDAA0 - P13
-
-   80-pin
- 0 : SCLA0 - P60
-     SDAA0 - P61
- 1 : SCLA0 - P14
-     SDAA0 - P13
-
-   128/100-pin
+   128/100/80/64/52/48/44/40/36/32/30-pin
  0 : SCLA0 - P60
      SDAA0 - P61
  1 : SCLA0 - P14
@@ -546,233 +357,33 @@
 #define BSP_CFG_PIOR2 (0)
 
 /* Peripheral I/O redirection register(PIOR-PIOR3)
-   40/36/32/30-pin
+   44/40/36/32/30-pin
  0 : PCLBUZ0 - These functions are not available for use. Set this bit to 0(default value).
  1 : PCLBUZ0 - These functions are not available for use. Set this bit to 0(default value).
 
-   44-pin
- 0 : PCLBUZ0 - These functions are not available for use. Set this bit to 0(default value).
- 1 : PCLBUZ0 - These functions are not available for use. Set this bit to 0(default value).
-
-   48-pin
- 0 : PCLBUZ0 - P140
- 1 : PCLBUZ0 - P31
-
-   52-pin
- 0 : PCLBUZ0 - P140
- 1 : PCLBUZ0 - P31
-
-   64-pin
- 0 : PCLBUZ0 - P140
- 1 : PCLBUZ0 - P31
-
-   80-pin
- 0 : PCLBUZ0 - P140
- 1 : PCLBUZ0 - P31
-
-   128/100-pin
+   128/100/80/64/52/48-pin
  0 : PCLBUZ0 - P140
  1 : PCLBUZ0 - P31
 */
 #define BSP_CFG_PIOR3 (0)
 
 /* Peripheral I/O redirection register(PIOR-PIOR4)
-   40/36/32/30-pin
+   52/48/44/40/36/32/30-pin
  0 : PCLBUZ1 - These functions are not available for use. Set this bit to 0(default value).
      INTP5   - These functions are not available for use. Set this bit to 0(default value).
  1 : PCLBUZ1 - These functions are not available for use. Set this bit to 0(default value).
      INTP5   - These functions are not available for use. Set this bit to 0(default value).
 
-   44-pin
- 0 : PCLBUZ1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP5   - These functions are not available for use. Set this bit to 0(default value).
- 1 : PCLBUZ1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP5   - These functions are not available for use. Set this bit to 0(default value).
-
-   48-pin
- 0 : PCLBUZ1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP5   - These functions are not available for use. Set this bit to 0(default value).
- 1 : PCLBUZ1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP5   - These functions are not available for use. Set this bit to 0(default value).
-
-   52-pin
- 0 : PCLBUZ1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP5   - These functions are not available for use. Set this bit to 0(default value).
- 1 : PCLBUZ1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP5   - These functions are not available for use. Set this bit to 0(default value).
-
-   64-pin
+   128/100/80/64-pin
  0 : PCLBUZ1 - P141
-     INTP5   - P55
- 1 : PCLBUZ1 - P16
-     INTP5   - P12
-
-   80-pin
- 0 : PCLBUZ1 - P141
-     INTP5   - P55
- 1 : PCLBUZ1 - P16
-     INTP5   - P12
-
-   128/100-pin
- 0 : PCLBUZ1 - P141
-     INTP5   - P55
- 1 : PCLBUZ1 - P16
+     INTP5   - P16
+ 1 : PCLBUZ1 - P55
      INTP5   - P12
 */
 #define BSP_CFG_PIOR4 (0)
 
 /* Peripheral I/O redirection register(PIOR-PIOR5)
-   40/36/32/30-pin
- 0 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP3 - These functions are not available for use. Set this bit to 0(default value).
-     INTP4 - These functions are not available for use. Set this bit to 0(default value).
-     INTP6 - These functions are not available for use. Set this bit to 0(default value).
-     INTP7 - These functions are not available for use. Set this bit to 0(default value).
-     INTP8 - These functions are not available for use. Set this bit to 0(default value).
-     INTP9 - These functions are not available for use. Set this bit to 0(default value).
-     TxD1  - These functions are not available for use. Set this bit to 0(default value).
-     RxD1  - These functions are not available for use. Set this bit to 0(default value).
-     SCL10 - These functions are not available for use. Set this bit to 0(default value).
-     SDA10 - These functions are not available for use. Set this bit to 0(default value).
-     SI10  - These functions are not available for use. Set this bit to 0(default value).
-     SO10  - These functions are not available for use. Set this bit to 0(default value).
-     SCK10 - These functions are not available for use. Set this bit to 0(default value).
- 1 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP3 - These functions are not available for use. Set this bit to 0(default value).
-     INTP4 - These functions are not available for use. Set this bit to 0(default value).
-     INTP6 - These functions are not available for use. Set this bit to 0(default value).
-     INTP7 - These functions are not available for use. Set this bit to 0(default value).
-     INTP8 - These functions are not available for use. Set this bit to 0(default value).
-     INTP9 - These functions are not available for use. Set this bit to 0(default value).
-     TxD1  - These functions are not available for use. Set this bit to 0(default value).
-     RxD1  - These functions are not available for use. Set this bit to 0(default value).
-     SCL10 - These functions are not available for use. Set this bit to 0(default value).
-     SDA10 - These functions are not available for use. Set this bit to 0(default value).
-     SI10  - These functions are not available for use. Set this bit to 0(default value).
-     SO10  - These functions are not available for use. Set this bit to 0(default value).
-     SCK10 - These functions are not available for use. Set this bit to 0(default value).
-
-   44-pin
- 0 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP3 - These functions are not available for use. Set this bit to 0(default value).
-     INTP4 - These functions are not available for use. Set this bit to 0(default value).
-     INTP6 - These functions are not available for use. Set this bit to 0(default value).
-     INTP7 - These functions are not available for use. Set this bit to 0(default value).
-     INTP8 - These functions are not available for use. Set this bit to 0(default value).
-     INTP9 - These functions are not available for use. Set this bit to 0(default value).
-     TxD1  - These functions are not available for use. Set this bit to 0(default value).
-     RxD1  - These functions are not available for use. Set this bit to 0(default value).
-     SCL10 - These functions are not available for use. Set this bit to 0(default value).
-     SDA10 - These functions are not available for use. Set this bit to 0(default value).
-     SI10  - These functions are not available for use. Set this bit to 0(default value).
-     SO10  - These functions are not available for use. Set this bit to 0(default value).
-     SCK10 - These functions are not available for use. Set this bit to 0(default value).
- 1 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP3 - These functions are not available for use. Set this bit to 0(default value).
-     INTP4 - These functions are not available for use. Set this bit to 0(default value).
-     INTP6 - These functions are not available for use. Set this bit to 0(default value).
-     INTP7 - These functions are not available for use. Set this bit to 0(default value).
-     INTP8 - These functions are not available for use. Set this bit to 0(default value).
-     INTP9 - These functions are not available for use. Set this bit to 0(default value).
-     TxD1  - These functions are not available for use. Set this bit to 0(default value).
-     RxD1  - These functions are not available for use. Set this bit to 0(default value).
-     SCL10 - These functions are not available for use. Set this bit to 0(default value).
-     SDA10 - These functions are not available for use. Set this bit to 0(default value).
-     SI10  - These functions are not available for use. Set this bit to 0(default value).
-     SO10  - These functions are not available for use. Set this bit to 0(default value).
-     SCK10 - These functions are not available for use. Set this bit to 0(default value).
-
-   48-pin
- 0 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP3 - These functions are not available for use. Set this bit to 0(default value).
-     INTP4 - These functions are not available for use. Set this bit to 0(default value).
-     INTP6 - These functions are not available for use. Set this bit to 0(default value).
-     INTP7 - These functions are not available for use. Set this bit to 0(default value).
-     INTP8 - These functions are not available for use. Set this bit to 0(default value).
-     INTP9 - These functions are not available for use. Set this bit to 0(default value).
-     TxD1  - These functions are not available for use. Set this bit to 0(default value).
-     RxD1  - These functions are not available for use. Set this bit to 0(default value).
-     SCL10 - These functions are not available for use. Set this bit to 0(default value).
-     SDA10 - These functions are not available for use. Set this bit to 0(default value).
-     SI10  - These functions are not available for use. Set this bit to 0(default value).
-     SO10  - These functions are not available for use. Set this bit to 0(default value).
-     SCK10 - These functions are not available for use. Set this bit to 0(default value).
- 1 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP3 - These functions are not available for use. Set this bit to 0(default value).
-     INTP4 - These functions are not available for use. Set this bit to 0(default value).
-     INTP6 - These functions are not available for use. Set this bit to 0(default value).
-     INTP7 - These functions are not available for use. Set this bit to 0(default value).
-     INTP8 - These functions are not available for use. Set this bit to 0(default value).
-     INTP9 - These functions are not available for use. Set this bit to 0(default value).
-     TxD1  - These functions are not available for use. Set this bit to 0(default value).
-     RxD1  - These functions are not available for use. Set this bit to 0(default value).
-     SCL10 - These functions are not available for use. Set this bit to 0(default value).
-     SDA10 - These functions are not available for use. Set this bit to 0(default value).
-     SI10  - These functions are not available for use. Set this bit to 0(default value).
-     SO10  - These functions are not available for use. Set this bit to 0(default value).
-     SCK10 - These functions are not available for use. Set this bit to 0(default value).
-
-   52-pin
- 0 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP3 - These functions are not available for use. Set this bit to 0(default value).
-     INTP4 - These functions are not available for use. Set this bit to 0(default value).
-     INTP6 - These functions are not available for use. Set this bit to 0(default value).
-     INTP7 - These functions are not available for use. Set this bit to 0(default value).
-     INTP8 - These functions are not available for use. Set this bit to 0(default value).
-     INTP9 - These functions are not available for use. Set this bit to 0(default value).
-     TxD1  - These functions are not available for use. Set this bit to 0(default value).
-     RxD1  - These functions are not available for use. Set this bit to 0(default value).
-     SCL10 - These functions are not available for use. Set this bit to 0(default value).
-     SDA10 - These functions are not available for use. Set this bit to 0(default value).
-     SI10  - These functions are not available for use. Set this bit to 0(default value).
-     SO10  - These functions are not available for use. Set this bit to 0(default value).
-     SCK10 - These functions are not available for use. Set this bit to 0(default value).
- 1 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP3 - These functions are not available for use. Set this bit to 0(default value).
-     INTP4 - These functions are not available for use. Set this bit to 0(default value).
-     INTP6 - These functions are not available for use. Set this bit to 0(default value).
-     INTP7 - These functions are not available for use. Set this bit to 0(default value).
-     INTP8 - These functions are not available for use. Set this bit to 0(default value).
-     INTP9 - These functions are not available for use. Set this bit to 0(default value).
-     TxD1  - These functions are not available for use. Set this bit to 0(default value).
-     RxD1  - These functions are not available for use. Set this bit to 0(default value).
-     SCL10 - These functions are not available for use. Set this bit to 0(default value).
-     SDA10 - These functions are not available for use. Set this bit to 0(default value).
-     SI10  - These functions are not available for use. Set this bit to 0(default value).
-     SO10  - These functions are not available for use. Set this bit to 0(default value).
-     SCK10 - These functions are not available for use. Set this bit to 0(default value).
-
-   64-pin
- 0 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP3 - These functions are not available for use. Set this bit to 0(default value).
-     INTP4 - These functions are not available for use. Set this bit to 0(default value).
-     INTP6 - These functions are not available for use. Set this bit to 0(default value).
-     INTP7 - These functions are not available for use. Set this bit to 0(default value).
-     INTP8 - These functions are not available for use. Set this bit to 0(default value).
-     INTP9 - These functions are not available for use. Set this bit to 0(default value).
-     TxD1  - These functions are not available for use. Set this bit to 0(default value).
-     RxD1  - These functions are not available for use. Set this bit to 0(default value).
-     SCL10 - These functions are not available for use. Set this bit to 0(default value).
-     SDA10 - These functions are not available for use. Set this bit to 0(default value).
-     SI10  - These functions are not available for use. Set this bit to 0(default value).
-     SO10  - These functions are not available for use. Set this bit to 0(default value).
-     SCK10 - These functions are not available for use. Set this bit to 0(default value).
- 1 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
-     INTP3 - These functions are not available for use. Set this bit to 0(default value).
-     INTP4 - These functions are not available for use. Set this bit to 0(default value).
-     INTP6 - These functions are not available for use. Set this bit to 0(default value).
-     INTP7 - These functions are not available for use. Set this bit to 0(default value).
-     INTP8 - These functions are not available for use. Set this bit to 0(default value).
-     INTP9 - These functions are not available for use. Set this bit to 0(default value).
-     TxD1  - These functions are not available for use. Set this bit to 0(default value).
-     RxD1  - These functions are not available for use. Set this bit to 0(default value).
-     SCL10 - These functions are not available for use. Set this bit to 0(default value).
-     SDA10 - These functions are not available for use. Set this bit to 0(default value).
-     SI10  - These functions are not available for use. Set this bit to 0(default value).
-     SO10  - These functions are not available for use. Set this bit to 0(default value).
-     SCK10 - These functions are not available for use. Set this bit to 0(default value).
-
-   80-pin
+   80/64/52/48/44/40/36/32/30-pin
  0 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
      INTP3 - These functions are not available for use. Set this bit to 0(default value).
      INTP4 - These functions are not available for use. Set this bit to 0(default value).
@@ -837,52 +448,51 @@
 /***********************************************************
  * Invalid memory access detection control register (IAWCTL)
  ***********************************************************/
-/* Control of invalid memory access detection(IAWEN)
- 0 : Disable the detection of invalid memory accesses.
- 1 : Enable the detection of invalid memory accesses.
+/* Control of illicit memory access detection(IAWEN)
+ 0 : Disables the detection of illicit memory accesses.
+ 1 : Enables the detection of illicit memory accesses.
 */
 #define BSP_CFG_INVALID_MEMORY_ACCESS_DETECTION_ENABLE (0)
 
-/* RAM guard space(GRAM0-1)
- 0 : Disabled. RAM can be written to.
- 1 : The 128 bytes of space starting at the start address in the RAM.
- 2 : The 256 bytes of space starting at the start address in the RAM.
- 3 : The 512 bytes of space starting at the start address in the RAM.
+/* Protected area in the RAM(GRAM0-1)
+ 0 : Disabled. Writing to the RAM is allowed.
+ 1 : 128 bytes from the base address of the RAM.
+ 2 : 256 bytes from the base address of the RAM.
+ 3 : 512 bytes from the base address of the RAM.
 */
 #define BSP_CFG_RAM_GUARD_FUNC (0)
 
-/* Guard of control registers of port function(GPORT)
- 0 : Disabled. Control registers of the port function can be read from or written to.
- 1 : Enabled. Writing to control registers of the port function is disabled. Reading is enabled.
- [Guarded SFRs] PMxx, PUxx, PIMxx, POMxx, PMCAxx, PMCTxx, PMCExx, PFOEx, PIOR, PDIDISxx, CCDE, CCSm, PTDC
- Note:Pxx(Port register) is not guarded.
+/* Protection of the port control registers(GPORT)
+ 0 : Disabled. Reading from and writing to the port control registers are allowed.
+ 1 : Enabled. Writing to the port control registers is not allowed. Reading from them is allowed.
+ [Protected SFRs] PMxx, PUxx, PIMxx, POMxx, PMCAxx, PMCTxx, PMCExx, PFOEx, PDIDISxx, CCDE, CCSm, PTDC
+ Note:The port registers (Pxx) are not protected.
 */
 #define BSP_CFG_PORT_FUNCTION_GUARD (0)
 
-/* Guard of registers of interrupt function(GINT)
- 0 : Disabled. Registers of the interrupt function can be read from or written to.
- 1 : Enabled. Writing to registers of the interrupt function is disabled. Reading is enabled.
- [Guarded SFRs] IFxx, MKxx, PRxx, EGPx, EGNx
+/* Protection of the interrupt control registers(GINT)
+ 0 : Disabled. Reading from and writing to the interrupt control registers are allowed.
+ 1 : Enabled. Writing to the interrupt control registers is not allowed. Reading from them is allowed.
+ [Protected SFRs] IFxx, MKxx, PRxx, EGPx, EGNx
 */
 #define BSP_CFG_INT_FUNCTION_GUARD (0)
 
-/* Guard of control registers of clock control function, voltage detector,
-   and RAM parity error detection function(GCSC)
- 0 : Disabled. Control registers of the clock control function, voltage detector
-     and RAM parity error detection function can be read from or written to.
- 1 : Enabled. Writing to control registers of the clock control function, voltage detector
-     and RAM parity error detection function is disabled. Reading is enabled.
- [Guarded SFRs] CMC, CSC, OSTS, CKC, PERx, OSMC, LVIM, LVIS, RPECTL,
- CKSEL, PRRx, MOCODIV, WKUPMD, PSMCR
+/* Protection of the clock, voltage detector, and RAM parity error detection control registers(GCSC)
+ 0 : Disabled. Reading from and writing to the clock, voltage detector, and RAM parity error
+     detection control registers are allowed.
+ 1 : Enabled. Writing to the clock, voltage detector, and RAM parity error detection control
+     registers is not allowed. Reading from them is allowed.
+ [Protected SFRs] CMC, CSC, OSTS, CKC, PERx, OSMC, LVIM, LVIS, RPECTL, CKSEL,
+ PRRx, MOCODIV, WKUPMD, PSMCR
 */
 #define BSP_CFG_CHIP_STATE_CTRL_GUARD (0)
 
 /*************************************************
  * Data flash
  *************************************************/
-/* Data flash access control(DFLEN)
- 0 : Access to the data flash memory area and extra area is disabled.
- 1 : Access to the data flash memory area and extra area is enabled.
+/* Data flash memory area access control(DFLEN)
+ 0 : Access to the data flash memory area is disabled.
+ 1 : Access to the data flash memory area is enabled.
 */
 #define BSP_CFG_DATA_FLASH_ACCESS_ENABLE (0)
 
@@ -958,67 +568,67 @@
 /*************************************************
  * Clock settings
  *************************************************/
-/* High-speed system clock frequency(fMX)
+/* High-speed system clock pin operation mode
    Clock operation mode control register(CMC)
    (Products with 30 to 36 pins)
     XTSEL/EXCLK/OSCSEL
    (Products with 40 to 128 pins)
     EXCLK/OSCSEL
- 0 : Port
- 1 : fX(Crystal/ceramic resonator connection)
- 2 : fEX(External clock input)
+ 0 : Port mode
+ 1 : X1 oscillation mode
+ 2 : External clock input mode
 */
-#define BSP_CFG_HISYSCLK_SOURCE (1)
+#define BSP_CFG_HISYSCLK_SOURCE (0)
 
-/* High-speed system clock frequency(fMX)
+/* High-speed system clock operation control
    Clock operation status control register(CSC)
    MSTOP
  (X1 oscillation mode)
-  0 : X1 oscillator operating
-  1 : X1 oscillator stopped
+  0 : The X1 oscillator runs.
+  1 : The X1 oscillator is stopped.
  (External clock input mode)
-  0 : External clock from EXCLK pin is valid
-  1 : External clock from EXCLK pin is invalid
+  0 : An external clock signal on the EXCLK pin is effective.
+  1 : An external clock signal on the EXCLK pin is ineffective.
  (Port mode)
   0 : I/O port
   1 : I/O port
 */
-#define BSP_CFG_HISYSCLK_OPERATION (0)
+#define BSP_CFG_HISYSCLK_OPERATION (1)
 
-/* Subsystem clock oscillator clock frequency(fSX)
+/* Subsystem clock pin operation mode
    Clock operation mode control register(CMC)
    (Products with 30 to 36 pins)
     XTSEL/EXCLKS/OSCSELS
    (Products with 40 to 128 pins)
     EXCLKS/OSCSELS
- 0 : Input port
- 1 : fXT(Crystal resonator connection)
- 2 : fEXS(External clock input)
+ 0 : Input port mode
+ 1 : XT1 oscillation mode
+ 2 : External clock input mode
 */
-#define BSP_CFG_SUBCLK_SOURCE (1)
+#define BSP_CFG_SUBCLK_SOURCE (0)
 
-/* Subsystem clock oscillator clock frequency(fSX)
+/* Subsystem clock operation control
    Clock operation status control register(CSC)
    XTSTOP
  (XT1 oscillation mode)
-  0 : XT1 oscillator operating
-  1 : XT1 oscillator stopped
+  0 : The XT1 oscillator runs.
+  1 : The XT1 oscillator is stopped.
  (External clock input mode)
-  0 : External clock from EXCLKS pin is valid
-  1 : External clock from EXCLKS pin is invalid
+  0 : An external clock signal on the EXCLKS pin is effective.
+  1 : An external clock signal on the EXCLKS pin is ineffective.
  (Port mode)
   0 : Input port
   1 : Input port
 */
-#define BSP_CFG_SUBCLK_OPERATION (0)
+#define BSP_CFG_SUBCLK_OPERATION (1)
 
-/* Middle-speed on-chip oscillator clock frequency(fIM)
+/* Middle-speed on-chip oscillator clock operation control
    Clock operation status control register(CSC)
    MIOEN
- 0 : Middle-speed on-chip oscillator stopped
- 1 : Middle-speed on-chip oscillator operating
+ 0 : The middle-speed on-chip oscillator is stopped.
+ 1 : The middle-speed on-chip oscillator runs.
 */
-#define BSP_CFG_MOCO_SOURCE (1)
+#define BSP_CFG_MOCO_SOURCE (0)
 
 /* Main on-chip oscillator clock(fOCO) operation control
    System clock control register(CKC)
@@ -1044,7 +654,7 @@
 */
 #define BSP_CFG_SUBSYSCLK_SOURCE (0)
 
-/* Selection of CPU/peripheral hardware clock(fCLK)
+/* Selection of the CPU/peripheral hardware clock(fCLK)
    System clock control register(CKC)
    CSS
  0 : Main system clock(fMAIN)
@@ -1052,7 +662,7 @@
 */
 #define BSP_CFG_FCLK_SOURCE (0)
 
-/* XT1 oscillator oscillation mode selection
+/* Selection of the oscillation mode of the XT1 oscillator
    Clock operation mode control register(CMC)
    AMPHS1, AMPHS0
  0 : Low power consumption oscillation 1(default)
@@ -1070,11 +680,16 @@
    Clock operation mode control register(CMC)
    AMPH
  0 : 1 MHz <= fX <= 10 MHz
- 1 : 10 MHz < fX <= 32 MHz
+ 1 : 10 MHz < fX <= 20 MHz
  Set the value corresponding to the setting of BSP_CFG_FMX_HZ
 */
 
-/* X1 clock oscillation stabilization time selection
+/* CPU/peripheral hardware clock frequency in Hz
+   (The frequency set when code generation is executed)
+*/
+#define BSP_CFG_FCLK_HZ (32000000)
+
+/* Selection of the oscillation stabilization time
    Oscillation stabilization time select register(OSTS)
    OSTS2, OSTS1, OSTS0
  0 : 2^8/fX(fX = 10MHz : 25.6us, fX = 20MHz : 12.8us)
@@ -1086,7 +701,7 @@
  6 : 2^17/fX(fX = 10MHz : 13.1ms, fX = 20MHz : 6.55ms)
  7 : 2^18/fX(fX = 10MHz : 26.2ms, fX = 20MHz : 13.1ms)
 */
-#define BSP_CFG_X1_WAIT_TIME_SEL (0)
+#define BSP_CFG_X1_WAIT_TIME_SEL (7)
 
 /* Setting in STOP mode or in HALT mode while the CPU is opeating with subsystem clock X.
    Subsystem clock supply mode control register(OSMC)
@@ -1094,9 +709,9 @@
  0 : Enables supply of subsystem clock X to peripheral functions.
  1 : Stops supply of the subsystem clock to peripheral functions other than the realtime clock.
 */
-#define BSP_CFG_ALLOW_FSUB_IN_STOPHALT (1)
+#define BSP_CFG_ALLOW_FSUB_IN_STOPHALT (0)
 
-/* Selection of operation clock for the realtime clock, 32-bit interval timer,
+/* Selection of the operating clock for the realtime clock, 32-bit interval timer,
    serial interfaces UARTA0 and UARTA1, remote control signal receiver,
    and clock output/buzzer output controller
    Subsystem clock supply mode control register(OSMC)
@@ -1104,9 +719,9 @@
  0 : Subsystem clock X
  1 : Low-speed on-chip oscillator clock
 */
-#define BSP_CFG_RTC_OUT_CLK_SOURCE (1)
+#define BSP_CFG_RTC_OUT_CLK_SOURCE (0)
 
-/* Selection of high-speed on-chip oscillator clock frequency
+/* Selection of the high-speed on-chip oscillator clock frequency
    High-speed on-chip oscillator frequency select register(HOCODIV)
    HOCODIV2, HOCODIV1, HOCODIV0
  (FRQSEL3 = 0)
@@ -1133,9 +748,9 @@
  0 : Starting of the high-speed on-chip oscillator is at normal speed.
  1 : Starting of the high-speed on-chip oscillator is at high speed.
 */
-#define BSP_CFG_WAKEUP_MODE (1)
+#define BSP_CFG_WAKEUP_MODE (0)
 
-/* High-speed system clock division selection
+/* Selected division ratio for the high-speed system clock
    High-speed system clock division register(MOSCDIV)
    MOSCDIV2, MOSCDIV1, MOSCDIV0
  0                : fMX(fMX = 20MHz : 20MHz)
@@ -1147,7 +762,7 @@
 */
 #define BSP_CFG_MOSC_DIVIDE (0)
 
-/* Selection of middle-speed on-chip oscillator clock frequency
+/* Selection of the middle-speed on-chip oscillator clock frequency
    Middle-speed on-chip oscillator frequency select register(MOCODIV)
    MOCODIV1, MOCODIV0
  0                : 4MHz
@@ -1180,19 +795,25 @@
    you will need to specify a setting that matches your environment. */
 
 /* Subsystem clock oscillation stabilization time.
-   If the main system clock is 32 MHz, 800000 means 300 ms. */
-#define BSP_CFG_SUBWAITTIME              (800000U)
+   If the main system clock is 32 MHz, 805000 means 301.78 ms. */
+#define BSP_CFG_SUBWAITTIME              (805000U)
 
 /* High-speed on-chip oscillator clock stabilization time.
-   If the main system clock is 32 MHz, 30 means 5.86us. */
+   If the main system clock is 32 MHz, 30 means 5.64 us.
+    Required wait time : 5 us.
+    Referenced Users Manual version : Rev.1.30 */
 #define BSP_CFG_FIHWAITTIME              (30U)
 
 /* Middle-speed on-chip oscillator clock stabilization time.
-   If the main system clock is 32 MHz, 5 means 1.16us. */
-#define BSP_CFG_FIMWAITTIME              (5U)
+   If the main system clock is 32 MHz, 6 means 1.15us.
+    Required wait time : 1 us.
+    Referenced Users Manual version : Rev.1.30 */
+#define BSP_CFG_FIMWAITTIME              (6U)
 
 /* Low-speed on-chip oscillator clock stabilization time.
-   If the main system clock is 32 MHz, 450 means 84.8us. */
+   If the main system clock is 32 MHz, 450 means 84.36us.
+    Required wait time : 80 us.
+    Referenced Users Manual version : Rev.1.30 */
 #define BSP_CFG_FILWAITTIME              (450U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the

@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2024 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : r_bsp_config_reference.h
 * H/W Platform : GENERIC_RL78_F25
@@ -30,6 +17,11 @@
 *                               - BSP_CFG_FIHWAITTIME
 *                               - BSP_CFG_PLLWAITTIME
 *                               - BSP_CFG_SETUP_WAITTIME
+*         : 05.08.2025 1.92     Changed the disclaimer.
+*                               Reviewed the initial values of macro definitions.
+*                               Reviewed the comments of macro definitions.
+*                               Added macro definitions for setting flash serial programming security ID(for IAR).
+*                               Added macro definitions for waiting process.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -75,28 +67,45 @@
 
 #if defined(__ICCRL78__)
 /* Option byte setting(When using IAR) */
-#define BSP_CFG_OPTBYTE0_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE1_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE2_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE3_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE4_VALUE (0xFFU)
+#define BSP_CFG_OPTBYTE0_VALUE (0xEFU)
+#define BSP_CFG_OPTBYTE1_VALUE (0xFAU)
+#define BSP_CFG_OPTBYTE2_VALUE (0xE0U)
+#define BSP_CFG_OPTBYTE3_VALUE (0xA4U)
+#define BSP_CFG_OPTBYTE4_VALUE (0xFEU)
 /* Security ID Codes for On-Chip Debugging setting(When using IAR) */
-#define BSP_CFG_SECUID0_VALUE (0xFFU)
-#define BSP_CFG_SECUID1_VALUE (0xFFU)
-#define BSP_CFG_SECUID2_VALUE (0xFFU)
-#define BSP_CFG_SECUID3_VALUE (0xFFU)
-#define BSP_CFG_SECUID4_VALUE (0xFFU)
-#define BSP_CFG_SECUID5_VALUE (0xFFU)
-#define BSP_CFG_SECUID6_VALUE (0xFFU)
-#define BSP_CFG_SECUID7_VALUE (0xFFU)
-#define BSP_CFG_SECUID8_VALUE (0xFFU)
-#define BSP_CFG_SECUID9_VALUE (0xFFU)
-#define BSP_CFG_SECUIDA_VALUE (0xFFU)
-#define BSP_CFG_SECUIDB_VALUE (0xFFU)
-#define BSP_CFG_SECUIDC_VALUE (0xFFU)
-#define BSP_CFG_SECUIDD_VALUE (0xFFU)
-#define BSP_CFG_SECUIDE_VALUE (0xFFU)
-#define BSP_CFG_SECUIDF_VALUE (0xFFU)
+#define BSP_CFG_SECUID0_VALUE (0x00U)
+#define BSP_CFG_SECUID1_VALUE (0x00U)
+#define BSP_CFG_SECUID2_VALUE (0x00U)
+#define BSP_CFG_SECUID3_VALUE (0x00U)
+#define BSP_CFG_SECUID4_VALUE (0x00U)
+#define BSP_CFG_SECUID5_VALUE (0x00U)
+#define BSP_CFG_SECUID6_VALUE (0x00U)
+#define BSP_CFG_SECUID7_VALUE (0x00U)
+#define BSP_CFG_SECUID8_VALUE (0x00U)
+#define BSP_CFG_SECUID9_VALUE (0x00U)
+#define BSP_CFG_SECUIDA_VALUE (0x00U)
+#define BSP_CFG_SECUIDB_VALUE (0x00U)
+#define BSP_CFG_SECUIDC_VALUE (0x00U)
+#define BSP_CFG_SECUIDD_VALUE (0x00U)
+#define BSP_CFG_SECUIDE_VALUE (0x00U)
+#define BSP_CFG_SECUIDF_VALUE (0x00U)
+/* Security ID Codes for Flash serial programming setting(When using IAR) */
+#define BSP_CFG_FSPSECUID0_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUID1_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUID2_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUID3_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUID4_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUID5_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUID6_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUID7_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUID8_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUID9_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUIDA_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUIDB_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUIDC_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUIDD_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUIDE_VALUE (0xFFU)
+#define BSP_CFG_FSPSECUIDF_VALUE (0xFFU)
 #endif
 
 /*************************************************
@@ -446,12 +455,12 @@
 
 /* Peripheral I/O Redirection Register 4(PIOR4-PIOR40)
    100/80/64/48-pin
- 0 : SI00/SDA00/RxD0 - P16
-     SO00/TxD0       - P15
+ 0 : SI00/SDA00/RXD0 - P16
+     SO00/TXD0       - P15
      SCL00/SCK00     - P17
      SSI00           - P30
- 1 : SI00/SDA00/RxD0 - P61
-     SO00/TxD0       - P62
+ 1 : SI00/SDA00/RXD0 - P61
+     SO00/TXD0       - P62
      SCL00/SCK00     - P60
      SSI00           - P63
 */
@@ -491,42 +500,42 @@
 /* Peripheral I/O Redirection Register 4(PIOR4-PIOR42)
  (PIOR91=0)
    100/80-pin
- 0 : SI10/RxD1 - P11
-     SO10/TxD1 - P12
+ 0 : SI10/RXD1 - P11
+     SO10/TXD1 - P12
      SCK10     - P10
      SSI10     - P54
      SCL10     - P10
      SDA10     - P11
- 1 : SI10/RxD1 - P75
-     SO10/TxD1 - P74
+ 1 : SI10/RXD1 - P75
+     SO10/TXD1 - P74
      SCK10     - P76
      SSI10     - P77
      SCL10     - -
      SDA10     - -
 
    64-pin
- 0 : SI10/RxD1 - P11
-     SO10/TxD1 - P12
+ 0 : SI10/RXD1 - P11
+     SO10/TXD1 - P12
      SCK10     - P10
      SSI10     - -
      SCL10     - P10
      SDA10     - P11
- 1 : SI10/RxD1 - P75
-     SO10/TxD1 - P74
+ 1 : SI10/RXD1 - P75
+     SO10/TXD1 - P74
      SCK10     - P76
      SSI10     - P77
      SCL10     - -
      SDA10     - -
 
    48-pin
- 0 : SI10/RxD1 - P11
-     SO10/TxD1 - P12
+ 0 : SI10/RXD1 - P11
+     SO10/TXD1 - P12
      SCK10     - P10
      SSI10     - -
      SCL10     - P10
      SDA10     - P11
- 1 : SI10/RxD1 - -
-     SO10/TxD1 - -
+ 1 : SI10/RXD1 - -
+     SO10/TXD1 - -
      SCK10     - -
      SSI10     - -
      SCL10     - -
@@ -534,42 +543,42 @@
 
  (PIOR91=1)
    100/80-pin
- 0 : SI10/RxD1 - P41
-     SO10/TxD1 - P12
+ 0 : SI10/RXD1 - P41
+     SO10/TXD1 - P12
      SCK10     - P120
      SSI10     - P54
      SCL10     - P10
      SDA10     - P11
- 1 : SI10/RxD1 - P75
-     SO10/TxD1 - P74
+ 1 : SI10/RXD1 - P75
+     SO10/TXD1 - P74
      SCK10     - P76
      SSI10     - P77
      SCL10     - -
      SDA10     - -
 
    64-pin
- 0 : SI10/RxD1 - P41
-     SO10/TxD1 - P12
+ 0 : SI10/RXD1 - P41
+     SO10/TXD1 - P12
      SCK10     - P120
      SSI10     - -
      SCL10     - P10
      SDA10     - P11
- 1 : SI10/RxD1 - P75
-     SO10/TxD1 - P74
+ 1 : SI10/RXD1 - P75
+     SO10/TXD1 - P74
      SCK10     - P76
      SSI10     - P77
      SCL10     - -
      SDA10     - -
 
    48-pin
- 0 : SI10/RxD1 - P41
-     SO10/TxD1 - P12
+ 0 : SI10/RXD1 - P41
+     SO10/TXD1 - P12
      SCK10     - P120
      SSI10     - -
      SCL10     - P10
      SDA10     - P11
- 1 : SI10/RxD1 - -
-     SO10/TxD1 - -
+ 1 : SI10/RXD1 - -
+     SO10/TXD1 - -
      SCK10     - -
      SSI10     - -
      SCL10     - -
@@ -640,48 +649,48 @@
 
 /* Peripheral I/O Redirection Register 4(PIOR4-PIOR44)
    100/80/64-pin
- 0 : LRxD0 - P14
-     LTxD0 - P13
- 1 : LRxD0 - P43
-     LTxD0 - P42
+ 0 : LRXD0 - P14
+     LTXD0 - P13
+ 1 : LRXD0 - P43
+     LTXD0 - P42
 
    48-pin
- 0 : LRxD0 - P14
-     LTxD0 - P13
- 1 : LRxD0 - -
-     LTxD0 - -
+ 0 : LRXD0 - P14
+     LTXD0 - P13
+ 1 : LRXD0 - -
+     LTXD0 - -
 */
 #define BSP_CFG_PIOR44 (0)
 
 /* Peripheral I/O Redirection Register 4(PIOR4-PIOR45)
  (PIOR93=0)
    100-pin
- 0 : LRxD1 - P11
-     LTxD1 - P10
- 1 : LRxD1 - P107
-     LTxD1 - P106
+ 0 : LRXD1 - P11
+     LTXD1 - P10
+ 1 : LRXD1 - P107
+     LTXD1 - P106
 
    80/64/48-pin
- 0 : LRxD1 - P11
-     LTxD1 - P10
- 1 : LRxD1 - -
-     LTxD1 - -
+ 0 : LRXD1 - P11
+     LTXD1 - P10
+ 1 : LRXD1 - -
+     LTXD1 - -
 
  (PIOR93=1)
    100/80/64/48-pin
- 0 : LRxD1 - P11
-     LTxD1 - P10
- 1 : LRxD1 - P125
-     LTxD1 - P120
+ 0 : LRXD1 - P11
+     LTXD1 - P10
+ 1 : LRXD1 - P125
+     LTXD1 - P120
 */
 #define BSP_CFG_PIOR45 (0)
 
 /* Peripheral I/O Redirection Register 4(PIOR4-PIOR46)
    100/80/64/48-pin
- 0 : CRxD0 - P11
-     CTxD0 - P10
- 1 : CRxD0 - P73
-     CTxD0 - P72
+ 0 : CRXD0 - P11
+     CTXD0 - P10
+ 1 : CRXD0 - P73
+     CTXD0 - P72
 */
 #define BSP_CFG_PIOR46 (0)
 
@@ -1041,6 +1050,7 @@
  0 : Disabled. Control registers of port function can be read or written to.
  1 : Enabled. Writing to control registers of port function is disabled. Reading is enabled.
  [Guarded SFR] PMxx, PUxx, PIMxx, POMxx, PMCxx, TSPMCxx, PITHLxx, PIORx
+ Note : Pxx(Port register) is not guarded.
 */
 #define BSP_CFG_PORT_FUNCTION_GUARD (0)
 
@@ -1185,6 +1195,11 @@
  Set the value corresponding to the setting of BSP_CFG_FMX_HZ
 */
 
+/* CPU/peripheral hardware clock frequency in Hz
+   (The frequency set when code generation is executed)
+*/
+#define BSP_CFG_FCLK_HZ (32000000)
+
 /* Selection of CPU/peripheral hardware clock (fCLK)
    System Clock Control Register (CKC)
    CSS
@@ -1251,7 +1266,7 @@
  0 : Enables supply of subsystem/low-speed on-chip oscillator select clock to peripheral functions
  1 : Stops supply of subsystem/low-speed on-chip oscillator select clock to peripheral functions
 */
-#define BSP_CFG_ALLOW_FSL_IN_STOPHALT (1)
+#define BSP_CFG_ALLOW_FSL_IN_STOPHALT (0)
 
 /* Low-speed on-chip oscillator operation control
    Operation Speed Mode Control Register (OSMC)
@@ -1389,7 +1404,7 @@
  0 : Selects fSUB and stopping the low-speed on-chip oscillator
  1 : Selects fIL and running the low-speed on-chip oscillator
 */
-#define BSP_CFG_SUBSYSCLK_SOURCE (1)
+#define BSP_CFG_SUBSYSCLK_SOURCE (0)
 
 /* Control of setting lock-up wait counter
    PLL Control Register (PLLCTL)
@@ -1399,7 +1414,7 @@
  2 : Selects 512/fMAIN.
  3 : Selects 1024/fMAIN.
 */
-#define BSP_CFG_LOCKUP_WAIT_COUNT_SEL (3)
+#define BSP_CFG_LOCKUP_WAIT_COUNT_SEL (0)
 
 /* Control of PLL multiplication selection
    PLL Control Register (PLLCTL)
@@ -1409,7 +1424,7 @@
  2 : Multiplies the clock frequency by 10
  3 : Multiplies the clock frequency by 20
 */
-#define BSP_CFG_PLL_MULTI (3)
+#define BSP_CFG_PLL_MULTI (0)
 
 /* Control of clock mode selection
    PLL Control Register (PLLCTL)
@@ -1429,7 +1444,7 @@
 
 /* Output clock frequency in Hz(PLL clock(fPLL))
 */
-#define BSP_CFG_FPLL_HZ (40000000)
+#define BSP_CFG_FPLL_HZ (48000000)
 
 /* Control of PLL output clock selection
    PLL Control Register (PLLCTL)
@@ -1475,19 +1490,25 @@
    you will need to specify a setting that matches your environment. */
 
 /* Subsystem clock oscillation stabilization wait time.
-   If the main system clock 32 MHz, 800000 means 300 ms. */
+   If the main system clock 32 MHz, 800000 means 300.29 ms. */
 #define BSP_CFG_SUBWAITTIME (800000U)
 
 /* High-speed on-chip oscillator clock oscillation stabilization wait time.
-   If the main system clock 32 MHz, 560 means 105 us. */
-#define BSP_CFG_FIHWAITTIME (560U)
+   If the main system clock 32 MHz, 220 means 41.31 us.
+   Required wait time : 40 us.
+   Referenced Users Manual version : Rev.1.10 */
+#define BSP_CFG_FIHWAITTIME (220U)
 
 /* PLL multiplication effective wait time.
-   If the main system clock 32 MHz, 5 means 970 ns. */
-#define BSP_CFG_PLLWAITTIME (5U)
+   If the main system clock 32 MHz, 6 means 1.16 us.
+   Required wait time : 1 us.
+   Referenced Users Manual version : Rev.1.10 */
+#define BSP_CFG_PLLWAITTIME (6U)
 
 /* Wait time for the setup to finish when the data flash access is enabled.
-   If the main system clock 32 MHz, 2 means 400 ns. */
+   If the main system clock 32 MHz, 2 means 407 ns.
+   Required wait time : 250 ns.
+   Referenced Users Manual version : Rev.1.10 */
 #define BSP_CFG_SETUP_WAITTIME (2U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the

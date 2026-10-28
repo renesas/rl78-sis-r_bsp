@@ -3,7 +3,7 @@
 - Please refer to the [APN](https://www.renesas.com/us/en/document/apn/rl78-family-board-support-package-module-using-software-integration-system) for more information.
 
 # License
-- use condition is basically [MIT License](https://github.com/renesas/rl78-sis-r_bsp/blob/master/license.md).
+- Use condition is basically [BSD-3-Clause](https://github.com/renesas/rl78-sis-r_bsp/blob/master/license.md).
 
 # How to Install
 - The official package can be installed by Smart Configurator.

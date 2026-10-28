@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2024 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : vecttbl.c
 * Description  : 
@@ -23,6 +10,8 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 06.11.2024 1.80     First Release
+*         : 05.08.2025 1.92     Changed the disclaimer.
+*                               Added process to set Flash serial programming security ID.
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -52,3 +41,11 @@ __root const uint8_t secuid[16] =
  BSP_CFG_SECUID4_VALUE, BSP_CFG_SECUID5_VALUE, BSP_CFG_SECUID6_VALUE, BSP_CFG_SECUID7_VALUE,
  BSP_CFG_SECUID8_VALUE, BSP_CFG_SECUID9_VALUE, BSP_CFG_SECUIDA_VALUE, BSP_CFG_SECUIDB_VALUE,
  BSP_CFG_SECUIDC_VALUE, BSP_CFG_SECUIDD_VALUE, BSP_CFG_SECUIDE_VALUE, BSP_CFG_SECUIDF_VALUE};
+
+/* Security ID Flash serial programming setting(When using IAR) */
+#pragma location = "SP_SECUID"
+__root const uint8_t sp_secuid[16] =
+{BSP_CFG_FSPSECUID0_VALUE, BSP_CFG_FSPSECUID1_VALUE, BSP_CFG_FSPSECUID2_VALUE, BSP_CFG_FSPSECUID3_VALUE,
+ BSP_CFG_FSPSECUID4_VALUE, BSP_CFG_FSPSECUID5_VALUE, BSP_CFG_FSPSECUID6_VALUE, BSP_CFG_FSPSECUID7_VALUE,
+ BSP_CFG_FSPSECUID8_VALUE, BSP_CFG_FSPSECUID9_VALUE, BSP_CFG_FSPSECUIDA_VALUE, BSP_CFG_FSPSECUIDB_VALUE,
+ BSP_CFG_FSPSECUIDC_VALUE, BSP_CFG_FSPSECUIDD_VALUE, BSP_CFG_FSPSECUIDE_VALUE, BSP_CFG_FSPSECUIDF_VALUE};

@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2021 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : r_bsp_rl78_compiler.h
 * Description  : 
@@ -28,6 +15,8 @@
 *         : 28.02.2022 1.20     Added macro definition for option byte(000C4H).
 *         : 11.11.2022 1.40     Split lines with too many characters into two lines.
 *         : 30.11.2023 1.62     Changed option byte comment.
+*         : 30.08.2025 1.92     Changed the disclaimer.
+*                               Added a macro function for wait processing.
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -98,15 +87,26 @@
 #define BSP_NOP()                  __nop()    /* NOP instruction */
 #define BSP_DISABLE_INTERRUPT()    __DI()
 #define BSP_ENABLE_INTERRUPT()     __EI()
+#if (__RENESAS_VERSION__ < 0x01160000)
+#define BSP_DELAY_ms(delay)        delay_wait((uint32_t)( ((uint64_t)(delay) * (uint64_t)(BSP_CFG_FCLK_HZ) + (6000ULL - 1ULL)) / 6000ULL ))
+#define BSP_DELAY_us(delay)        delay_wait((uint32_t)( ((uint64_t)(delay) * (uint64_t)(BSP_CFG_FCLK_HZ) + (6000000ULL - 1ULL)) / 6000000ULL ))
+#else
+#define BSP_DELAY_ms(delay)        __delay_cycles((uint32_t)( ((uint64_t)(delay) * (uint64_t)(BSP_CFG_FCLK_HZ) + (1000ULL - 1ULL)) / 1000ULL ))
+#define BSP_DELAY_us(delay)        __delay_cycles((uint32_t)( ((uint64_t)(delay) * (uint64_t)(BSP_CFG_FCLK_HZ) + (1000000ULL - 1ULL)) / 1000000ULL ))
+#endif
 #elif defined(__ICCRL78__)
 #define BSP_FAR_FUNC               __far_func
 #define BSP_NOP()                  __no_operation()
 #define BSP_DISABLE_INTERRUPT()    __disable_interrupt()
 #define BSP_ENABLE_INTERRUPT()     __enable_interrupt()
+#define BSP_DELAY_ms(delay)        delay_wait((uint32_t)( ((uint64_t)(delay) * (uint64_t)(BSP_CFG_FCLK_HZ) + (6000ULL - 1ULL)) / 6000ULL ))
+#define BSP_DELAY_us(delay)        delay_wait((uint32_t)( ((uint64_t)(delay) * (uint64_t)(BSP_CFG_FCLK_HZ) + (6000000ULL - 1ULL)) / 6000000ULL ))
 #elif defined(__llvm__)
 #define BSP_NOP()                  NOP()
 #define BSP_DISABLE_INTERRUPT()    DI()
 #define BSP_ENABLE_INTERRUPT()     EI()
+#define BSP_DELAY_ms(delay)        delay_wait((uint32_t)( ((uint64_t)(delay) * (uint64_t)(BSP_CFG_FCLK_HZ) + (6000ULL - 1ULL)) / 6000ULL ))
+#define BSP_DELAY_us(delay)        delay_wait((uint32_t)( ((uint64_t)(delay) * (uint64_t)(BSP_CFG_FCLK_HZ) + (6000000ULL - 1ULL)) / 6000000ULL ))
 #endif
 
 /* Sections */

@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2024 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : iodefine.h
 * Description  : 
@@ -24,6 +11,8 @@
 * History : DD.MM.YYYY Version  Description
 *         : 03.12.2024 1.90     First Release
 *         : 01.04.2025 1.91     Updated device file.
+*         : 25.09.2025 1.92     Changed the disclaimer.
+*                               Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __R7F100LIODEFINE_HEADER__
@@ -1019,8 +1008,6 @@ typedef struct
 #define CTSUCHACBL     (*(volatile __near unsigned short *)0x510)
 #define CTSUCHAC4      (*(volatile __near unsigned char  *)0x510)
 #define CTSUCHAC4_bit  (*(volatile __near __bitf_T *)0x510)
-#define CTSUCHAC5      (*(volatile __near unsigned char  *)0x511)
-#define CTSUCHAC5_bit  (*(volatile __near __bitf_T *)0x511)
 #define CTSUCHTRCAL    (*(volatile __near unsigned short *)0x514)
 #define CTSUCHTRC0     (*(volatile __near unsigned char  *)0x514)
 #define CTSUCHTRC0_bit (*(volatile __near __bitf_T *)0x514)
@@ -1034,8 +1021,6 @@ typedef struct
 #define CTSUCHTRCBL    (*(volatile __near unsigned short *)0x518)
 #define CTSUCHTRC4     (*(volatile __near unsigned char  *)0x518)
 #define CTSUCHTRC4_bit (*(volatile __near __bitf_T *)0x518)
-#define CTSUCHTRC5     (*(volatile __near unsigned char  *)0x519)
-#define CTSUCHTRC5_bit (*(volatile __near __bitf_T *)0x519)
 #define CTSUSRL        (*(volatile __near unsigned short *)0x51C)
 #define CTSUST1        (*(volatile __near unsigned char  *)0x51C)
 #define CTSUST1_bit    (*(volatile __near __bitf_T *)0x51C)

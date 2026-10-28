@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
-* applicable laws, including copyright laws.
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2023 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2023 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : r_bsp_config_reference.h
 * H/W Platform : GENERIC_RL78_G24
@@ -33,6 +20,10 @@
 *                               - BSP_CFG_FILWAITTIME
 *                               - BSP_CFG_PLLWAITTIME
 *                               - BSP_CFG_LOCKUP_WAITTIME
+*         : 05.08.2025 1.92     Changed the disclaimer.
+*                               Reviewed the initial values of macro definitions.
+*                               Reviewed the comments of macro definitions.
+*                               Added macro definitions for waiting process.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -87,10 +78,10 @@
 
 #if defined(__ICCRL78__)
 /* Option byte setting(When using IAR) */
-#define BSP_CFG_OPTBYTE0_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE1_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE2_VALUE (0xF8U)
-#define BSP_CFG_OPTBYTE3_VALUE (0x04U)
+#define BSP_CFG_OPTBYTE0_VALUE (0xEFU)
+#define BSP_CFG_OPTBYTE1_VALUE (0x3AU)
+#define BSP_CFG_OPTBYTE2_VALUE (0xE8U)
+#define BSP_CFG_OPTBYTE3_VALUE (0x84U)
 /* Security ID Codes for On-Chip Debugging setting(When using IAR) */
 #define BSP_CFG_SECUID0_VALUE (0x00U)
 #define BSP_CFG_SECUID1_VALUE (0x00U)
@@ -383,7 +374,7 @@
  10 : -
  11 : -
 
-    52/48/44/-pin
+    52/48/44-pin
  00 : TRJIO0 - P01
  01 : TRJIO0 - P31
  10 : TRJIO0 - P41
@@ -692,11 +683,11 @@
 /*************************************************
  * Data flash
  *************************************************/
-/* Data flash memory area/extra area access control
+/* Data flash memory area access control
    Data flash control register(DFLCTL)
    DFLEN
- 0 : Access to the data flash memory area and extra area is disabled.
- 1 : Access to the data flash memory area and extra area is enabled.
+ 0 : Access to the data flash memory area is disabled.
+ 1 : Access to the data flash memory area is enabled.
 */
 #define BSP_CFG_DATA_FLASH_ACCESS_ENABLE (0)
 
@@ -772,67 +763,67 @@
 /*************************************************
  * Clock settings
  *************************************************/
-/* High-speed system clock frequency(fMX)
+/* High-speed system clock pin operation mode
    Clock operation mode control register(CMC)
    (Products with 20 to 32 pins)
     XTSEL,EXCLK,OSCSEL
    (Products with 40 to 64 pins)
     EXCLK/OSCSEL
- 0 : Port
- 1 : fX(Crystal/ceramic resonator connection)
- 2 : fEX(External clock input)
+ 0 : Port mode
+ 1 : X1 oscillation mode
+ 2 : External clock input mode
 */
-#define BSP_CFG_HISYSCLK_SOURCE (1)
+#define BSP_CFG_HISYSCLK_SOURCE (0)
 
-/* High-speed system clock frequency(fMX)
+/* High-speed system clock operation control
    Clock operation status control register(CSC)
    MSTOP
  (X1 oscillation mode)
-  0 : X1 oscillator operating
-  1 : X1 oscillator stopped
+  0 : The X1 oscillator runs.
+  1 : The X1 oscillator stopped.
  (External clock input mode)
-  0 : External clock from EXCLK pin is valid
-  1 : External clock from EXCLK pin is invalid
+  0 : An external clock signal on the EXCLK pin is effective.
+  1 : An external clock signal on the EXCLK pin is ineffective.
  (Port mode)
   0 : I/O Port
   1 : I/O Port
 */
-#define BSP_CFG_HISYSCLK_OPERATION (0)
+#define BSP_CFG_HISYSCLK_OPERATION (1)
 
-/* Subsystem clock oscillator clock frequency(fSX)
+/* Subsystem clock pin operation mode
    Clock operation mode control register(CMC)
    (Products with 20 to 32 pins)
     XTSEL,EXCLKS,OSCSELS
    (Products with 40 to 64 pins)
     EXCLKS/OSCSELS
- 0 : Input Port
- 1 : fXT(Crystal resonator connection)
- 2 : fEXS(External clock input)
+ 0 : Input port mode
+ 1 : XT1 oscillation mode
+ 2 : External clock input mode
 */
-#define BSP_CFG_SUBCLK_SOURCE (1)
+#define BSP_CFG_SUBCLK_SOURCE (0)
 
-/* Subsystem clock oscillator clock frequency(fSX)
+/* Subsystem clock operation control
    Clock operation status control register(CSC)
    XTSTOP
  (XT1 oscillation mode)
-  0 : XT1 oscillator operating
-  1 : XT1 oscillator stopped
+  0 : The XT1 oscillator runs.
+  1 : The XT1 oscillator is stopped.
  (External clock input mode)
-  0 : External clock from EXCLKS pin is valid
-  1 : External clock from EXCLKS pin is invalid
+  0 : An external clock signal on the EXCLKS pin is effective.
+  1 : An external clock signal on the EXCLKS pin is ineffective.
  (Port mode)
   0 : Input port
   1 : Input port
 */
-#define BSP_CFG_SUBCLK_OPERATION (0)
+#define BSP_CFG_SUBCLK_OPERATION (1)
 
-/* Middle-speed on-chip oscillator clock frequency(fIM)
+/* Middle-speed on-chip oscillator clock operation control
    Clock operation status control register(CSC)
    MIOEN
- 0 : Middle-speed on-chip oscillator stopped
- 1 : Middle-speed on-chip oscillator operating
+ 0 : The middle-speed on-chip oscillator is stopped.
+ 1 : The middle-speed on-chip oscillator runs.
 */
-#define BSP_CFG_MOCO_OPERATION (1)
+#define BSP_CFG_MOCO_OPERATION (0)
 
 /* Main on-chip oscillator clock(fOCO) operation control
    System clock control register(CKC)
@@ -858,7 +849,7 @@
 */
 #define BSP_CFG_SUBSYSCLK_SOURCE (0)
 
-/* Selection of CPU/peripheral hardware clock(fCLK)
+/* Selection of the CPU/peripheral hardware clock (fCLK)
    System clock control register(CKC)
    CSS
  0 : Main system clock(fMAIN)
@@ -866,7 +857,7 @@
 */
 #define BSP_CFG_FCLK_SOURCE (0)
 
-/* XT1 oscillator oscillation mode selection
+/* Selection of the oscillation mode of the XT1 oscillator
    Clock operation mode control register(CMC)
    AMPHS1,AMPHS0
  0 : Low power consumption oscillation 1(default)
@@ -887,7 +878,12 @@
  Set the value corresponding to the setting of BSP_CFG_FMX_HZ
 */
 
-/* X1 clock oscillation stabilization time selection
+/* CPU/peripheral hardware clock frequency in Hz
+   (The frequency set when code generation is executed)
+*/
+#define BSP_CFG_FCLK_HZ (32000000)
+
+/* Selection of the oscillation stabilization time
    Oscillation stabilization time select register(OSTS)
    OSTS2,OSTS1,OSTS0
   0 : (2^8)/fX  (fX = 10MHz : 25.6us, fX = 20MHz : 12.8us)
@@ -899,26 +895,26 @@
   6 : (2^17)/fX (fX = 10MHz : 13.1ms, fX = 20MHz : 6.55ms)
   7 : (2^18)/fX (fX = 10MHz : 26.2ms, fX = 20MHz : 13.1ms)
 */
-#define BSP_CFG_X1_WAIT_TIME_SEL (0)
+#define BSP_CFG_X1_WAIT_TIME_SEL (7)
 
-/* Setting in STOP mode or in HALT mode while the CPU is operating with the subsystem clock
+/* Setting in STOP mode or in HALT mode while the CPU is operating with the subsystem clock X
    Subsystem clock supply mode control register(OSMC)
    RTCLPC
-  0 : Enables supply of the subsystem clock to peripheral functions.
+  0 : Enables supply of the subsystem clock X to peripheral functions.
   1 : Stops supply of the subsystem clock to peripheral functions other than the realtime clock.
 */
-#define BSP_CFG_ALLOW_FSUB_IN_STOPHALT (1)
+#define BSP_CFG_ALLOW_FSUB_IN_STOPHALT (0)
 
-/* Selection of operation clock for the realtime clock, 32-bit interval timer and
-   clock output/buzzer output controller
+/* Selection of the operating clock for the realtime clock,
+   32-bit interval timer, timer RJ, and clock output/buzzer output controller
    Subsystem clock supply mode control register(OSMC)
    WUTMMCK0
  0 : Subsystem clock X
  1 : Low-speed on-chip oscillator clock
 */
-#define BSP_CFG_RTC_OUT_CLK_SOURCE (1)
+#define BSP_CFG_RTC_OUT_CLK_SOURCE (0)
 
-/* Selection of high-speed on-chip oscillator clock frequency
+/* Selection of the high-speed on-chip oscillator clock frequency
    High-Speed On-Chip Oscillator Frequency Select Register(HOCODIV)
    HOCODIV2,HOCODIV1,HOCODIV0
 
@@ -963,8 +959,8 @@
    and of transitions to SNOOZE mode
    Standby mode release setting register(WKUPMD)
    FWKUP
- 0 : Starting of the high-speed on-chip oscillator is at normal speed.
- 1 : Starting of the high-speed on-chip oscillator is at high speed.
+ 0 : Starting is at normal speed.
+ 1 : Starting is at high speed.
 */
 #define BSP_CFG_WAKEUP_MODE (0)
 
@@ -978,7 +974,7 @@
    0 : fIH = fHOCO/2
    1 : fIH = fHOCO
  (FRQSEL4 = 1, FRQSEL3 = 1)
-   0 : fIH = fHOCO
+   0 : fIH = fHOCO/2
    Other than above : Setting prohibited
 */
 #define BSP_CFG_FIH_SEL (0)
@@ -995,16 +991,15 @@
    Flash operating mode select register(FLMODE)
    MODE1, MODE0
  0 : LP(low-power main) mode
-     (Selectable from LS(low-speed main) mode with 1 MHz <= fCLK <= 2 MHz)
+     (Selectable from LS mode with 1 MHz <= fCLK <= 2 MHz)
  1 : LS(low-speed main) mode
-     (Selectable from HS(high-speed main) mode with 1 MHz <= fCLK <= 24 MHz or
-      from LP(low-power main) mode)
+     (Selectable from HS mode with 1 MHz <= fCLK <= 24 MHz or from LP mode)
  2 : HS(high-speed main) mode
-     (Selectable from LS(low-speed main) mode)
+     (Selectable from LS mode)
 */
 #define BSP_CFG_FLASH_MODE (2)
 
-/* High-speed system clock division selection
+/* Selected division ratio for the high-speed system clock
    High-speed system clock division register(MOSCDIV)
    MOSCDIV2,MOSCDIV1,MOSCDIV0
   0 : fMX   (fMX = 20MHz : 20MHz)
@@ -1016,7 +1011,7 @@
 */
 #define BSP_CFG_MOSC_DIVIDE (0)
 
-/* Selection of middle-speed on-chip oscillator clock frequency
+/* Selection of the middle-speed on-chip oscillator clock frequency
    Middle-speed on-chip oscillator frequency select register(MOCODIV)
    MOCODIV1,MOCODIV0
   0 : 4MHz
@@ -1026,20 +1021,20 @@
 */
 #define BSP_CFG_MOCO_DIVIDE (0)
 
-/* Control of PLL multiplication selection
+/* PLL multiplication factor selection bits
    PLL Control Register(DSCCTL)
    DSCM4,DSCM3,DSCM2,DSCM1,PLLDIV0
- 0 : Multiples the clock frequency by 16/2(8).  fPLL = 64MHz
- 1 : Multiples the clock frequency by 24/2(12). fPLL = 96MHz
+ 0 : Times 16/2 (times 8): fPLL = 64 MHz
+ 1 : Times 24/2 (times 12): fPLL = 96 MHz
  Other than above : Setting prohibited
 */
-#define BSP_CFG_PLL_MULTI (0)
+#define BSP_CFG_PLL_MULTI (1)
 
 /* Selection of the main system clock(fMAIN)
    Main clock control register(MCKC)
    CKSELR
  0 : On-chip oscillator clock(fOCO)/high-speed system clock(fMX)
- 1 : PLL clock(fPLL)
+ 1 : PLL frequency-divided clock (fPLLDIV)
 */
 #define BSP_CFG_PLL_MODE (0)
 
@@ -1059,11 +1054,11 @@
 */
 #define BSP_CFG_PLLCLK_SOURCE (0)
 
-/* Division ratio selection bits of the main system clock(fMAIN)
+/* Division ratio for the PLL frequency-divided clock (fPLLDIV)
    Main clock control register(MCKC)
    RDIV1, RDIV0
- 0 : Frequency division by two (fMAIN = 48/32 MHz, fPLL = 96/64 MHz)
- 1 : Frequency division by four (fMAIN = 24/16 MHz, fPLL = 96/64 MHz)
+ 0 : Frequency division by two (fPLLDIV = 48/32 MHz, fPLL = 96/64 MHz)
+ 1 : Frequency division by four (fPLLDIV = 24/16 MHz, fPLL = 96/64 MHz)
  Other than above : Setting prohibited
 */
 #define BSP_CFG_PLL_DIVIDE (0)
@@ -1091,28 +1086,38 @@
    you will need to specify a setting that matches your environment. */
 
 /* Subsystem clock oscillation stabilization wait time.
-   If the main system clock 48 MHz, 1050000 means 306 ms. */
-#define BSP_CFG_SUBWAITTIME              (1050000U)
+   If the main system clock 32 MHz, 800000 means 300.34 ms. */
+#define BSP_CFG_SUBWAITTIME              (800000U)
 
 /* High-speed on-chip oscillator  clock oscillation stabilization wait time.
-   If the main system clock 48 MHz, 30 means 5.12 us. */
+   If the main system clock 32 MHz, 30 means 5.66 us.
+    Required wait time : 5 us.
+    Referenced Users Manual version : Rev.1.20 */
 #define BSP_CFG_FIHWAITTIME              (30U)
 
 /* Middle-speed on-chip oscillator clock oscillation stabilization wait time.
-   If the main system clock 48 MHz, 6 means 1.14 us. */
+   If the main system clock 32 MHz, 6 means 1.16 us.
+    Required wait time : 1 us.
+    Referenced Users Manual version : Rev.1.20 */
 #define BSP_CFG_FIMWAITTIME              (6U)
 
 /*  Low-speed on-chip oscillator clock oscillation stabilization wait time.
-   If the main system clock 48 MHz, 500 means 83.5 us. */
-#define BSP_CFG_FILWAITTIME              (500U)
+   If the main system clock 32 MHz, 450 means 84.4 us.
+    Required wait time : 80 us.
+    Referenced Users Manual version : Rev.1.20 */
+#define BSP_CFG_FILWAITTIME              (450U)
 
 /* PLL effective wait time.
-   If the main system clock 48 MHz, 6 means 1.14 us. */
+   If the main system clock 32 MHz, 6 means 1.16 us.
+    Required wait time : 1 us.
+    Referenced Users Manual version : Rev.1.20 */
 #define BSP_CFG_PLLWAITTIME              (6U)
 
 /* PLL lock-up wait time.
-   If the main system clock 48 MHz, 100 means 16.8 us. */
-#define BSP_CFG_LOCKUP_WAITTIME    (100U)
+   If the main system clock 32 MHz, 270 means 50.72 us.
+    Required wait time : 50 us.
+    Referenced Users Manual version : Rev.1.20 */
+#define BSP_CFG_LOCKUP_WAITTIME    (270U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the
    following callback definitions AND provide a call back function name for the respective callback

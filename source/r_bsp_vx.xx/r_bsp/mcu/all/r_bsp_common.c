@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2021 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : r_bsp_common.c
 * Description  : 
@@ -36,6 +23,8 @@
 *                               Removed description of return value BSP_ERROR3 of R_BSP_ChangeClockSetting function.
 *         : 07.06.2024 1.70     Changed the number of overhead cycles of
 *                               the R_BSP_SoftwareDelay function from 1000 to 2.
+*         : 30.08.2025 1.92     Changed the disclaimer.
+*                               Removed extern declaration for wait processing.
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -65,7 +54,6 @@ const uint64_t g_bsp_delay_time[] = {
 /*************************************************
  * Function definition
  *************************************************/
-extern void delay_wait (uint32_t count);
 
 /**********************************************************************************************************************
  * Function Name: R_BSP_StartClock

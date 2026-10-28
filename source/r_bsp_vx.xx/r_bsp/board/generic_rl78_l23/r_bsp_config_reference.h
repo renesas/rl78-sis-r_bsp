@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2025 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : r_bsp_config_reference.h
 * H/W Platform : GENERIC_RL78_L23
@@ -27,6 +14,11 @@
 *         : 15.04.2025 1.91     Added the following macro definitions.
 *                                - BSP_CFG_MOSC_OPERATING_MODE
 *                               Modified the comment about AMPH1.
+*         : 06.10.2025 1.92     Changed the disclaimer.
+*                               Reviewed the initial values of macro definitions.
+*                               Reviewed the comments of macro definitions.
+*                               Added macro definitions for waiting process.
+*                               Modified the comment about AMPH.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -79,21 +71,21 @@
 
 #if defined(__ICCRL78__)
 /* Option byte setting(When using IAR) */
-#define BSP_CFG_OPTBYTE0_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE1_VALUE (0xFFU)
+#define BSP_CFG_OPTBYTE0_VALUE (0xEFU)
+#define BSP_CFG_OPTBYTE1_VALUE (0x3AU)
 #define BSP_CFG_OPTBYTE2_VALUE (0xE8U)
-#define BSP_CFG_OPTBYTE3_VALUE (0x04U)
+#define BSP_CFG_OPTBYTE3_VALUE (0x84U)
 /* Security ID Codes for On-Chip Debugging setting(When using IAR) */
-#define BSP_CFG_SECUID0_VALUE (0xFFU)
-#define BSP_CFG_SECUID1_VALUE (0xFFU)
-#define BSP_CFG_SECUID2_VALUE (0xFFU)
-#define BSP_CFG_SECUID3_VALUE (0xFFU)
-#define BSP_CFG_SECUID4_VALUE (0xFFU)
-#define BSP_CFG_SECUID5_VALUE (0xFFU)
-#define BSP_CFG_SECUID6_VALUE (0xFFU)
-#define BSP_CFG_SECUID7_VALUE (0xFFU)
-#define BSP_CFG_SECUID8_VALUE (0xFFU)
-#define BSP_CFG_SECUID9_VALUE (0xFFU)
+#define BSP_CFG_SECUID0_VALUE (0x00U)
+#define BSP_CFG_SECUID1_VALUE (0x00U)
+#define BSP_CFG_SECUID2_VALUE (0x00U)
+#define BSP_CFG_SECUID3_VALUE (0x00U)
+#define BSP_CFG_SECUID4_VALUE (0x00U)
+#define BSP_CFG_SECUID5_VALUE (0x00U)
+#define BSP_CFG_SECUID6_VALUE (0x00U)
+#define BSP_CFG_SECUID7_VALUE (0x00U)
+#define BSP_CFG_SECUID8_VALUE (0x00U)
+#define BSP_CFG_SECUID9_VALUE (0x00U)
 #endif
 
 /*************************************************
@@ -101,7 +93,8 @@
  *************************************************/
 /* Peripheral I/O redirection register 0(PIOR0-PIOR01/PIOR00)
    44/48/52-pin
- 00 : -
+ 00 : TI00 - -
+      TO00 - -
  01 : TI00 - P20
       TO00 - P21
  10 : TI00 - P40
@@ -109,7 +102,7 @@
  11 : TI00 - P90
       TO00 - P90
 
-   64/100-pin
+   64/80/100-pin
  00 : TI00 - P52
       TO00 - P52
  01 : TI00 - P20
@@ -124,34 +117,34 @@
 
 /* Peripheral I/O redirection register 0(PIOR0-PIOR04/PIOR03/PIOR02)
    44/48/52-pin
- 000 : -
- 001 : -
- 010 : -
- 011 : -
+ 000 : TI01/TO01 - -
+ 001 : TI01/TO01 - -
+ 010 : TI01/TO01 - -
+ 011 : TI01/TO01 - -
  100 : TI01/TO01 - P60
  101 : TI01/TO01 - P92
- 110 : -
- 111 : -
+ 110 : TI01/TO01 - -
+ 111 : TI01/TO01 - -
 
    64-pin
- 000 : -
+ 000 : TI01/TO01 - -
  001 : TI01/TO01 - P31
- 010 : -
- 011 : -
+ 010 : TI01/TO01 - -
+ 011 : TI01/TO01 - -
  100 : TI01/TO01 - P60
  101 : TI01/TO01 - P92
- 110 : -
- 111 : -
+ 110 : TI01/TO01 - -
+ 111 : TI01/TO01 - -
 
    80-pin
- 000 : -
+ 000 : TI01/TO01 - -
  001 : TI01/TO01 - P31
- 010 : -
+ 010 : TI01/TO01 - -
  011 : TI01/TO01 - P34
  100 : TI01/TO01 - P60
  101 : TI01/TO01 - P92
- 110 : -
- 111 : -
+ 110 : TI01/TO01 - -
+ 111 : TI01/TO01 - -
 
    100-pin
  000 : TI01/TO01 - P32
@@ -161,7 +154,7 @@
  100 : TI01/TO01 - P60
  101 : TI01/TO01 - P92
  110 : TI01/TO01 - P67
- 111 : -
+ 111 : TI01/TO01 - -
 */
 #define BSP_CFG_PIOR04 (0)
 #define BSP_CFG_PIOR03 (0)
@@ -169,14 +162,14 @@
 
 /* Peripheral I/O redirection register 0(PIOR0-PIOR06/PIOR05)
    44-pin
- 00 : -
- 01 : -
+ 00 : TI02/TO02 - -
+ 01 : TI02/TO02 - -
  10 : TI02/TO02 - P61
  11 : TI02/TO02 - P95
 
    48/52/64-pin
  00 : TI02/TO02 - P54
- 01 : -
+ 01 : TI02/TO02 - -
  10 : TI02/TO02 - P61
  11 : TI02/TO02 - P95
 
@@ -191,34 +184,34 @@
 
 /* Peripheral I/O redirection register 1(PIOR1-PIOR12/PIOR11/PIOR10)
    44-pin
- 000 : -
- 001 : -
+ 000 : TI03/TO03/REMOOUT - -
+ 001 : TI03/TO03/REMOOUT - -
  010 : TI03/TO03/REMOOUT - P57
- 011 : -
- 100 : -
- 101 : -
+ 011 : TI03/TO03/REMOOUT - -
+ 100 : TI03/TO03/REMOOUT - -
+ 101 : TI03/TO03/REMOOUT - -
  110 : TI03/TO03/REMOOUT - P127
- 111 : -
+ 111 : TI03/TO03/REMOOUT - -
 
    48/52-pin
- 000 : -
- 001 : -
+ 000 : TI03/TO03/REMOOUT - -
+ 001 : TI03/TO03/REMOOUT - -
  010 : TI03/TO03/REMOOUT - P57
- 011 : -
- 100 : -
+ 011 : TI03/TO03/REMOOUT - -
+ 100 : TI03/TO03/REMOOUT - -
  101 : TI03/TO03/REMOOUT - P75
  110 : TI03/TO03/REMOOUT - P127
- 111 : -
+ 111 : TI03/TO03/REMOOUT - -
 
    64/80-pin
  000 : TI03/TO03/REMOOUT - P30
- 001 : -
+ 001 : TI03/TO03/REMOOUT - -
  010 : TI03/TO03/REMOOUT - P57
  011 : TI03/TO03/REMOOUT - P62
- 100 : -
+ 100 : TI03/TO03/REMOOUT - -
  101 : TI03/TO03/REMOOUT - P75
  110 : TI03/TO03/REMOOUT - P127
- 111 : -
+ 111 : TI03/TO03/REMOOUT - -
 
    100-pin
  000 : TI03/TO03/REMOOUT - P30
@@ -228,7 +221,7 @@
  100 : TI03/TO03/REMOOUT - P64
  101 : TI03/TO03/REMOOUT - P75
  110 : TI03/TO03/REMOOUT - P127
- 111 : -
+ 111 : TI03/TO03/REMOOUT - -
 */
 #define BSP_CFG_PIOR12 (0)
 #define BSP_CFG_PIOR11 (0)
@@ -236,15 +229,15 @@
 
 /* Peripheral I/O redirection register 1(PIOR1-PIOR14/PIOR13)
    44/48-pin
- 00 : -
+ 00 : TI04/TO04 - -
  01 : TI04/TO04 - P44
- 10 : -
+ 10 : TI04/TO04 - -
  11 : TI04/TO04 - P126
 
    52-pin
  00 : TI04/TO04 - P14
  01 : TI04/TO04 - P44
- 10 : -
+ 10 : TI04/TO04 - -
  11 : TI04/TO04 - P126
 
    64/80/100-pin
@@ -258,34 +251,34 @@
 
 /* Peripheral I/O redirection register 1(PIOR1-PIOR17/PIOR16/PIOR15)
    44/48-pin
- 000 : -
- 001 : -
- 010 : -
- 011 : -
+ 000 : TI05/TO05 - -
+ 001 : TI05/TO05 - -
+ 010 : TI05/TO05 - -
+ 011 : TI05/TO05 - -
  100 : TI05/TO05 - P97
- 101 : -
- 110 : -
- 111 : -
+ 101 : TI05/TO05 - -
+ 110 : TI05/TO05 - -
+ 111 : TI05/TO05 - -
 
    52-pin
- 000 : -
- 001 : -
+ 000 : TI05/TO05 - -
+ 001 : TI05/TO05 - -
  010 : TI05/TO05 - P43
- 011 : -
+ 011 : TI05/TO05 - -
  100 : TI05/TO05 - P97
- 101 : -
- 110 : -
- 111 : -
+ 101 : TI05/TO05 - -
+ 110 : TI05/TO05 - -
+ 111 : TI05/TO05 - -
 
    64/80-pin
  000 : TI05/TO05 - P42
  001 : TI05/TO05 - P01
  010 : TI05/TO05 - P43
- 011 : -
+ 011 : TI05/TO05 - -
  100 : TI05/TO05 - P97
- 101 : -
- 110 : -
- 111 : -
+ 101 : TI05/TO05 - -
+ 110 : TI05/TO05 - -
+ 111 : TI05/TO05 - -
 
    100-pin
  000 : TI05/TO05 - P42
@@ -294,8 +287,8 @@
  011 : TI05/TO05 - P66
  100 : TI05/TO05 - P97
  101 : TI05/TO05 - P65
- 110 : -
- 111 : -
+ 110 : TI05/TO05 - -
+ 111 : TI05/TO05 - -
 */
 #define BSP_CFG_PIOR17 (0)
 #define BSP_CFG_PIOR16 (0)
@@ -303,7 +296,7 @@
 
 /* Peripheral I/O redirection register 2(PIOR2-PIOR21/PIOR20)
    44/48/52/64-pin
- 00 : -
+ 00 : TI06/TO06 - -
  01 : TI06/TO06 - P86
  10 : TI06/TO06 - P125
  11 : TI06/TO06 - P94
@@ -319,20 +312,20 @@
 
 /* Peripheral I/O redirection register 2(PIOR2-PIOR23/PIOR22)
    44/48-pin
- 00 : -
- 01 : -
- 10 : -
+ 00 : TI07/TO07 - -
+ 01 : TI07/TO07 - -
+ 10 : TI07/TO07 - -
  11 : TI07/TO07 - P77
 
    52-pin
- 00 : -
- 01 : -
+ 00 : TI07/TO07 - -
+ 01 : TI07/TO07 - -
  10 : TI07/TO07 - P53
  11 : TI07/TO07 - P77
 
    64-pin
  00 : TI07/TO07 - P15
- 01 : -
+ 01 : TI07/TO07 - -
  10 : TI07/TO07 - P53
  11 : TI07/TO07 - P77
 
@@ -359,8 +352,10 @@
        TKBO00 - P12
  101 : TKBO01 - P00
        TKBO00 - P12
- 110 : -
- 111 : -
+ 110 : TKBO01 - -
+       TKBO00 - -
+ 111 : TKBO01 - -
+       TKBO00 - -
 
    48-pin
  000 : TKBO01 - P77
@@ -375,8 +370,10 @@
        TKBO00 - P12
  101 : TKBO01 - P00
        TKBO00 - P12
- 110 : -
- 111 : -
+ 110 : TKBO01 - -
+       TKBO00 - -
+ 111 : TKBO01 - -
+       TKBO00 - -
 
    52/64/80/100-pin
  000 : TKBO01 - P77
@@ -391,8 +388,10 @@
        TKBO00 - P12
  101 : TKBO01 - P00
        TKBO00 - P12
- 110 : -
- 111 : -
+ 110 : TKBO01 - -
+       TKBO00 - -
+ 111 : TKBO01 - -
+       TKBO00 - -
 */
 #define BSP_CFG_PIOR32 (0)
 #define BSP_CFG_PIOR31 (0)
@@ -412,15 +411,18 @@
 
  (flash memory 256 or 512 KB)
    44-pin
- 00 : -
- 01 : -
+ 00 : TKBO11 - -
+      TKBO10 - -
+ 01 : TKBO11 - -
+      TKBO10 - -
  10 : TKBO11 - P11
       TKBO10 - P10
  11 : TKBO11 - -
       TKBO10 - P10
 
    48-pin
- 00 : -
+ 00 : TKBO11 - -
+      TKBO10 - -
  01 : TKBO11 - P75
       TKBO10 - -
  10 : TKBO11 - P11
@@ -475,7 +477,8 @@
 
  (flash memory 256 or 512 KB)
    44/48/52-pin
- 00 : -
+ 00 : TKBO21 - -
+      TKBO20 - -
  01 : TKBO21 - P77
       TKBO20 - -
  10 : TKBO21 - -
@@ -508,7 +511,8 @@
 
 /* Peripheral I/O redirection register 4(PIOR4-PIOR40)
    44/48/52-pin
- 0 : -
+ 0 : TRJO0 - -
+     TRJIO0 - -
  1 : TRJO0 - P00
      TRJIO0 - P17
 
@@ -530,7 +534,8 @@
 
  (flash memory 256 or 512 KB)
    44/48/52/64-pin
- 0 : -
+ 0 : TRJO1  - -
+     TRJIO1 - -
  1 : TRJO1  - P12
      TRJIO1 - P11
 
@@ -543,7 +548,13 @@
 #define BSP_CFG_PIOR41 (0)
 
 /* Peripheral I/O redirection register 4(PIOR4-PIOR46)
-   44/48/52/64/80/100-pin
+   44-pin
+ 0 : EXSDO1 - P44
+     EXSDO0 - -
+ 1 : EXSDO1 - P76
+     EXSDO0 - P77
+
+   48/52/64/80/100-pin
  0 : EXSDO1 - P44
      EXSDO0 - P45
  1 : EXSDO1 - P76
@@ -574,7 +585,8 @@
        PCLBUZ0 - -
  101 : PCLBUZ1 - P125
        PCLBUZ0 - -
- 110 : -
+ 110 : PCLBUZ1 - -
+       PCLBUZ0 - -
  111 : PCLBUZ1 - P06
        PCLBUZ0 - P96
 
@@ -591,7 +603,8 @@
        PCLBUZ0 - -
  101 : PCLBUZ1 - P125
        PCLBUZ0 - P54
- 110 : -
+ 110 : PCLBUZ1 - -
+       PCLBUZ0 - -
  111 : PCLBUZ1 - P06
        PCLBUZ0 - P96
 
@@ -608,7 +621,8 @@
        PCLBUZ0 - P53
  101 : PCLBUZ1 - P125
        PCLBUZ0 - P54
- 110 : -
+ 110 : PCLBUZ1 - -
+       PCLBUZ0 - -
  111 : PCLBUZ1 - P06
        PCLBUZ0 - P96
 
@@ -654,10 +668,12 @@
 
 /* Peripheral I/O redirection register 5(PIOR5-PIOR54/PIOR53)
    44/48/52-pin
- 00 : -
+ 00 : VCOUT1 - -
+      VCOUT0 - -
  01 : VCOUT1 - P12
       VCOUT0 - P16
- 10 : -
+ 10 : VCOUT1 - -
+      VCOUT0 - -
  11 : VCOUT1 - P125
       VCOUT0 - P85
 
@@ -666,7 +682,8 @@
       VCOUT0 - P03
  01 : VCOUT1 - P12
       VCOUT0 - P16
- 10 : -
+ 10 : VCOUT1 - -
+      VCOUT0 - -
  11 : VCOUT1 - P125
       VCOUT0 - P85
 
@@ -695,24 +712,24 @@
 
 /* Peripheral I/O redirection register 5(PIOR5-PIOR57/PIOR56/PIOR55)
    44/48/52-pin
- 000 : -
- 001 : -
- 010 : -
- 011 : -
+ 000 : RTC1HZ - -
+ 001 : RTC1HZ - -
+ 010 : RTC1HZ - -
+ 011 : RTC1HZ - -
  100 : RTC1HZ - P16
  101 : RTC1HZ - P76
- 110 : -
- 111 : -
+ 110 : RTC1HZ - -
+ 111 : RTC1HZ - -
 
    64/80-pin
  000 : RTC1HZ - P31
  001 : RTC1HZ - R30
- 010 : -
- 011 : -
+ 010 : RTC1HZ - -
+ 011 : RTC1HZ - -
  100 : RTC1HZ - P16
  101 : RTC1HZ - P76
- 110 : -
- 111 : -
+ 110 : RTC1HZ - -
+ 111 : RTC1HZ - -
 
    100-pin
  000 : RTC1HZ - P31
@@ -721,8 +738,8 @@
  011 : RTC1HZ - P33
  100 : RTC1HZ - P16
  101 : RTC1HZ - P76
- 110 : -
- 111 : -
+ 110 : RTC1HZ - -
+ 111 : RTC1HZ - -
 */
 #define BSP_CFG_PIOR57 (0)
 #define BSP_CFG_PIOR56 (0)
@@ -732,32 +749,32 @@
    44-pin
  000 : INTP0 - P137
  001 : INTP0 - P10
- 010 : -
- 011 : -
- 100 : -
- 101 : -
- 110 : -
- 111 : -
+ 010 : INTP0 - -
+ 011 : INTP0 - -
+ 100 : INTP0 - -
+ 101 : INTP0 - -
+ 110 : INTP0 - -
+ 111 : INTP0 - -
 
    48/52/64-pin
  000 : INTP0 - P137
  001 : INTP0 - P10
- 010 : -
+ 010 : INTP0 - -
  011 : INTP0 - P54
- 100 : -
- 101 : -
+ 100 : INTP0 - -
+ 101 : INTP0 - -
  110 : INTP0 - P75
- 111 : -
+ 111 : INTP0 - -
 
    80-pin
  000 : INTP0 - P137
  001 : INTP0 - P10
  010 : INTP0 - P34
  011 : INTP0 - P54
- 100 : -
- 101 : -
+ 100 : INTP0 - -
+ 101 : INTP0 - -
  110 : INTP0 - P75
- 111 : -
+ 111 : INTP0 - -
 
    100-pin
  000 : INTP0 - P137
@@ -767,7 +784,7 @@
  100 : INTP0 - P65
  101 : INTP0 - P84
  110 : INTP0 - P75
- 111 : -
+ 111 : INTP0 - -
 */
 #define BSP_CFG_PIOR62 (0)
 #define BSP_CFG_PIOR61 (0)
@@ -775,30 +792,30 @@
 
 /* Peripheral I/O redirection register 6(PIOR6-PIOR65/PIOR64/PIOR63)
    44/48/52-pin
- 000 : -
- 001 : -
+ 000 : INTP1 - -
+ 001 : INTP1 - -
  010 : INTP1 - P77
- 011 : -
+ 011 : INTP1 - -
  100 : INTP1 - P90
  101 : INTP1 - P95
- 110 : -
+ 110 : INTP1 - -
  111 : INTP1 - P11
 
    64-pin
  000 : INTP1 - P52
- 001 : -
+ 001 : INTP1 - -
  010 : INTP1 - P77
- 011 : -
+ 011 : INTP1 - -
  100 : INTP1 - P90
  101 : INTP1 - P95
- 110 : -
+ 110 : INTP1 - -
  111 : INTP1 - P11
 
    80-pin
  000 : INTP1 - P52
- 001 : -
+ 001 : INTP1 - -
  010 : INTP1 - P77
- 011 : -
+ 011 : INTP1 - -
  100 : INTP1 - P90
  101 : INTP1 - P95
  110 : INTP1 - P47
@@ -820,34 +837,34 @@
 
 /* Peripheral I/O redirection register 7(PIOR7-PIOR72/PIOR71/PIOR70)
    44/48-pin
- 000 : -
- 001 : -
+ 000 : INTP2 - -
+ 001 : INTP2 - -
  010 : INTP2 - P76
  011 : INTP2 - P91
- 100 : INTP3 - P94
- 101 : -
- 110 : -
- 111 : -
+ 100 : INTP2 - P94
+ 101 : INTP2 - -
+ 110 : INTP2 - -
+ 111 : INTP2 - -
 
    52/64/80-pin
  000 : INTP2 - P53
- 001 : -
+ 001 : INTP2 - -
  010 : INTP2 - P76
  011 : INTP2 - P91
- 100 : INTP3 - P94
- 101 : -
- 110 : -
- 111 : -
+ 100 : INTP2 - P94
+ 101 : INTP2 - -
+ 110 : INTP2 - -
+ 111 : INTP2 - -
 
    100-pin
  000 : INTP2 - P53
  001 : INTP2 - P67
  010 : INTP2 - P76
  011 : INTP2 - P91
- 100 : INTP3 - P94
+ 100 : INTP2 - P94
  101 : INTP2 - P147
  110 : INTP2 - P80
- 111 : -
+ 111 : INTP2 - -
 */
 #define BSP_CFG_PIOR72 (0)
 #define BSP_CFG_PIOR71 (0)
@@ -855,24 +872,24 @@
 
 /* Peripheral I/O redirection register 7(PIOR7-PIOR75/PIOR74/PIOR73)
    44/48/52-pin
- 000 : -
- 001 : -
- 010 : -
+ 000 : INTP3 - -
+ 001 : INTP3 - -
+ 010 : INTP3 - -
  011 : INTP3 - P60
  100 : INTP3 - P86
- 101 : -
+ 101 : INTP3 - -
  110 : INTP3 - P93
- 111 : -
+ 111 : INTP3 - -
 
    64/80-pin
  000 : INTP3 - P31
  001 : INTP3 - P30
- 010 : -
+ 010 : INTP3 - -
  011 : INTP3 - P60
  100 : INTP3 - P86
- 101 : -
+ 101 : INTP3 - -
  110 : INTP3 - P93
- 111 : -
+ 111 : INTP3 - -
 
    100-pin
  000 : INTP3 - P31
@@ -882,7 +899,7 @@
  100 : INTP3 - P86
  101 : INTP3 - P145
  110 : INTP3 - P93
- 111 : -
+ 111 : INTP3 - -
 */
 #define BSP_CFG_PIOR75 (0)
 #define BSP_CFG_PIOR74 (0)
@@ -890,32 +907,32 @@
 
 /* Peripheral I/O redirection register 8(PIOR8-PIOR82/PIOR81/PIOR80)
    44/48-pin
- 000 : -
+ 000 : INTP4 - -
  001 : INTP4 - P27
- 010 : -
+ 010 : INTP4 - -
  011 : INTP4 - P61
  100 : INTP4 - P85
- 101 : -
+ 101 : INTP4 - -
  110 : INTP4 - P126
- 111 : -
+ 111 : INTP4 - -
 
    52/64-pin
- 000 : -
+ 000 : INTP4 - -
  001 : INTP4 - P27
- 010 : -
+ 010 : INTP4 - -
  011 : INTP4 - P61
  100 : INTP4 - P85
- 101 : -
+ 101 : INTP4 - -
  110 : INTP4 - P126
  111 : INTP4 - P43
 
    80-pin
- 000 : -
+ 000 : INTP4 - -
  001 : INTP4 - P27
  010 : INTP4 - P35
  011 : INTP4 - P61
  100 : INTP4 - P85
- 101 : -
+ 101 : INTP4 - -
  110 : INTP4 - P126
  111 : INTP4 - P43
 
@@ -935,34 +952,34 @@
 
 /* Peripheral I/O redirection register 8(PIOR8-PIOR85/PIOR84/PIOR83)
    44/48/52-pin
- 000 : -
- 001 : -
+ 000 : INTP5 - -
+ 001 : INTP5 - -
  010 : INTP5 - P26
- 011 : -
- 100 : -
+ 011 : INTP5 - -
+ 100 : INTP5 - -
  101 : INTP5 - P96
- 110 : -
- 111 : -
+ 110 : INTP5 - -
+ 111 : INTP5 - -
 
    64-pin
- 000 : -
+ 000 : INTP5 - -
  001 : INTP5 - P01
  010 : INTP5 - P26
  011 : INTP5 - P62
- 100 : -
+ 100 : INTP5 - -
  101 : INTP5 - P96
- 110 : -
- 111 : -
+ 110 : INTP5 - -
+ 111 : INTP5 - -
 
    80-pin
  000 : INTP5 - P55
  001 : INTP5 - P01
  010 : INTP5 - P26
  011 : INTP5 - P62
- 100 : -
+ 100 : INTP5 - -
  101 : INTP5 - P96
- 110 : -
- 111 : -
+ 110 : INTP5 - -
+ 111 : INTP5 - -
 
    100-pin
  000 : INTP5 - P55
@@ -972,7 +989,7 @@
  100 : INTP5 - P64
  101 : INTP5 - P96
  110 : INTP5 - P143
- 111 : -
+ 111 : INTP5 - -
 */
 #define BSP_CFG_PIOR85 (0)
 #define BSP_CFG_PIOR84 (0)
@@ -981,23 +998,23 @@
 /* Peripheral I/O redirection register 9(PIOR9-PIOR92/PIOR91/PIOR90)
    44/48/52-pin
  000 : INTP6 - P57
- 001 : -
+ 001 : INTP6 - -
  010 : INTP6 - P21
- 011 : -
- 100 : -
- 101 : -
- 110 : -
- 111 : -
+ 011 : INTP6 - -
+ 100 : INTP6 - -
+ 101 : INTP6 - -
+ 110 : INTP6 - -
+ 111 : INTP6 - -
 
    64-pin
  000 : INTP6 - P57
  001 : INTP6 - P04
  010 : INTP6 - P21
- 011 : -
+ 011 : INTP6 - -
  100 : INTP6 - P63
- 101 : -
- 110 : -
- 111 : -
+ 101 : INTP6 - -
+ 110 : INTP6 - -
+ 111 : INTP6 - -
 
    80-pin
  000 : INTP6 - P57
@@ -1005,9 +1022,9 @@
  010 : INTP6 - P21
  011 : INTP6 - P41
  100 : INTP6 - P63
- 101 : -
+ 101 : INTP6 - -
  110 : INTP6 - P51
- 111 : -
+ 111 : INTP6 - -
 
    100-pin
  000 : INTP6 - P57
@@ -1017,7 +1034,7 @@
  100 : INTP6 - P63
  101 : INTP6 - P141
  110 : INTP6 - P51
- 111 : -
+ 111 : INTP6 - -
 */
 #define BSP_CFG_PIOR92 (0)
 #define BSP_CFG_PIOR91 (0)
@@ -1025,14 +1042,14 @@
 
 /* Peripheral I/O redirection register 9(PIOR9-PIOR95/PIOR94/PIOR93)
    44/48/52-pin
- 000 : -
+ 000 : INTP7 - -
  001 : INTP7 - P20
  010 : INTP7 - P22
- 011 : -
+ 011 : INTP7 - -
  100 : INTP7 - P44
  101 : INTP7 - P125
- 110 : -
- 111 : -
+ 110 : INTP7 - -
+ 111 : INTP7 - -
 
    64/80-pin
  000 : INTP7 - P02
@@ -1041,8 +1058,8 @@
  011 : INTP7 - P42
  100 : INTP7 - P44
  101 : INTP7 - P125
- 110 : -
- 111 : -
+ 110 : INTP7 - -
+ 111 : INTP7 - -
 
    100-pin
  000 : INTP7 - P02
@@ -1074,8 +1091,20 @@
       SDA00 - P26
       SO00  - P27
       TxD0  - P27
- 10 : -
- 11 : -
+ 10 : SCK00 - -
+      SCL00 - -
+      SI00  - -
+      RxD0  - -
+      SDA00 - -
+      SO00  - -
+      TxD0  - -
+ 11 : SCK00 - -
+      SCL00 - -
+      SI00  - -
+      RxD0  - -
+      SDA00 - -
+      SO00  - -
+      TxD0  - -
 
    64-pin
  00 : SCK00 - P16
@@ -1099,7 +1128,13 @@
       SDA00 - P42
       SO00  - -
       TxD0  - -
- 11 : -
+ 11 : SCK00 - -
+      SCL00 - -
+      SI00  - -
+      RxD0  - -
+      SDA00 - -
+      SO00  - -
+      TxD0  - -
 
    80/100-pin
  00 : SCK00 - P16
@@ -1123,15 +1158,29 @@
       SDA00 - P42
       SO00  - P41
       TxD0  - P41
- 11 : -
+ 11 : SCK00 - -
+      SCL00 - -
+      SI00  - -
+      RxD0  - -
+      SDA00 - -
+      SO00  - -
+      TxD0  - -
 */
 #define BSP_CFG_PIOR101 (0)
 #define BSP_CFG_PIOR100 (0)
 
 /* Peripheral I/O redirection register 10(PIOR10-PIOR103/PIOR102)
    44/48-pin
- 00 : -
- 01 : -
+ 00 : SCK01 - -
+      SCL01 - -
+      SI01  - -
+      SDA01 - -
+      SO01  - -
+ 01 : SCK01 - -
+      SCL01 - -
+      SI01  - -
+      SDA01 - -
+      SO01  - -
  10 : SCK01 - P93
       SCL01 - P93
       SI01  - P94
@@ -1149,7 +1198,11 @@
       SI01  - -
       SDA01 - P53
       SO01  - -
- 01 : -
+ 01 : SCK01 - -
+      SCL01 - -
+      SI01  - -
+      SDA01 - -
+      SO01  - -
  10 : SCK01 - P93
       SCL01 - P93
       SI01  - P94
@@ -1167,7 +1220,11 @@
       SI01  - P53
       SDA01 - P53
       SO01  - P52
- 01 : -
+ 01 : SCK01 - -
+      SCL01 - -
+      SI01  - -
+      SDA01 - -
+      SO01  - -
  10 : SCK01 - P93
       SCL01 - P93
       SI01  - P94
@@ -1213,8 +1270,20 @@
       SDA10 - P06
       SO10  - P07
       TxD1  - P07
- 01 : -
- 10 : -
+ 01 : SCK10 - -
+      SCL10 - -
+      SI10  - -
+      RxD1  - -
+      SDA10 - -
+      SO10  - -
+      TxD1  - -
+ 10 : SCK10 - -
+      SCL10 - -
+      SI10  - -
+      RxD1  - -
+      SDA10 - -
+      SO10  - -
+      TxD1  - -
  11 : SCK10 - P85
       SCL10 - P85
       SI10  - P86
@@ -1238,7 +1307,13 @@
       SDA10 - -
       SO10  - -
       TxD1  - P42
- 10 : -
+ 10 : SCK10 - -
+      SCL10 - -
+      SI10  - -
+      RxD1  - -
+      SDA10 - -
+      SO10  - -
+      TxD1  - -
  11 : SCK10 - P85
       SCL10 - P85
       SI10  - P86
@@ -1287,9 +1362,21 @@
       SI11  - P11
       SDA11 - P11
       SO11  - P12
- 01 : -
- 10 : -
- 11 : -
+ 01 : SCK11 - -
+      SCL11 - -
+      SI11  - -
+      SDA11 - -
+      SO11  - -
+ 10 : SCK11 - -
+      SCL11 - -
+      SI11  - -
+      SDA11 - -
+      SO11  - -
+ 11 : SCK11 - -
+      SCL11 - -
+      SI11  - -
+      SDA11 - -
+      SO11  - -
 
    52-pin
  00 : SCK11 - P10
@@ -1302,8 +1389,16 @@
       SI11  - -
       SDA11 - P43
       SO11  - -
- 10 : -
- 11 : -
+ 10 : SCK11 - -
+      SCL11 - -
+      SI11  - -
+      SDA11 - -
+      SO11  - -
+ 11 : SCK11 - -
+      SCL11 - -
+      SI11  - -
+      SDA11 - -
+      SO11  - -
 
    64/80/100-pin
  00 : SCK11 - P10
@@ -1316,8 +1411,16 @@
       SI11  - P43
       SDA11 - P43
       SO11  - P42
- 10 : -
- 11 : -
+ 10 : SCK11 - -
+      SCL11 - -
+      SI11  - -
+      SDA11 - -
+      SO11  - -
+ 11 : SCK11 - -
+      SCL11 - -
+      SI11  - -
+      SDA11 - -
+      SO11  - -
 */
 #define BSP_CFG_PIOR107 (0)
 #define BSP_CFG_PIOR106 (0)
@@ -1331,9 +1434,27 @@
       SDA20 - -
       SO20  - -
       TxD2  - P77
- 01 : -
- 10 : -
- 11 : -
+ 01 : SCK20 - -
+      SCL20 - -
+      SI20  - -
+      RxD2  - -
+      SDA20 - -
+      SO20  - -
+      TxD2  - -
+ 10 : SCK20 - -
+      SCL20 - -
+      SI20  - -
+      RxD2  - -
+      SDA20 - -
+      SO20  - -
+      TxD2  - -
+ 11 : SCK20 - -
+      SCL20 - -
+      SI20  - -
+      RxD2  - -
+      SDA20 - -
+      SO20  - -
+      TxD2  - -
 
    48/52-pin
  00 : SCK20 - P75
@@ -1343,9 +1464,27 @@
       SDA20 - P76
       SO20  - P77
       TxD2  - P77
- 01 : -
- 10 : -
- 11 : -
+ 01 : SCK20 - -
+      SCL20 - -
+      SI20  - -
+      RxD2  - -
+      SDA20 - -
+      SO20  - -
+      TxD2  - -
+ 10 : SCK20 - -
+      SCL20 - -
+      SI20  - -
+      RxD2  - -
+      SDA20 - -
+      SO20  - -
+      TxD2  - -
+ 11 : SCK20 - -
+      SCL20 - -
+      SI20  - -
+      RxD2  - -
+      SDA20 - -
+      SO20  - -
+      TxD2  - -
 
    64/80-pin
  00 : SCK20 - P75
@@ -1355,7 +1494,13 @@
       SDA20 - P76
       SO20  - P77
       TxD2  - P77
- 01 : -
+ 01 : SCK20 - -
+      SCL20 - -
+      SI20  - -
+      RxD2  - -
+      SDA20 - -
+      SO20  - -
+      TxD2  - -
  10 : SCK20 - P02
       SCL20 - P02
       SI20  - P03
@@ -1363,7 +1508,13 @@
       SDA20 - P03
       SO20  - P04
       TxD2  - P04
- 11 : -
+ 11 : SCK20 - -
+      SCL20 - -
+      SI20  - -
+      RxD2  - -
+      SDA20 - -
+      SO20  - -
+      TxD2  - -
 
    100-pin
  00 : SCK20 - P75
@@ -1387,7 +1538,13 @@
       SDA20 - P03
       SO20  - P04
       TxD2  - P04
- 11 : -
+ 11 : SCK20 - -
+      SCL20 - -
+      SI20  - -
+      RxD2  - -
+      SDA20 - -
+      SO20  - -
+      TxD2  - -
 */
 #define BSP_CFG_PIOR110 (0)
 #define BSP_CFG_PIOR111 (0)
@@ -1399,9 +1556,21 @@
       SI21  - P26
       SDA21 - P26
       SO21  - P27
- 01 : -
- 10 : -
- 11 : -
+ 01 : SCK21 - -
+      SCL21 - -
+      SI21  - -
+      SDA21 - -
+      SO21  - -
+ 10 : SCK21 - -
+      SCL21 - -
+      SI21  - -
+      SDA21 - -
+      SO21  - -
+ 11 : SCK21 - -
+      SCL21 - -
+      SI21  - -
+      SDA21 - -
+      SO21  - -
 
    80/100-pin
  00 : SCK21 - P22
@@ -1414,15 +1583,29 @@
       SI21  - P47
       SDA21 - P47
       SO21  - P130
- 10 : -
- 11 : -
+ 10 : SCK21 - -
+      SCL21 - -
+      SI21  - -
+      SDA21 - -
+      SO21  - -
+ 11 : SCK21 - -
+      SCL21 - -
+      SI21  - -
+      SDA21 - -
+      SO21  - -
 */
 #define BSP_CFG_PIOR113 (0)
 #define BSP_CFG_PIOR112 (0)
 
 /* Peripheral I/O redirection register 11(PIOR11-PIOR115/PIOR114)
    44-pin
- 00 : -
+ 00 : SCK30 - -
+      SCL30 - -
+      SI30  - -
+      RxD3  - -
+      SDA30 - -
+      SO30  - -
+      TxD3  - -
  01 : SCK30 - -
       SCL30 - P85
       SI30  - -
@@ -1430,8 +1613,20 @@
       SDA30 - P125
       SO30  - -
       TxD3  - -
- 10 : -
- 11 : -
+ 10 : SCK30 - -
+      SCL30 - -
+      SI30  - -
+      RxD3  - -
+      SDA30 - -
+      SO30  - -
+      TxD3  - -
+ 11 : SCK30 - -
+      SCL30 - -
+      SI30  - -
+      RxD3  - -
+      SDA30 - -
+      SO30  - -
+      TxD3  - -
 
    48-pin
  00 : SCK30 - -
@@ -1448,8 +1643,20 @@
       SDA30 - P125
       SO30  - -
       TxD3  - -
- 10 : -
- 11 : -
+ 10 : SCK30 - -
+      SCL30 - -
+      SI30  - -
+      RxD3  - -
+      SDA30 - -
+      SO30  - -
+      TxD3  - -
+ 11 : SCK30 - -
+      SCL30 - -
+      SI30  - -
+      RxD3  - -
+      SDA30 - -
+      SO30  - -
+      TxD3  - -
 
    52/64-pin
  00 : SCK30 - P45
@@ -1466,8 +1673,20 @@
       SDA30 - P125
       SO30  - -
       TxD3  - -
- 10 : -
- 11 : -
+ 10 : SCK30 - -
+      SCL30 - -
+      SI30  - -
+      RxD3  - -
+      SDA30 - -
+      SO30  - -
+      TxD3  - -
+ 11 : SCK30 - -
+      SCL30 - -
+      SI30  - -
+      RxD3  - -
+      SDA30 - -
+      SO30  - -
+      TxD3  - -
 
    80-pin
  00 : SCK30 - P45
@@ -1491,7 +1710,13 @@
       SDA30 - -
       SO30  - -
       TxD3  - P35
- 11 : -
+ 11 : SCK30 - -
+      SCL30 - -
+      SI30  - -
+      RxD3  - -
+      SDA30 - -
+      SO30  - -
+      TxD3  - -
 
    100-pin
  00 : SCK30 - P45
@@ -1515,14 +1740,24 @@
       SDA30 - P34
       SO30  - P35
       TxD3  - P35
- 11 : -
+ 11 : SCK30 - -
+      SCL30 - -
+      SI30  - -
+      RxD3  - -
+      SDA30 - -
+      SO30  - -
+      TxD3  - -
 */
 #define BSP_CFG_PIOR115 (0)
 #define BSP_CFG_PIOR114 (0)
 
 /* Peripheral I/O redirection register 11(PIOR11-PIOR117/PIOR116)
    64/80-pin
- 00 : -
+ 00 : SCK31 - -
+      SCL31 - -
+      SI31  - -
+      SDA31 - -
+      SO31  - -
  01 : SCK31 - -
       SCL31 - P02
       SI31  - -
@@ -1533,7 +1768,11 @@
       SI31  - P03
       SDA31 - P03
       SO31  - P01
- 11 : -
+ 11 : SCK31 - -
+      SCL31 - -
+      SI31  - -
+      SDA31 - -
+      SO31  - -
 
    100-pin
  00 : SCK31 - P140
@@ -1551,7 +1790,11 @@
       SI31  - P03
       SDA31 - P03
       SO31  - P01
- 11 : -
+ 11 : SCK31 - -
+      SCL31 - -
+      SI31  - -
+      SDA31 - -
+      SO31  - -
 */
 #define BSP_CFG_PIOR117 (0)
 #define BSP_CFG_PIOR116 (0)
@@ -1560,17 +1803,22 @@
    44/48/52/64-pin
  00 : SCLA0 - P60
       SDAA0 - P61
- 01 : -
- 10 : -
-11 : -
+ 01 : SCLA0 - -
+      SDAA0 - -
+ 10 : SCLA0 - -
+      SDAA0 - -
+ 11 : SCLA0 - -
+      SDAA0 - -
 
    80-pin
  00 : SCLA0 - P60
       SDAA0 - P61
  01 : SCLA0 - P42
       SDAA0 - P41
- 10 : -
-11 : -
+ 10 : SCLA0 - -
+      SDAA0 - -
+ 11 : SCLA0 - -
+      SDAA0 - -
 
    100-pin
  00 : SCLA0 - P60
@@ -1579,26 +1827,32 @@
       SDAA0 - P41
  10 : SCLA0 - P144
       SDAA0 - P145
-11 : -
+ 11 : SCLA0 - -
+      SDAA0 - -
 */
 #define BSP_CFG_PIOR121 (0)
 #define BSP_CFG_PIOR120 (0)
 
 /* Peripheral I/O redirection register 12(PIOR12-PIOR123/PIOR122)
    44/48/52-pin
- 00 : -
- 01 : -
+ 00 : SCLA1 - -
+      SDAA1 - -
+ 01 : SCLA1 - -
+      SDAA1 - -
  10 : SCLA1 - P97
       SDAA1 - P96
-11 : -
+ 11 : SCLA1 - -
+      SDAA1 - -
 
    64/80-pin
  00 : SCLA1 - P62
       SDAA1 - P63
- 01 : -
+ 01 : SCLA1 - -
+      SDAA1 - -
  10 : SCLA1 - P97
       SDAA1 - P96
-11 : -
+ 11 : SCLA1 - -
+      SDAA1 - -
 
    100-pin
  00 : SCLA1 - P62
@@ -1617,17 +1871,22 @@
    44/48/52/64-pin
  00 : RxDA0 - P11
       TxDA0 - P10
- 01 : -
- 10 : -
- 11 : -
+ 01 : RxDA0 - -
+      TxDA0 - -
+ 10 : RxDA0 - -
+      TxDA0 - -
+ 11 : RxDA0 - -
+      TxDA0 - -
 
    80-pin
  00 : RxDA0 - P11
       TxDA0 - P10
- 01 : -
+ 01 : RxDA0 - -
+      TxDA0 - -
  10 : RxDA0 - P47
       TxDA0 - P130
- 11 : -
+ 11 : RxDA0 - -
+      TxDA0 - -
 
    100-pin
  00 : RxDA0 - P11
@@ -1636,7 +1895,8 @@
       TxDA0 - P84
  10 : RxDA0 - P47
       TxDA0 - P130
- 11 : -
+ 11 : RxDA0 - -
+      TxDA0 - -
 */
 #define BSP_CFG_PIOR131 (0)
 #define BSP_CFG_PIOR130 (0)
@@ -1645,17 +1905,22 @@
    44/48/52-pin
  00 : RxDA1 - P27
       TxDA1 - P26
- 01 : -
- 10 : -
- 11 : -
+ 01 : RxDA1 - -
+      TxDA1 - -
+ 10 : RxDA1 - -
+      TxDA1 - -
+ 11 : RxDA1 - -
+      TxDA1 - -
 
    64/80-pin
  00 : RxDA1 - P27
       TxDA1 - P26
  01 : RxDA1 - P43
       TxDA1 - P42
- 10 : -
- 11 : -
+ 10 : RxDA1 - -
+      TxDA1 - -
+ 11 : RxDA1 - -
+      TxDA1 - -
 
    100-pin
  00 : RxDA1 - P27
@@ -1664,7 +1929,8 @@
       TxDA1 - P42
  10 : RxDA1 - P144
       TxDA1 - P145
- 11 : -
+ 11 : RxDA1 - -
+      TxDA1 - -
 */
 #define BSP_CFG_PIOR133 (0)
 #define BSP_CFG_PIOR132 (0)
@@ -1674,9 +1940,12 @@
    80-pin
  00 : RxDA2 - P44
       TxDA2 - P45
- 01 : -
- 10 : -
- 11 : -
+ 01 : RxDA2 - -
+      TxDA2 - -
+ 10 : RxDA2 - -
+      TxDA2 - -
+ 11 : RxDA2 - -
+      TxDA2 - -
 
    100-pin
  00 : RxDA2 - P44
@@ -1685,15 +1954,19 @@
       TxDA2 - P03
  10 : RxDA2 - P142
       TxDA2 - P143
- 11 : -
+ 11 : RxDA2 - -
+      TxDA2 - -
 
  (flash memory 256 or 512 KB)
    48/52/64/80-pin
  00 : RxDA2 - P44
       TxDA2 - P45
- 01 : -
- 10 : -
- 11 : -
+ 01 : RxDA2 - -
+      TxDA2 - -
+ 10 : RxDA2 - -
+      TxDA2 - -
+ 11 : RxDA2 - -
+      TxDA2 - -
 
    100-pin
  00 : RxDA2 - P44
@@ -1702,7 +1975,8 @@
       TxDA2 - P03
  10 : RxDA2 - P142
       TxDA2 - P143
- 11 : -
+ 11 : RxDA2 - -
+      TxDA2 - -
 */
 #define BSP_CFG_PIOR135 (0)
 #define BSP_CFG_PIOR134 (0)
@@ -1711,9 +1985,12 @@
    80-pin
  00 : RxDA3 - P51
       TxDA3 - P50
- 01 : -
- 10 : -
- 11 : -
+ 01 : RxDA3 - -
+      TxDA3 - -
+ 10 : RxDA3 - -
+      TxDA3 - -
+ 11 : RxDA3 - -
+      TxDA3 - -
 
    100-pin
  00 : RxDA3 - P51
@@ -1722,7 +1999,8 @@
       TxDA3 - P66
  10 : RxDA3 - P141
       TxDA3 - P147
- 11 : -
+ 11 : RxDA3 - -
+      TxDA3 - -
 */
 #define BSP_CFG_PIOR137 (0)
 #define BSP_CFG_PIOR136 (0)
@@ -1935,7 +2213,7 @@
  0 : Subsystem clock X
  1 : Low-speed on-chip oscillator clock
 */
-#define BSP_CFG_SUBSYSCLK_SOURCE (1)
+#define BSP_CFG_SUBSYSCLK_SOURCE (0)
 
 /* Selection of the CPU/peripheral hardware clock(fCLK)
    System clock control register(CKC)
@@ -1962,10 +2240,18 @@
 /* Control of the X1 clock oscillation frequency
    Clock Operation Mode Control Register(CMC)
     AMPH
- 0 : 1 MHz <= fX <= 10 MHz
- 1 : 10 MHz < fX <= 20 MHz
- Set the value corresponding to the setting of BSP_CFG_FMX_HZ
+ (BSP_CFG_MOSC_OPERATING_MODE=0)
+   0 : 1 MHz <= fX <= 10 MHz
+   1 : 10 MHz < fX <= 20 MHz
+   Set the value corresponding to the setting of BSP_CFG_FMX_HZ
+ (BSP_CFG_MOSC_OPERATION_MODE=1)
+   1 : Fixed.(5 MHz < fX <= 20 MHz)
 */
+
+/* CPU/peripheral hardware clock frequency in Hz
+   (The frequency set when code generation is executed)
+*/
+#define BSP_CFG_FCLK_HZ (32000000)
 
 /* MOSC operating mode
    Main oscillator oscillation mode select register(MODRV)
@@ -1987,29 +2273,28 @@
  6 : 2^17/fX(fX = 10MHz : 13.1ms, fX = 20MHz : 6.55ms)
  7 : 2^18/fX(fX = 10MHz : 26.2ms, fX = 20MHz : 13.1ms)
 */
-#define BSP_CFG_X1_WAIT_TIME_SEL (0)
+#define BSP_CFG_X1_WAIT_TIME_SEL (7)
 
-/* Setting in STOP mode or in HALT mode while the CPU is opeating with subsystem clock X
+/* Setting in STOP mode or in HALT mode while the CPU is opeating with the subsystem clock X
    Subsystem clock supply mode control register(OSMC)
     RTCLPC
- 0 : Enables supply of subsystem clock X to peripheral functions.
+ 0 : Enables supply of the subsystem clock X to peripheral functions.
  1 : Stops supply of the subsystem clock to peripheral functions other than the realtime clock,
      clock output/buzzer output function, LCD controller/driver.
 */
-#define BSP_CFG_ALLOW_FSUB_IN_STOPHALT (1)
+#define BSP_CFG_ALLOW_FSUB_IN_STOPHALT (0)
 
 /* Selection of the operating clock for the realtime clock, serial interface UARTA,
    clock output/buzzer output controller, LCD controller/driver, 32-bit interval timer,
-   serial interfaces UARTA0 and UARTA1, remote control signal receiver,
    8-bit interval timer, and external signal sampler.
    Subsystem clock supply mode control register(OSMC)
     WUTMMCK0
  0 : Subsystem clock X
  1 : Low-speed on-chip oscillator clock
 */
-#define BSP_CFG_RTC_OUT_CLK_SOURCE (1)
+#define BSP_CFG_RTC_OUT_CLK_SOURCE (0)
 
-/* Selection of high-speed on-chip oscillator clock frequency
+/* Selection of the high-speed on-chip oscillator clock frequency
    High-speed on-chip oscillator frequency select register(HOCODIV)
     HOCODIV2, HOCODIV1, HOCODIV0
  (FRQSEL4 = 0, FRQSEL3 = 0)
@@ -2053,7 +2338,7 @@
  0 : Starting of the high-speed on-chip oscillator is at normal speed.
  1 : Starting of the high-speed on-chip oscillator is at high speed.
 */
-#define BSP_CFG_WAKEUP_MODE (1)
+#define BSP_CFG_WAKEUP_MODE (0)
 
 /* Selected division ratio for the high-speed system clock
    High-speed system clock division register(MOSCDIV)
@@ -2110,23 +2395,31 @@
    you will need to specify a setting that matches your environment. */
 
 /* Subsystem clock oscillation stabilization time.
-   If the main system clock is 32 MHz, 800000 means 300 ms. */
+   If the main system clock is 32 MHz, 800000 means 300.06 ms. */
 #define BSP_CFG_SUBWAITTIME              (800000U)
 
 /* High-speed on-chip oscillator clock stabilization time.
-   If the main system clock is 32 MHz, 30 means 5.86 us. */
+   If the main system clock is 32 MHz, 30 means 5.64 us.
+    Required wait time : 5 us.
+    Referenced Users Manual version : Rev.1.00 */
 #define BSP_CFG_FIHWAITTIME              (30U)
 
 /* Middle-speed on-chip oscillator clock stabilization time.
-   If the main system clock is 32 MHz, 5 means 1.16 us. */
-#define BSP_CFG_FIMWAITTIME              (5U)
+   If the main system clock is 32 MHz, 6 means 1.15 us.
+    Required wait time : 1 us.
+    Referenced Users Manual version : Rev.1.00 */
+#define BSP_CFG_FIMWAITTIME              (6U)
 
 /* Low-speed on-chip oscillator clock stabilization time.
-   If the main system clock is 32 MHz, 450 means 84.8 us. */
+   If the main system clock is 32 MHz, 450 means 84.4 us.
+    Required wait time : 80 us.
+    Referenced Users Manual version : Rev.1.00 */
 #define BSP_CFG_FILWAITTIME              (450U)
 
 /* Wait time for the setup to finish when the data flash access is enabled.
-   If the main system clock is 32 MHz, 2 means 400 ns. */
+   If the main system clock is 32 MHz, 2 means 404 ns.
+    Required wait time : 250 ns.
+    Referenced Users Manual version : Rev.1.00 */
 #define BSP_CFG_SETUP_WAITTIME           (2U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the

@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
-* applicable laws, including copyright laws.
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2022 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2022 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : r_bsp_config_reference.h
 * H/W Platform : GENERIC_RL78_G15
@@ -34,6 +21,10 @@
 *                               Modified the comment related to the version number of Smart Configurator.
 *         : 21.02.2025 1.90     Added notes to the following macro definitions.
 *                               - BSP_CFG_FIHWAITTIME
+*         : 05.08.2025 1.92     Changed the disclaimer.
+*                               Reviewed the initial values of macro definitions.
+*                               Reviewed the comments of macro definitions.
+*                               Added macro definitions for waiting process.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -80,21 +71,21 @@
 
 #if defined(__ICCRL78__)
 /* Option byte setting(When using IAR) */
-#define BSP_CFG_OPTBYTE0_VALUE (0xFFU)
-#define BSP_CFG_OPTBYTE1_VALUE (0xFFU)
+#define BSP_CFG_OPTBYTE0_VALUE (0xEFU)
+#define BSP_CFG_OPTBYTE1_VALUE (0xF7U)
 #define BSP_CFG_OPTBYTE2_VALUE (0xF9U)
-#define BSP_CFG_OPTBYTE3_VALUE (0x05U)
+#define BSP_CFG_OPTBYTE3_VALUE (0x85U)
 /* Security ID Codes for On-Chip Debugging setting(When using IAR) */
-#define BSP_CFG_SECUID0_VALUE (0xFFU)
-#define BSP_CFG_SECUID1_VALUE (0xFFU)
-#define BSP_CFG_SECUID2_VALUE (0xFFU)
-#define BSP_CFG_SECUID3_VALUE (0xFFU)
-#define BSP_CFG_SECUID4_VALUE (0xFFU)
-#define BSP_CFG_SECUID5_VALUE (0xFFU)
-#define BSP_CFG_SECUID6_VALUE (0xFFU)
-#define BSP_CFG_SECUID7_VALUE (0xFFU)
-#define BSP_CFG_SECUID8_VALUE (0xFFU)
-#define BSP_CFG_SECUID9_VALUE (0xFFU)
+#define BSP_CFG_SECUID0_VALUE (0x00U)
+#define BSP_CFG_SECUID1_VALUE (0x00U)
+#define BSP_CFG_SECUID2_VALUE (0x00U)
+#define BSP_CFG_SECUID3_VALUE (0x00U)
+#define BSP_CFG_SECUID4_VALUE (0x00U)
+#define BSP_CFG_SECUID5_VALUE (0x00U)
+#define BSP_CFG_SECUID6_VALUE (0x00U)
+#define BSP_CFG_SECUID7_VALUE (0x00U)
+#define BSP_CFG_SECUID8_VALUE (0x00U)
+#define BSP_CFG_SECUID9_VALUE (0x00U)
 #endif
 
 /*************************************************
@@ -452,15 +443,15 @@ Set PIOR13 to 0.
 /*************************************************
  * Clock settings
  *************************************************/
-/* High-speed system clock frequency(fMX)
+/* High-speed system clock pin operation mode
    Clock operation mode control register(CMC)
    (Products with 16 and 20 pins)
     EXCLK/OSCSEL
- 0 : I/O Port
- 1 : fX(Crystal/ceramic resonator connection)
- 2 : fEX(External clock input)
+ 0 : I/O port mode
+ 1 : X1 oscillation mode
+ 2 : External clock input mode
 */
-#define BSP_CFG_HISYSCLK_SOURCE (1)
+#define BSP_CFG_HISYSCLK_SOURCE (0)
 
 /* High-speed system clock operation control
    Clock operation status control register(CSC)
@@ -475,7 +466,7 @@ Set PIOR13 to 0.
   0 : Input port
   1 : Input port
 */
-#define BSP_CFG_HISYSCLK_OPERATION (0)
+#define BSP_CFG_HISYSCLK_OPERATION (1)
 
 /* Main system clock(fMAIN) operation control
    System clock control register(CKC)
@@ -492,11 +483,16 @@ Set PIOR13 to 0.
    Clock operation mode control register(CMC)
    AMPH
  0 : 1 MHz <= fX <= 10 MHz
- 1 : 10 MHz < fX <= 12 MHz
+ 1 : 10 MHz <= fX <= 12 MHz
  Set the value corresponding to the setting of BSP_CFG_FMX_HZ
 */
 
-/* Supply of operation clock for 12-bit interval timer
+/* CPU/peripheral hardware clock frequency in Hz
+   (The frequency set when code generation is executed)
+*/
+#define BSP_CFG_FCLK_HZ (16000000)
+
+/* Supply of the operation clock for 12-bit interval timer
    Operation speed mode control register(OSMC)
    WUTMMCK0
  0 : Stops Clock supply
@@ -504,7 +500,7 @@ Set PIOR13 to 0.
  */
 #define BSP_CFG_FIL_OPERATION (0)
 
-/* X1 clock oscillation stabilization time selection
+/* Oscillation stabilization time selection
    Oscillation stabilization time select register(OSTS)
    OSTS2, OSTS1, OSTS0
  0 : (2^8  + 16)/fX (fX = 10MHz : 27.2us, fX = 16MHz : 17.0us)
@@ -516,7 +512,7 @@ Set PIOR13 to 0.
  6 : (2^17 + 16)/fX (fX = 10MHz : 13.1ms, fX = 16MHz : 8.19ms)
  7 : (2^18 + 16)/fX (fX = 10MHz : 26.2ms, fX = 16MHz : 16.4ms)
 */
-#define BSP_CFG_X1_WAIT_TIME_SEL (0)
+#define BSP_CFG_X1_WAIT_TIME_SEL (7)
 
 /* High-speed on-chip oscillator clock frequency selection
    High-speed on-chip oscillator frequency select register(HOCODIV)
@@ -553,7 +549,9 @@ Set PIOR13 to 0.
    you will need to specify a setting that matches your environment. */
 
 /* High-speed on-chip oscillator clock stabilization time.
-   If the main system clock is 16 MHz, 75 means 28.5us. */
+   If the main system clock is 16 MHz, 75 means 28.18us.
+    Required wait time : 27 us.
+    Referenced Users Manual version : Rev.1.40 */
 #define BSP_CFG_FIHWAITTIME              (75U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the

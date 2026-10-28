@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2024 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : iodefine_ext.h
 * Description  : 
@@ -24,6 +11,8 @@
 * History : DD.MM.YYYY Version  Description
 *         : 05.12.2024 1.90     First Release
 *         : 01.04.2025 1.91     Updated device file.
+*         : 25.09.2025 1.92     Changed the disclaimer.
+*                               Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __IOR7F100L_EXT_H__
@@ -4186,11 +4175,7 @@ __near __no_init volatile union
       unsigned char CTSUCHAC4;
       __BITS8       CTSUCHAC4_bit;
     };
-    union
-    {
-      const unsigned char CTSUCHAC5;
-      const __BITS8       CTSUCHAC5_bit;
-    };
+    unsigned char :8;
   };
 } @ 0xF0510;
 
@@ -4243,11 +4228,7 @@ __near __no_init volatile union
       unsigned char CTSUCHTRC4;
       __BITS8       CTSUCHTRC4_bit;
     };
-    union
-    {
-      const unsigned char CTSUCHTRC5;
-      const __BITS8       CTSUCHTRC5_bit;
-    };
+    unsigned char :8;
   };
 } @ 0xF0518;
 
@@ -6327,7 +6308,6 @@ CTSUCHAC2  DEFINE  0xF050E
 CTSUCHAC3  DEFINE  0xF050F
 CTSUCHACBL DEFINE  0xF0510
 CTSUCHAC4  DEFINE  0xF0510
-CTSUCHAC5  DEFINE  0xF0511
 CTSUCHTRCAL DEFINE  0xF0514
 CTSUCHTRC0 DEFINE  0xF0514
 CTSUCHTRC1 DEFINE  0xF0515
@@ -6336,7 +6316,6 @@ CTSUCHTRC2 DEFINE  0xF0516
 CTSUCHTRC3 DEFINE  0xF0517
 CTSUCHTRCBL DEFINE  0xF0518
 CTSUCHTRC4 DEFINE  0xF0518
-CTSUCHTRC5 DEFINE  0xF0519
 CTSUSRL    DEFINE  0xF051C
 CTSUST1    DEFINE  0xF051C
 CTSUST     DEFINE  0xF051D

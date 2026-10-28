@@ -1,21 +1,8 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer
+/*
+* Copyright (c) 2022 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2022 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /***********************************************************************************************************************
 * File Name    : r_bsp_init.c
 * H/W Platform : GENERIC_RL78_G22
@@ -25,6 +12,8 @@
 * History : DD.MM.YYYY Version  Description
 *         : 11.11.2022 1.40     First Release
 *         : 30.11.2023 1.62     Removed space after function name.
+*         : 06.08.2025 1.92     Changed the disclaimer.
+*                               Changed to set only valid bits of BSP_CFG_PIORx.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -76,8 +65,16 @@ void bsp_init_hardware (void);
 void bsp_init_system(void)
 {
     /* Pin setting */
+#if BSP_CFG_MCU_PART_PIN_NUM < 4
+    /* The 25,24,20,16-pin products do not have the PIOR register. */
+#elif BSP_CFG_MCU_PART_PIN_NUM < 9
+    /* 44,40,36,32,30-pin */
+    PIOR = BSP_CFG_PIOR0 | (BSP_CFG_PIOR1 << 1U) | (BSP_CFG_PIOR2 << 2U);
+#else
+    /* 48-pin */
     PIOR = BSP_CFG_PIOR0 | (BSP_CFG_PIOR1 << 1U) | (BSP_CFG_PIOR2 << 2U) |
         (BSP_CFG_PIOR3 << 3U);
+#endif
 
     /* If the window open period of watchdog timer is set to 50%, then call it. */
 #if BSP_CFG_WDT_REFRESH_ENABLE == 2
