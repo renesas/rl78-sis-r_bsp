@@ -31,6 +31,11 @@
 *                               the change_clock_setting function.
 *                               Added processing to set SELPLL
 *                               when HIOCLK or SYSCLK is set as an argument of the set_fclk_clock_source function.
+*         : 31.01.2023 1.50     Changed comment about error in change_clock_setting function.
+*                               Removed IAWCTL from the error check
+*                               when ADCLK is set as an argument of the change_clock_setting function.
+*                               Removed OSMC and SELLOSC from the error check
+*                               when LOCLK is set as an argument of the set_fclk_clock_source function.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -500,7 +505,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
 
             case LOCLK:
 
-                if ((0x10U != (CMC & 0x10U)) || ((0U == (OSMC & 0x10U)) && (0U == SELLOSC)))
+                if (0x10U != (CMC & 0x10U))
                 {
                     /* Error if the low-speed on-chip oscillator clock is stopped. */
                     status = BSP_ERROR1;
@@ -789,7 +794,7 @@ uint32_t get_fclk_freq_hz(void)
  *                           while the high-speed on-chip oscillator is not supplied to fCLK.
  *                           When a PLL with a high-speed on-chip oscillator as input is supplied to fCLK.
  *                           (When ADCLK is specified)
- *                           When AD conversion is starting.
+ *                           When the clock supply to the AD converter is stopped.
  *                           (When SYSCLK or PLLCLK is specified)
  *                           When the specified clock is oscillating.
  *                BSP_ARG_ERROR An invalid argument was input.
@@ -940,7 +945,7 @@ e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t * set_values)
 
         case ADCLK:
 
-            if ((0U == ADCEN) || (0x8000U == (ADCSR & 0x8000U)) || (0x01 == (IAWCTL & 0x01U)))  
+            if ((0U == ADCEN) || (0x8000U == (ADCSR & 0x8000U)))  
             {
                 status = BSP_ERROR1;
             }

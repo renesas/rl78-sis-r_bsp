@@ -26,7 +26,7 @@
 *         : 28.02.2022 1.20     First Release
 *         : 31.05.2022 1.30     Added the following macro definition.
 *                                - BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE
-*         : 11.11.2022 1.40     Changed the initial values of the following macro defiintions from 0 to 1.
+*         : 11.11.2022 1.40     Changed the initial values of the following macro definitions from 0 to 1.
 *                                - BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE
 *                                - BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE
 *                                - BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE

@@ -38,6 +38,7 @@
 *                                - R_BSP_SoftwareDelay
 *         : 11.11.2022 1.40     Added Xm to the clock mode comment.
 *                               Added RL78/G22 resource to clock mode comment.
+*         : 31.01.2023 1.50     Added RL78/G16 resource to clock mode comment.
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -70,11 +71,11 @@
  * n = this clock may not be available depending on the number of terminals. 
  * RL78 MCU supported clocks
  *
- * Clock  G23 F24 F23 G15 G22
- * ------ --- --- --- --- ---
- * HIOCLK  X   X   X   X   X
- * SYSCLK  Xm  X   X   Xn  Xm
- * SXCLK   Xm  Xn  Xn      Xm
+ * Clock  G23 F24 F23 G15 G22 G16
+ * ------ --- --- --- --- --- ---
+ * HIOCLK  X   X   X   X   X   X
+ * SYSCLK  Xm  X   X   Xn  Xm  Xn
+ * SXCLK   Xm  Xn  Xn      Xm  Xn
  * MIOCLK  X               X
  * LOCLK   X   X   X       X
  * PLLCLK      X   X
