@@ -23,17 +23,17 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 31.01.2023 1.50     First Release.
-
+*         : 31.08.2023 1.61     Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __INTRINSIC_FUNCTIONS
 #define __INTRINSIC_FUNCTIONS
 
-#define DI() asm("di")
-#define EI() asm("ei")
-#define HALT() asm("halt")
-#define NOP() asm("nop")
-#define STOP() asm("stop")
+#define DI() __builtin_rl78_di()
+#define EI() __builtin_rl78_ei()
+#define HALT() __halt()
+#define NOP() __nop()
+#define STOP() __stop()
 
 #endif
 
@@ -341,8 +341,8 @@ union un_pr11h {
 #define P13 (*(volatile union un_p13 *)0xFFF0D).p13
 #define P13_bit (*(volatile union un_p13 *)0xFFF0D).BIT
 #define SDR00 (*(volatile unsigned short *)0xFFF10)
-#define SIO00 (*(volatile unsigned char *)0xFFF10)
 #define TXD0 (*(volatile unsigned char *)0xFFF10)
+#define SIO00 (*(volatile unsigned char *)0xFFF10)
 #define SDR01 (*(volatile unsigned short *)0xFFF12)
 #define RXD0 (*(volatile unsigned char *)0xFFF12)
 #define TDR00 (*(volatile unsigned short *)0xFFF18)
@@ -378,8 +378,8 @@ union un_pr11h {
 #define SDR02 (*(volatile unsigned short *)0xFFF44)
 #define TXD1 (*(volatile unsigned char *)0xFFF44)
 #define SDR03 (*(volatile unsigned short *)0xFFF46)
-#define RXD1 (*(volatile unsigned char *)0xFFF46)
 #define SIO11 (*(volatile unsigned char *)0xFFF46)
+#define RXD1 (*(volatile unsigned char *)0xFFF46)
 #define SDR10 (*(volatile unsigned short *)0xFFF48)
 #define TXD2 (*(volatile unsigned char *)0xFFF48)
 #define SIO20 (*(volatile unsigned char *)0xFFF48)
@@ -542,68 +542,68 @@ union un_pr11h {
 #define CSS CKC_bit.no6
 #define CLS CKC_bit.no7
 #define PCLOE0 CKS0_bit.no7
-#define PIF7 IF2_bit.no0
-#define PIF8 IF2_bit.no1
-#define PIF9 IF2_bit.no2
-#define CMPIF0 IF2_bit.no3
-#define CMPIF1 IF2_bit.no4
-#define CTSUWRIF IF2_bit.no5
-#define CTSURDIF IF2_bit.no6
-#define CTSUFNIF IF2_bit.no7
-#define PMK7 MK2_bit.no0
-#define PMK8 MK2_bit.no1
-#define PMK9 MK2_bit.no2
-#define CMPMK0 MK2_bit.no3
-#define CMPMK1 MK2_bit.no4
-#define CTSUWRMK MK2_bit.no5
-#define CTSURDMK MK2_bit.no6
-#define CTSUFNMK MK2_bit.no7
-#define PPR07 PR02_bit.no0
-#define PPR08 PR02_bit.no1
-#define PPR09 PR02_bit.no2
-#define CMPPR00 PR02_bit.no3
-#define CMPPR01 PR02_bit.no4
-#define CTSUWRPR0 PR02_bit.no5
-#define CTSURDPR0 PR02_bit.no6
-#define CTSUFNPR0 PR02_bit.no7
-#define PPR17 PR12_bit.no0
-#define PPR18 PR12_bit.no1
-#define PPR19 PR12_bit.no2
-#define CMPPR10 PR12_bit.no3
-#define CMPPR11 PR12_bit.no4
-#define CTSUWRPR1 PR12_bit.no5
-#define CTSURDPR1 PR12_bit.no6
-#define CTSUFNPR1 PR12_bit.no7
-#define WDTIIF IF0_bit.no0
-#define PIF0 IF0_bit.no1
-#define PIF1 IF0_bit.no2
-#define PIF2 IF0_bit.no3
-#define PIF3 IF0_bit.no4
-#define PIF4 IF0_bit.no5
-#define PIF5 IF0_bit.no6
-#define STIF0 IF0_bit.no7
-#define CSIIF00 IF0_bit.no7
-#define IICIF00 IF0_bit.no7
+#define PIF7 IF2L_bit.no0
+#define PIF8 IF2L_bit.no1
+#define PIF9 IF2L_bit.no2
+#define CMPIF0 IF2L_bit.no3
+#define CMPIF1 IF2L_bit.no4
+#define CTSUWRIF IF2L_bit.no5
+#define CTSURDIF IF2L_bit.no6
+#define CTSUFNIF IF2L_bit.no7
+#define PMK7 MK2L_bit.no0
+#define PMK8 MK2L_bit.no1
+#define PMK9 MK2L_bit.no2
+#define CMPMK0 MK2L_bit.no3
+#define CMPMK1 MK2L_bit.no4
+#define CTSUWRMK MK2L_bit.no5
+#define CTSURDMK MK2L_bit.no6
+#define CTSUFNMK MK2L_bit.no7
+#define PPR07 PR02L_bit.no0
+#define PPR08 PR02L_bit.no1
+#define PPR09 PR02L_bit.no2
+#define CMPPR00 PR02L_bit.no3
+#define CMPPR01 PR02L_bit.no4
+#define CTSUWRPR0 PR02L_bit.no5
+#define CTSURDPR0 PR02L_bit.no6
+#define CTSUFNPR0 PR02L_bit.no7
+#define PPR17 PR12L_bit.no0
+#define PPR18 PR12L_bit.no1
+#define PPR19 PR12L_bit.no2
+#define CMPPR10 PR12L_bit.no3
+#define CMPPR11 PR12L_bit.no4
+#define CTSUWRPR1 PR12L_bit.no5
+#define CTSURDPR1 PR12L_bit.no6
+#define CTSUFNPR1 PR12L_bit.no7
+#define WDTIIF IF0L_bit.no0
+#define PIF0 IF0L_bit.no1
+#define PIF1 IF0L_bit.no2
+#define PIF2 IF0L_bit.no3
+#define PIF3 IF0L_bit.no4
+#define PIF4 IF0L_bit.no5
+#define PIF5 IF0L_bit.no6
+#define CSIIF00 IF0L_bit.no7
+#define STIF0 IF0L_bit.no7
+#define IICIF00 IF0L_bit.no7
 #define SRIF0 IF0H_bit.no0
 #define SREIF0 IF0H_bit.no1
 #define TMIF01H IF0H_bit.no2
 #define TMIF00 IF0H_bit.no3
 #define TMIF01 IF0H_bit.no4
 #define STIF1 IF0H_bit.no5
-#define SRIF1 IF0H_bit.no6
 #define CSIIF11 IF0H_bit.no6
+#define SRIF1 IF0H_bit.no6
 #define IICIF11 IF0H_bit.no6
 #define SREIF1 IF0H_bit.no7
-#define STIF2 IF1_bit.no0
-#define CSIIF20 IF1_bit.no0
-#define IICIF20 IF1_bit.no0
-#define SRIF2 IF1_bit.no1
-#define SREIF2 IF1_bit.no2
-#define TMIF03H IF1_bit.no3
-#define IICAIF0 IF1_bit.no4
-#define TMIF02 IF1_bit.no5
-#define TMIF03 IF1_bit.no6
-#define ADIF IF1_bit.no7
+#define CSIIF20 IF1L_bit.no0
+#define STIF2 IF1L_bit.no0
+#define IICIF20 IF1L_bit.no0
+#define SRIF2 IF1L_bit.no1
+#define SREIF2 IF1L_bit.no2
+#define TMIF03H IF1L_bit.no3
+#define IICAIF0 IF1L_bit.no4
+#define TMIF02 IF1L_bit.no5
+#define TMIF03 IF1L_bit.no6
+#define ADIF IF1L_bit.no7
 #define RTCIF IF1H_bit.no0
 #define RTITIF IF1H_bit.no1
 #define ITIF IF1H_bit.no2
@@ -612,16 +612,16 @@ union un_pr11h {
 #define TMIF06 IF1H_bit.no5
 #define TMIF07 IF1H_bit.no6
 #define PIF6 IF1H_bit.no7
-#define WDTIMK MK0_bit.no0
-#define PMK0 MK0_bit.no1
-#define PMK1 MK0_bit.no2
-#define PMK2 MK0_bit.no3
-#define PMK3 MK0_bit.no4
-#define PMK4 MK0_bit.no5
-#define PMK5 MK0_bit.no6
-#define STMK0 MK0_bit.no7
-#define CSIMK00 MK0_bit.no7
-#define IICMK00 MK0_bit.no7
+#define WDTIMK MK0L_bit.no0
+#define PMK0 MK0L_bit.no1
+#define PMK1 MK0L_bit.no2
+#define PMK2 MK0L_bit.no3
+#define PMK3 MK0L_bit.no4
+#define PMK4 MK0L_bit.no5
+#define PMK5 MK0L_bit.no6
+#define CSIMK00 MK0L_bit.no7
+#define IICMK00 MK0L_bit.no7
+#define STMK0 MK0L_bit.no7
 #define SRMK0 MK0H_bit.no0
 #define SREMK0 MK0H_bit.no1
 #define TMMK01H MK0H_bit.no2
@@ -632,16 +632,16 @@ union un_pr11h {
 #define CSIMK11 MK0H_bit.no6
 #define IICMK11 MK0H_bit.no6
 #define SREMK1 MK0H_bit.no7
-#define STMK2 MK1_bit.no0
-#define CSIMK20 MK1_bit.no0
-#define IICMK20 MK1_bit.no0
-#define SRMK2 MK1_bit.no1
-#define SREMK2 MK1_bit.no2
-#define TMMK03H MK1_bit.no3
-#define IICAMK0 MK1_bit.no4
-#define TMMK02 MK1_bit.no5
-#define TMMK03 MK1_bit.no6
-#define ADMK MK1_bit.no7
+#define CSIMK20 MK1L_bit.no0
+#define STMK2 MK1L_bit.no0
+#define IICMK20 MK1L_bit.no0
+#define SRMK2 MK1L_bit.no1
+#define SREMK2 MK1L_bit.no2
+#define TMMK03H MK1L_bit.no3
+#define IICAMK0 MK1L_bit.no4
+#define TMMK02 MK1L_bit.no5
+#define TMMK03 MK1L_bit.no6
+#define ADMK MK1L_bit.no7
 #define RTCMK MK1H_bit.no0
 #define RTITMK MK1H_bit.no1
 #define ITMK MK1H_bit.no2
@@ -650,36 +650,36 @@ union un_pr11h {
 #define TMMK06 MK1H_bit.no5
 #define TMMK07 MK1H_bit.no6
 #define PMK6 MK1H_bit.no7
-#define WDTIPR0 PR00_bit.no0
-#define PPR00 PR00_bit.no1
-#define PPR01 PR00_bit.no2
-#define PPR02 PR00_bit.no3
-#define PPR03 PR00_bit.no4
-#define PPR04 PR00_bit.no5
-#define PPR05 PR00_bit.no6
-#define STPR00 PR00_bit.no7
-#define CSIPR000 PR00_bit.no7
-#define IICPR000 PR00_bit.no7
+#define WDTIPR0 PR00L_bit.no0
+#define PPR00 PR00L_bit.no1
+#define PPR01 PR00L_bit.no2
+#define PPR02 PR00L_bit.no3
+#define PPR03 PR00L_bit.no4
+#define PPR04 PR00L_bit.no5
+#define PPR05 PR00L_bit.no6
+#define IICPR000 PR00L_bit.no7
+#define STPR00 PR00L_bit.no7
+#define CSIPR000 PR00L_bit.no7
 #define SRPR00 PR00H_bit.no0
 #define SREPR00 PR00H_bit.no1
 #define TMPR001H PR00H_bit.no2
 #define TMPR000 PR00H_bit.no3
 #define TMPR001 PR00H_bit.no4
 #define STPR01 PR00H_bit.no5
-#define SRPR01 PR00H_bit.no6
-#define CSIPR011 PR00H_bit.no6
 #define IICPR011 PR00H_bit.no6
+#define CSIPR011 PR00H_bit.no6
+#define SRPR01 PR00H_bit.no6
 #define SREPR01 PR00H_bit.no7
-#define STPR02 PR01_bit.no0
-#define CSIPR020 PR01_bit.no0
-#define IICPR020 PR01_bit.no0
-#define SRPR02 PR01_bit.no1
-#define SREPR02 PR01_bit.no2
-#define TMPR003H PR01_bit.no3
-#define IICAPR00 PR01_bit.no4
-#define TMPR002 PR01_bit.no5
-#define TMPR003 PR01_bit.no6
-#define ADPR0 PR01_bit.no7
+#define IICPR020 PR01L_bit.no0
+#define CSIPR020 PR01L_bit.no0
+#define STPR02 PR01L_bit.no0
+#define SRPR02 PR01L_bit.no1
+#define SREPR02 PR01L_bit.no2
+#define TMPR003H PR01L_bit.no3
+#define IICAPR00 PR01L_bit.no4
+#define TMPR002 PR01L_bit.no5
+#define TMPR003 PR01L_bit.no6
+#define ADPR0 PR01L_bit.no7
 #define RTCPR0 PR01H_bit.no0
 #define RTITPR0 PR01H_bit.no1
 #define ITPR0 PR01H_bit.no2
@@ -688,36 +688,36 @@ union un_pr11h {
 #define TMPR006 PR01H_bit.no5
 #define TMPR007 PR01H_bit.no6
 #define PPR06 PR01H_bit.no7
-#define WDTIPR1 PR10_bit.no0
-#define PPR10 PR10_bit.no1
-#define PPR11 PR10_bit.no2
-#define PPR12 PR10_bit.no3
-#define PPR13 PR10_bit.no4
-#define PPR14 PR10_bit.no5
-#define PPR15 PR10_bit.no6
-#define STPR10 PR10_bit.no7
-#define CSIPR100 PR10_bit.no7
-#define IICPR100 PR10_bit.no7
+#define WDTIPR1 PR10L_bit.no0
+#define PPR10 PR10L_bit.no1
+#define PPR11 PR10L_bit.no2
+#define PPR12 PR10L_bit.no3
+#define PPR13 PR10L_bit.no4
+#define PPR14 PR10L_bit.no5
+#define PPR15 PR10L_bit.no6
+#define IICPR100 PR10L_bit.no7
+#define CSIPR100 PR10L_bit.no7
+#define STPR10 PR10L_bit.no7
 #define SRPR10 PR10H_bit.no0
 #define SREPR10 PR10H_bit.no1
 #define TMPR101H PR10H_bit.no2
 #define TMPR100 PR10H_bit.no3
 #define TMPR101 PR10H_bit.no4
 #define STPR11 PR10H_bit.no5
+#define IICPR111 PR10H_bit.no6
 #define SRPR11 PR10H_bit.no6
 #define CSIPR111 PR10H_bit.no6
-#define IICPR111 PR10H_bit.no6
 #define SREPR11 PR10H_bit.no7
-#define STPR12 PR11_bit.no0
-#define CSIPR120 PR11_bit.no0
-#define IICPR120 PR11_bit.no0
-#define SRPR12 PR11_bit.no1
-#define SREPR12 PR11_bit.no2
-#define TMPR103H PR11_bit.no3
-#define IICAPR10 PR11_bit.no4
-#define TMPR102 PR11_bit.no5
-#define TMPR103 PR11_bit.no6
-#define ADPR1 PR11_bit.no7
+#define CSIPR120 PR11L_bit.no0
+#define STPR12 PR11L_bit.no0
+#define IICPR120 PR11L_bit.no0
+#define SRPR12 PR11L_bit.no1
+#define SREPR12 PR11L_bit.no2
+#define TMPR103H PR11L_bit.no3
+#define IICAPR10 PR11L_bit.no4
+#define TMPR102 PR11L_bit.no5
+#define TMPR103 PR11L_bit.no6
+#define ADPR1 PR11L_bit.no7
 #define RTCPR1 PR11H_bit.no0
 #define RTITPR1 PR11H_bit.no1
 #define ITPR1 PR11H_bit.no2

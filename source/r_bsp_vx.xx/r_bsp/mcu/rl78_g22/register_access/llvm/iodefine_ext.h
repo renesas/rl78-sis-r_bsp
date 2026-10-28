@@ -23,17 +23,17 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 11.11.2022 1.40     First Release.
-
+*         : 31.08.2023 1.61     Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __INTRINSIC_FUNCTIONS
 #define __INTRINSIC_FUNCTIONS
 
-#define DI() asm("di")
-#define EI() asm("ei")
-#define HALT() asm("halt")
-#define NOP() asm("nop")
-#define STOP() asm("stop")
+#define DI() __builtin_rl78_di()
+#define EI() __builtin_rl78_ei()
+#define HALT() __halt()
+#define NOP() __nop()
+#define STOP() __stop()
 
 #endif
 

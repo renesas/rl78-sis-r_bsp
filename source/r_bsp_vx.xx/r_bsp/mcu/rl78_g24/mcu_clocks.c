@@ -23,7 +23,14 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 28.02.2023 1.60     First Release
-
+*         : 31.08.2023 1.61     Changed comment about setting CMC register.
+*                               Removed AMPH setting when selecting external clock input mode.
+*                               Changed the error check of the set_fclk_clock_source function.
+*                               When HIOCLK is set as an argument of the change_clock_setting function,
+*                               the process has been changed so that the register setting order is selected
+*                               according to the setting contents.
+*                               Removed the process not to set FLMODE and PFBE when PLLCLK is set
+*                               as an argument of the change_clock_setting function.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -578,7 +585,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                 {
                     status = BSP_ERROR3;
                 }
-                else if ((0U == XTSTOP))
+                else if ((SYSCLK ==old_mode) && (0U == XTSTOP))
                 {
                     status = BSP_ERROR3;
                 }
@@ -596,6 +603,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     {
                         BSP_NOP();
                     }
+
                     CSS = 1U;
 #if BSP_CFG_PARAM_CHECKING_ENABLE == 1
                 }
@@ -785,73 +793,119 @@ e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t * set_values)
 #endif
             else
             {
-                FLMWEN = 1U;
-
-                if (0U == set_values[0])
+                /* When changing the upper limit frequency of the flash operation mode to a higher speed, */
+                /* change the flash operation mode before changing the frequency. */
+                if (((set_values[0] + 1) << 6) >= FLMODE)
                 {
-                    FLMODE = 0x40U;
-                }
-                else if (1U == set_values[0])
-                {
-                    FLMODE = 0x80U;
-                }
-                else
-                {
-                    FLMODE = 0xC0U;
-                }
+                    FLMWEN = 1U;
 
-                /* WAIT_LOOP */
-                for (w_count = 0U; w_count <= 40U; w_count++) /* 225 cycle or more. */
-                {
-                    BSP_NOP();
-                }
-
-                FLMWEN = 0U;
-
-                HOCODIV = set_values[1];
-
-                /* Set pre-fetch buffer ON */
-                if (1U == set_values[2])
-                {
-                    PFBE   = set_values[2];
-                    FIHSEL = set_values[3];
-
-                    if (0x10U == (OPTBYTE_C2 & 0x10U))
+                    if (0U == set_values[0])
                     {
-                        while (FIHST == set_values[3])
-                        {
-                            ;
-                        }
+                        FLMODE = 0x40U;
+                    }
+                    else if (1U == set_values[0])
+                    {
+                        FLMODE = 0x80U;
                     }
                     else
                     {
-                        while (FIHST != set_values[3])
-                        {
-                            ;
-                        }
+                        FLMODE = 0xC0U;
                     }
+
+                    /* WAIT_LOOP */
+                    for (w_count = 0U; w_count <= 40U; w_count++) /* 225 cycle or more. */
+                    {
+                        BSP_NOP();
+                    }
+
+                    FLMWEN = 0U;
                 }
-                /* Set pre-fetch buffer OFF */
-                else
+
+                /* When changing the flash operation mode to HS(high-speed main)mode, */
+                /* enable the prefetch buffer. */
+                if (2U == set_values[0])
                 {
-                    FIHSEL = set_values[3];
-
-                    if (0x10U == (OPTBYTE_C2 & 0x10U))
-                    {
-                        while (FIHST == set_values[3])
-                        {
-                            ;
-                        }
-                    }
-                    else
-                    {
-                        while (FIHST != set_values[3])
-                        {
-                            ;
-                        }
-                    }
-
                     PFBE = set_values[2];
+                }
+
+                /* When changing FIHSEL to 1, set FIHSEL after setting HOCODIV. */
+                if (1U == set_values[3])
+                {
+                    HOCODIV = set_values[1];
+
+                    FIHSEL = set_values[3];
+
+                    if (0x10U == (OPTBYTE_C2 & 0x10U))
+                    {
+                        while (FIHST == set_values[3])
+                        {
+                            ;
+                        }
+                    }
+                    else
+                    {
+                        while (FIHST != set_values[3])
+                        {
+                            ;
+                        }
+                    }
+                }
+                /* When changing FIHSEL to 0, set HOCODIV after setting FIHSEL. */
+                else
+                {
+                    FIHSEL = set_values[3];
+
+                    if (0x10U == (OPTBYTE_C2 & 0x10U))
+                    {
+                        while (FIHST == set_values[3])
+                        {
+                            ;
+                        }
+                    }
+                    else
+                    {
+                        while (FIHST != set_values[3])
+                        {
+                            ;
+                        }
+                    }
+
+                    HOCODIV = set_values[1];
+                }
+
+                /* When changing the flash operation mode to other than HS(high-speed main)mode, */
+                /* disable the prefetch buffer. */
+                if (set_values[0] < 2U)
+                {
+                    PFBE = set_values[2];
+                }
+
+                /* When changing the upper limit frequency of the flash operation mode to a lower speed, */
+                /* change the frequency first and then change the flash operation mode. */
+                if (((set_values[0] + 1) << 6) < FLMODE)
+                {
+                    FLMWEN = 1U;
+
+                    if (0U == set_values[0])
+                    {
+                        FLMODE = 0x40U;
+                    }
+                    else if (1U == set_values[0])
+                    {
+                        FLMODE = 0x80U;
+                    }
+                    else
+                    {
+                        FLMODE = 0xC0U;
+                    }
+
+                    /* WAIT_LOOP */
+                    for (w_count = 0U; w_count <= 40U; w_count++) /* 225 cycle or more. */
+                    {
+                        BSP_NOP();
+                    }
+
+                    FLMWEN = 0U;
                 }
             }
 
@@ -912,30 +966,6 @@ e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t * set_values)
                     RDIV1 = 0U;
                     RDIV0 = 1U;
                 }
-
-                FLMWEN = 1U;
-
-                if (0U == set_values[2])
-                {
-                    FLMODE = 0x40U;
-                }
-                else if (1U == set_values[2])
-                {
-                    FLMODE = 0x80U;
-                }
-                else
-                {
-                    FLMODE = 0xC0U;
-                }
-
-                /* WAIT_LOOP */
-                for (w_count = 0U; w_count <= 40U; w_count++) /* 225 cycle or more. */
-                {
-                    BSP_NOP();
-                }
-
-                FLMWEN = 0U;
-                PFBE   = set_values[3];
             }
 
             break;
@@ -977,17 +1007,19 @@ void mcu_clock_setup(void)
 
     /* High-speed system clock(fMX) setting */
 #if BSP_CFG_HISYSCLK_SOURCE == 0
+    /* Port mode */
     /* Not used.
      * When using high-speed on-chip oscillator,
      * when using middle-speed on-chip oscillator or
      * when not using main system clock
      */
 #elif BSP_CFG_HISYSCLK_SOURCE == 1
-    /* fX(Crystal/ceramic resonator connection */
+    /* X1 oscillation mode */
     /* High-speed system clock division register(MOSCDIV) setting */
     MOSCDIV = BSP_CFG_MOSC_DIVIDE;
 
-    /* Control of X1 clock oscillation frequency(AMPH) setting */
+    /* System clock pin operation mode(EXCLK/OSCSEL) setting */
+    /* Control of the X1 clock oscillation frequency(AMPH) setting */
 #if BSP_CFG_FMX_HZ >= 1000000 && BSP_CFG_FMX_HZ <= 10000000
     /* 1MHz <= fX <= 10MHz */
     cmc_tmp |= 0x40U;
@@ -996,17 +1028,12 @@ void mcu_clock_setup(void)
     cmc_tmp |= 0x41U;
 #endif
 #else
-    /* fEX(External clock input) */
+    /* External clock input mode */
     /* High-speed system clock division register(MOSCDIV) setting */
     MOSCDIV = BSP_CFG_MOSC_DIVIDE;
-    /* Control of X1 clock oscillation frequency(AMPH) setting */
-#if BSP_CFG_FMX_HZ >= 1000000 && BSP_CFG_FMX_HZ <= 10000000
-    /* 1MHz <= fX <= 10MHz */
+
+    /* System clock pin operation mode(EXCLK/OSCSEL) setting */
     cmc_tmp |= 0xC0U;
-#else
-    /* 10MHz < fX <= 20MHz */
-    cmc_tmp |= 0xC1U;
-#endif
 #endif
 
     /* High-speed on-chip oscillator(fIH) setting */
@@ -1040,6 +1067,7 @@ void mcu_clock_setup(void)
 
     /* Subsystem clock oscillator clock(fSX) setting */
 #if BSP_CFG_SUBCLK_SOURCE == 0
+    /* Port mode */
     /* Not used.
      * When using the low-speed on-chip oscillator or
      * when not using subsystem clock(fSUB)
@@ -1050,22 +1078,26 @@ void mcu_clock_setup(void)
     /* XTSEL setting */
     cmc_tmp |= 0x08U;
 #endif
-    /* fXT(Crystal resonator connection) */
+    /* XT1 oscillation mode */
 #if BSP_CFG_XT1_OSCMODE == 0
     /* Low power consumption oscillation 1(default) */
-    /* EXCLKS/OSCSELS/AMPHS1/AMPHS0 setting */
+    /* Subsystem clock pin operation mode(EXCLKS/OSCSELS) setting */
+    /* Selection of the oscillation mode of the XT1 oscillator(AMPHS1/AMPHS0) setting */
     cmc_tmp |= 0x10U;
 #elif BSP_CFG_XT1_OSCMODE == 1
     /* Normal oscillation */
-    /* EXCLKS/OSCSELS/AMPHS1/AMPHS0 setting */
+    /* Subsystem clock pin operation mode(EXCLKS/OSCSELS) setting */
+    /* Selection of the oscillation mode of the XT1 oscillator(AMPHS1/AMPHS0) setting */
     cmc_tmp |= 0x12U;
 #elif BSP_CFG_XT1_OSCMODE == 2
     /* Low power consumption oscillation 2 */
-    /* EXCLKS/OSCSELS/AMPHS1/AMPHS0 setting */
+    /* Subsystem clock pin operation mode(EXCLKS/OSCSELS) setting */
+    /* Selection of the oscillation mode of the XT1 oscillator(AMPHS1/AMPHS0) setting */
     cmc_tmp |= 0x14U;
 #else
     /* Low power consumption oscillation 3 */
-    /* EXCLKS/OSCSELS/AMPHS1/AMPHS0 setting */
+    /* Subsystem clock pin operation mode(EXCLKS/OSCSELS) setting */
+    /* Selection of the oscillation mode of the XT1 oscillator(AMPHS1/AMPHS0) setting */
     cmc_tmp |= 0x16U;
 #endif
 #else
@@ -1074,8 +1106,8 @@ void mcu_clock_setup(void)
     /* XTSEL setting */
     cmc_tmp |= 0x08U;
 #endif
-    /* fEXS(External subsystem clock) */
-    /* EXCLKS/OSCSELS setting */
+    /* External clock input mode */
+    /* Subsystem clock pin operation mode(EXCLKS/OSCSELS) setting */
     cmc_tmp |= 0x30U;
 #endif /* BSP_CFG_SUBCLK_SOURCE == 0 */
     /* Clock operation mode control register(CMC) setting */

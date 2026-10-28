@@ -26,6 +26,9 @@
 *         : 31.01.2023 1.50     First Release
 *         : 28.02.2023 1.60     Added the version number of Smart Configurator.
 *                               Modified the comment related to the version number of Smart Configurator.
+*         : 31.08.2023 1.61     Changed the initial values comments in the following macro definitions.
+*                                - BSP_CFG_SUBWAITTIME
+*                                - BSP_CFG_FIHWAITTIME
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -1042,11 +1045,13 @@
 
 /* Loop count using the main system clock. */
 /* The loop count refers to a loop consisting of a "for" statement that executes a single NOP instruction. */
-/* Subsystem clock oscillation stabilization wait time(T.B.D) */
-#define BSP_CFG_SUBWAITTIME              (800000U)
+/* Subsystem clock oscillation stabilization time.
+   If the main system clock is 16 MHz, 350000 means 306 ms. */
+#define BSP_CFG_SUBWAITTIME              (350000U)
 
-/* High-speed on-chip oscillator  clock oscillation stabilization wait time(T.B.D) */
-#define BSP_CFG_FIHWAITTIME              (30U)
+/* High-speed on-chip oscillator clock stabilization time.
+   If the main system clock is 16 MHz, 7 means 7 us. */
+#define BSP_CFG_FIHWAITTIME              (7U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the
    following callback definitions AND provide a call back function name for the respective callback

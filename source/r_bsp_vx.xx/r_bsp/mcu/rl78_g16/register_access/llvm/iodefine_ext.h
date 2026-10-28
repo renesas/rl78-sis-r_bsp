@@ -23,17 +23,17 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 31.01.2023 1.50     First Release.
-
+*         : 31.08.2023 1.61     Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __INTRINSIC_FUNCTIONS
 #define __INTRINSIC_FUNCTIONS
 
-#define DI() asm("di")
-#define EI() asm("ei")
-#define HALT() asm("halt")
-#define NOP() asm("nop")
-#define STOP() asm("stop")
+#define DI() __builtin_rl78_di()
+#define EI() __builtin_rl78_ei()
+#define HALT() __halt()
+#define NOP() __nop()
+#define STOP() __stop()
 
 #endif
 
@@ -225,6 +225,10 @@ union un_tssel1 {
 	unsigned char tssel1;
 	__BITS8 BIT;
 };
+union un_vtsel {
+	unsigned char vtsel;
+	__BITS8 BIT;
+};
 union un_ctsucr0 {
 	unsigned char ctsucr0;
 	__BITS8 BIT;
@@ -235,6 +239,30 @@ union un_ctsucr1 {
 };
 union un_ctsusdprs {
 	unsigned char ctsusdprs;
+	__BITS8 BIT;
+};
+union un_ctsuchac0 {
+	unsigned char ctsuchac0;
+	__BITS8 BIT;
+};
+union un_ctsuchac1 {
+	unsigned char ctsuchac1;
+	__BITS8 BIT;
+};
+union un_ctsuchtrc0 {
+	unsigned char ctsuchtrc0;
+	__BITS8 BIT;
+};
+union un_ctsuchtrc1 {
+	unsigned char ctsuchtrc1;
+	__BITS8 BIT;
+};
+union un_ctsudclkc {
+	unsigned char ctsudclkc;
+	__BITS8 BIT;
+};
+union un_ctsust {
+	unsigned char ctsust;
 	__BITS8 BIT;
 };
 
@@ -438,7 +466,8 @@ union un_ctsusdprs {
 #define TSSEL0_bit (*(volatile union un_tssel0 *)0xF030A).BIT
 #define TSSEL1 (*(volatile union un_tssel1 *)0xF030B).tssel1
 #define TSSEL1_bit (*(volatile union un_tssel1 *)0xF030B).BIT
-#define VTSEL (*(volatile unsigned char *)0xF030D)
+#define VTSEL (*(volatile union un_vtsel *)0xF030D).vtsel
+#define VTSEL_bit (*(volatile union un_vtsel *)0xF030D).BIT
 #define SUBCUD (*(volatile unsigned short *)0xF0310)
 #define CTSUCR0 (*(volatile union un_ctsucr0 *)0xF0380).ctsucr0
 #define CTSUCR0_bit (*(volatile union un_ctsucr0 *)0xF0380).BIT
@@ -449,12 +478,18 @@ union un_ctsusdprs {
 #define CTSUSST (*(volatile unsigned char *)0xF0383)
 #define CTSUMCH0 (*(volatile unsigned char *)0xF0384)
 #define CTSUMCH1 (*(volatile unsigned char *)0xF0385)
-#define CTSUCHAC0 (*(volatile unsigned char *)0xF0386)
-#define CTSUCHAC1 (*(volatile unsigned char *)0xF0387)
-#define CTSUCHTRC0 (*(volatile unsigned char *)0xF038B)
-#define CTSUCHTRC1 (*(volatile unsigned char *)0xF038C)
-#define CTSUDCLKC (*(volatile unsigned char *)0xF0390)
-#define CTSUST (*(volatile unsigned char *)0xF0391)
+#define CTSUCHAC0 (*(volatile union un_ctsuchac0 *)0xF0386).ctsuchac0
+#define CTSUCHAC0_bit (*(volatile union un_ctsuchac0 *)0xF0386).BIT
+#define CTSUCHAC1 (*(volatile union un_ctsuchac1 *)0xF0387).ctsuchac1
+#define CTSUCHAC1_bit (*(volatile union un_ctsuchac1 *)0xF0387).BIT
+#define CTSUCHTRC0 (*(volatile union un_ctsuchtrc0 *)0xF038B).ctsuchtrc0
+#define CTSUCHTRC0_bit (*(volatile union un_ctsuchtrc0 *)0xF038B).BIT
+#define CTSUCHTRC1 (*(volatile union un_ctsuchtrc1 *)0xF038C).ctsuchtrc1
+#define CTSUCHTRC1_bit (*(volatile union un_ctsuchtrc1 *)0xF038C).BIT
+#define CTSUDCLKC (*(volatile union un_ctsudclkc *)0xF0390).ctsudclkc
+#define CTSUDCLKC_bit (*(volatile union un_ctsudclkc *)0xF0390).BIT
+#define CTSUST (*(volatile union un_ctsust *)0xF0391).ctsust
+#define CTSUST_bit (*(volatile union un_ctsust *)0xF0391).BIT
 #define CTSUSSC (*(volatile unsigned short *)0xF0392)
 #define CTSUSO0 (*(volatile unsigned short *)0xF0394)
 #define CTSUSO1 (*(volatile unsigned short *)0xF0396)

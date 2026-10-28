@@ -23,7 +23,8 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 31.05.2022 1.30     First Release
-
+*         : 31.08.2023 1.61     Changed comment about setting CMC register.
+*                               Removed AMPH setting when selecting external clock input mode.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -367,12 +368,14 @@ void mcu_clock_setup(void)
 
     /* High-speed system clock(fMX) setting */
 #if BSP_CFG_HISYSCLK_SOURCE == 0
+    /* I/O port mode */
     /* Not used.
      * When using high-speed on-chip oscillator.
      */
 #elif BSP_CFG_HISYSCLK_SOURCE == 1
-    /* fX(Crystal/ceramic resonator connection */
-    /* Control of X1 clock oscillation frequency(EXCLK/OSCSEL/AMPH) setting */
+    /* X1 oscillation mode */
+    /* High-speed system clock pin operation mode(EXCLK/OSCSEL) setting */
+    /* Control of X1 clock oscillation frequency(AMPH) setting */
 #if BSP_CFG_FMX_HZ >= 1000000 && BSP_CFG_FMX_HZ <= 10000000
     /* 1MHz <= fX <= 10MHz */
     cmc_tmp |= 0x40U;
@@ -381,15 +384,9 @@ void mcu_clock_setup(void)
     cmc_tmp |= 0x41U;
 #endif
 #else
-    /* fEX(External clock input) */
-    /* Control of X1 clock oscillation frequency(EXCLK/OSCSEL/AMPH) setting */
-#if BSP_CFG_FMX_HZ >= 1000000 && BSP_CFG_FMX_HZ <= 10000000
-    /* 1MHz <= fX <= 10MHz */
+    /* External clock input mode */
+    /* High-speed system clock pin operation mode(EXCLK/OSCSEL) setting */
     cmc_tmp |= 0xC0U;
-#else
-    /* 10MHz < fX <= 16MHz */
-    cmc_tmp |= 0xC1U;
-#endif
 #endif
     /* Clock operation mode control register(CMC) setting */
     CMC = cmc_tmp;

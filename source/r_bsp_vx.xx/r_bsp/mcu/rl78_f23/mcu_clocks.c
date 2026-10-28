@@ -45,6 +45,8 @@
 *                               the change_clock_setting function.
 *                               Removed processing to set ADCKS.
 *                               Added processing to put the analog block of A/D converter on standby state.
+*         : 31.08.2023 1.61     Changed comment about setting CMC register.
+*                               Changed to set EXCLKS and OSCSELS even for 32-pin package.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -395,6 +397,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                         MCM0 = 0U;
 
                         /* WAIT_LOOP */
+                        /* Confirm that high-speed on-chip oscillator clock(fIH) is selected. */
                         while (1U == MCS)
                         {
                             ;
@@ -536,6 +539,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     CSS = 1U;
 
                     /* WAIT_LOOP */
+                    /* Confirm that Subsystem/low-speed on-chip oscillator select clock(fSL) is selected. */
                     while (0U == CLS)
                     {
                         ;
@@ -992,12 +996,15 @@ void mcu_clock_setup(void)
 
     /* High-speed system clock(fMX) setting */
 #if BSP_CFG_HISYSCLK_SOURCE == 0
+    /* Input port mode */
     /* Not used.
      * When using high-speed on-chip oscillator,
      * when not using main system clock
      */
 #elif BSP_CFG_HISYSCLK_SOURCE == 1
     /* X1 oscillation mode */
+    /* High-speed system clock pin operation mode(EXCLK/OSCSEL) setting */
+    /* Control of X1 clock oscillation frequency(AMPH) setting */
 #if BSP_CFG_FMX_HZ >= 2000000 && BSP_CFG_FMX_HZ <= 10000000
     /* 2 MHz <= fX <= 10 MHz */
     cmc_tmp |= 0x40U;
@@ -1007,6 +1014,7 @@ void mcu_clock_setup(void)
 #endif
 #else
     /* External clock input mode */
+    /* High-speed system clock pin operation mode(EXCLK/OSCSEL) setting */
     cmc_tmp |= 0xC0U;
 #endif
 
@@ -1019,6 +1027,9 @@ void mcu_clock_setup(void)
 #elif BSP_CFG_SUBCLK_SOURCE == 1
 #if BSP_CFG_MCU_PART_PIN_NUM < 1
     /* 32-pin device */
+    /* Input port mode(low-speed on-chip oscillator operation mode) */
+    /* EXCLKS/OSCSELS setting */
+    cmc_tmp |= 0x10U;
 #else
     /* XT1 oscillation mode */
 #if BSP_CFG_XT1_OSCMODE == 0
@@ -1038,6 +1049,9 @@ void mcu_clock_setup(void)
 #else
 #if BSP_CFG_MCU_PART_PIN_NUM < 1
     /* 32-pin device */
+    /* Input port mode(low-speed on-chip oscillator operation mode) */
+    /* EXCLKS/OSCSELS setting */
+    cmc_tmp |= 0x30U;
 #else
     /* External clock input mode */
     /* EXCLKS/OSCSELS setting */

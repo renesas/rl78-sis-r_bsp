@@ -23,7 +23,9 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 11.11.2022 1.40     First Release
-
+*         : 31.08.2023 1.61     Changed comment about setting CMC register.
+*                               Removed AMPH setting when selecting external clock input mode.
+*                               Added a comment to the process of checking for CLS.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -317,6 +319,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     CSS = 0U;
 
                     /* WAIT_LOOP */
+                    /* Confirm that Main system clock(fMAIN) is selected. */
                     while (1U == CLS)
                     {
                         ;
@@ -360,6 +363,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     CSS = 0U;
 
                     /* WAIT_LOOP */
+                    /* Confirm that Main system clock(fMAIN) is selected. */
                     while (1U == CLS)
                     {
                         ;
@@ -402,6 +406,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     CSS     = 1U;
 
                     /* WAIT_LOOP */
+                    /* Confirm that Subsystem clock(fSUB) is selected. */
                     while (0U == CLS)
                     {
                         ;
@@ -434,6 +439,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     CSS = 0U;
 
                     /* WAIT_LOOP */
+                    /* Confirm that Main system clock(fMAIN) is selected. */
                     while (1U == CLS)
                     {
                         ;
@@ -469,6 +475,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     CSS = 1U;
 
                     /* WAIT_LOOP */
+                    /* Confirm that Subsystem clock(fSUB) is selected. */
                     while (0U == CLS)
                     {
                         ;
@@ -680,37 +687,33 @@ void mcu_clock_setup(void)
 
     /* High-speed system clock(fMX) setting */
 #if BSP_CFG_HISYSCLK_SOURCE == 0
+    /* Port mode */
     /* Not used.
      * When using high-speed on-chip oscillator,
      * when using middle-speed on-chip oscillator or
      * when not using main system clock
      */
 #elif BSP_CFG_HISYSCLK_SOURCE == 1
-    /* fX(Crystal/ceramic resonator connection */
+    /* X1 oscillation mode */
     /* High-speed system clock division register(MOSCDIV) setting */
     MOSCDIV = BSP_CFG_MOSC_DIVIDE;
 
-    /* Control of X1 clock oscillation frequency(AMPH) setting */
+    /* System clock pin operation mode(EXCLK/OSCSEL) setting */
+    /* Control of the X1 clock oscillation frequency(AMPH) setting */
 #if BSP_CFG_FMX_HZ >= 1000000 && BSP_CFG_FMX_HZ <= 10000000
-        /* 1MHz <= fX <= 10MHz */
-        cmc_tmp |= 0x40U;
+    /* 1MHz <= fX <= 10MHz */
+    cmc_tmp |= 0x40U;
 #else
-        /* 10MHz < fX <= 20MHz */
-        cmc_tmp |= 0x41U;
+    /* 10MHz < fX <= 20MHz */
+    cmc_tmp |= 0x41U;
 #endif
 #else
-    /* fEX(External clock input) */
+    /* External clock input mode */
     /* High-speed system clock division register(MOSCDIV) setting */
     MOSCDIV = BSP_CFG_MOSC_DIVIDE;
 
-    /* Control of X1 clock oscillation frequency(AMPH) setting */
-#if BSP_CFG_FMX_HZ >= 1000000 && BSP_CFG_FMX_HZ <= 10000000
-        /* 1MHz <= fX <= 10MHz */
-        cmc_tmp |= 0xC0U;
-#else
-        /* 10MHz < fX <= 20MHz */
-        cmc_tmp |= 0xC1U;
-#endif
+    /* System clock pin operation mode(EXCLK/OSCSEL) setting */
+    cmc_tmp |= 0xC0U;
 #endif /* BSP_CFG_HISYSCLK_SOURCE == 0 */
 
     /* High-speed on-chip oscillator(fIH) setting */
@@ -719,42 +722,47 @@ void mcu_clock_setup(void)
 
     /* Subsystem clock oscillator clock(fSX) setting */
 #if BSP_CFG_SUBCLK_SOURCE == 0
+    /* Input port mode */
     /* Not used.
      * When using the low-speed on-chip oscillator or
      * when not using subsystem clock(fSUB)
      */
 #elif BSP_CFG_SUBCLK_SOURCE == 1
 #if BSP_CFG_MCU_PART_PIN_NUM <= 6
-        /* 30 - 36 pin device */
-        /* XTSEL setting */
-        cmc_tmp |= 0x08U;
+    /* 30 - 36 pin device */
+    /* XTSEL setting */
+    cmc_tmp |= 0x08U;
 #endif
-    /* fXT(Crystal resonator connection) */
+    /* XT1 oscillation mode */
 #if BSP_CFG_XT1_OSCMODE == 0
-        /* Low power consumption oscillation 1(default) */
-        /* EXCLKS/OSCSELS/AMPHS1/AMPHS0 setting */
-        cmc_tmp |= 0x10U;
+    /* Low power consumption oscillation 1(default) */
+    /* Subsystem clock pin operation mode(EXCLKS/OSCSELS) setting */
+    /* Selection of the oscillation mode of the XT1 oscillator(AMPHS1/AMPHS0) setting */
+    cmc_tmp |= 0x10U;
 #elif BSP_CFG_XT1_OSCMODE == 1
-        /* Normal oscillation */
-        /* EXCLKS/OSCSELS/AMPHS1/AMPHS0 setting */
-        cmc_tmp |= 0x12U;
+    /* Normal oscillation */
+    /* Subsystem clock pin operation mode(EXCLKS/OSCSELS) setting */
+    /* Selection of the oscillation mode of the XT1 oscillator(AMPHS1/AMPHS0) setting */
+    cmc_tmp |= 0x12U;
 #elif BSP_CFG_XT1_OSCMODE == 2
-        /* Low power consumption oscillation 2 */
-        /* EXCLKS/OSCSELS/AMPHS1/AMPHS0 setting */
-        cmc_tmp |= 0x14U;
+    /* Low power consumption oscillation 2 */
+    /* Subsystem clock pin operation mode(EXCLKS/OSCSELS) setting */
+    /* Selection of the oscillation mode of the XT1 oscillator(AMPHS1/AMPHS0) setting */
+    cmc_tmp |= 0x14U;
 #else
-        /* Low power consumption oscillation 3 */
-        /* EXCLKS/OSCSELS/AMPHS1/AMPHS0 setting */
-        cmc_tmp |= 0x16U;
+    /* Low power consumption oscillation 3 */
+    /* Subsystem clock pin operation mode(EXCLKS/OSCSELS) setting */
+    /* Selection of the oscillation mode of the XT1 oscillator(AMPHS1/AMPHS0) setting */
+    cmc_tmp |= 0x16U;
 #endif
 #else
 #if BSP_CFG_MCU_PART_PIN_NUM <= 6
-        /* 30 - 36 pin device */
-        /* XTSEL setting */
-        cmc_tmp |= 0x08U;
+    /* 30 - 36 pin device */
+    /* XTSEL setting */
+    cmc_tmp |= 0x08U;
 #endif
-    /* fEXS(External subsystem clock) */
-    /* EXCLKS/OSCSELS setting */
+    /* External clock input mode */
+    /* Subsystem clock pin operation mode(EXCLKS/OSCSELS) setting */
     cmc_tmp |= 0x30U;
 #endif /* BSP_CFG_SUBCLK_SOURCE == 0 */
     /* Clock operation mode control register(CMC) setting */
@@ -777,16 +785,16 @@ void mcu_clock_setup(void)
     MSTOP = 0U;
 
 #if BSP_CFG_HISYSCLK_SOURCE == 1
-        /* Wait for oscillation stabilization unless external clock input */
-        tmp_stab_set = (uint8_t)~(0x7FU >> OSTS);
+    /* Wait for oscillation stabilization unless external clock input */
+    tmp_stab_set = (uint8_t)~(0x7FU >> OSTS);
 
-        /* WAIT_LOOP */
-        do
-        {
-            tmp_stab_wait  = OSTC;
-            tmp_stab_wait &= tmp_stab_set;
-        }
-        while (tmp_stab_wait != tmp_stab_set);
+    /* WAIT_LOOP */
+    do
+    {
+        tmp_stab_wait  = OSTC;
+        tmp_stab_wait &= tmp_stab_set;
+    }
+    while (tmp_stab_wait != tmp_stab_set);
 #endif
 #else
     /* X1 oscillation stopped if high-speed system clock is not used */
@@ -882,6 +890,7 @@ void mcu_clock_setup(void)
     CSS = 0U;
 
     /* WAIT_LOOP */
+    /* Confirm that Main system clock(fMAIN) is selected. */
     while (1U == CLS)
     {
         ;
@@ -891,6 +900,7 @@ void mcu_clock_setup(void)
     CSS = 1U;
 
     /* WAIT_LOOP */
+    /* Confirm that Subsystem clock(fSUB) is selected. */
     while (0U == CLS)
     {
         ;

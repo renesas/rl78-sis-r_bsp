@@ -24,6 +24,8 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 28.02.2023 1.60     First Release
+*         : 31.08.2023 1.61     Changed the initial value of the following macro definition.
+*                                - BSP_CFG_FLASH_MODE
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -993,7 +995,7 @@
  2 : HS(high-speed main) mode
      (Selectable from LS(low-speed main) mode)
 */
-#define BSP_CFG_FLASH_MODE (0)
+#define BSP_CFG_FLASH_MODE (2)
 
 /* High-speed system clock division selection
    High-speed system clock division register(MOSCDIV)
