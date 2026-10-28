@@ -26,6 +26,13 @@
 *         : 28.02.2022 1.20     First Release
 *         : 31.05.2022 1.30     Added the following macro definition.
 *                                - BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE
+*         : 11.11.2022 1.40     Changed the initial values of the following macro defiintions from 0 to 1.
+*                                - BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE
+*                               Deleted the contents of setting prohibition from the comment of
+*                               the macro definition BSP_CFG_HOCO_DIVIDE.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -1020,7 +1027,7 @@
  0 : Enable API functions
  1 : Disable API functions
 */
-#define BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE (0)
+#define BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE (1)
 
 /* API function disable(R_BSP_GetFclkFreqHz)
  0 : Enable API functions
@@ -1032,19 +1039,19 @@
  0 : Enable API functions
  1 : Disable API functions
 */
-#define BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE (0)
+#define BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE (1)
 
 /* API function disable(R_BSP_ChangeClockSetting)
  0 : Enable API functions
  1 : Disable API functions
 */
-#define BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE (0)
+#define BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE (1)
 
 /* API function disable(R_BSP_SoftwareDelay)
  0 : Enable API functions
  1 : Disable API functions
 */
-#define BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE (0)
+#define BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE (1)
 
 /* Parameter check enable
  0 : Disable parameter check.
@@ -1193,7 +1200,6 @@
   2 : fIH = 16 MHz
   3 : fIH =  8 MHz
   4 : fIH =  4 MHz
-  5 : fIH =  2 MHz
  (FRQSEL4 = 1, FRQSEL3 = 1)
   0 : fIH = 80 MHz
   1 : fIH = 40 MHz
@@ -1375,12 +1381,17 @@
    The value to be set is the number of loops in the process of executing the NOP instruction once by the for statement.
    Set an appropriate value according to your environment.
 */
-/* Subsystem clock oscillation stabilization wait time(T.B.D) */
+/* Subsystem clock oscillation stabilization wait time */
+/* If the main system clock 32 MHz, 800000 means 300 ms. */
 #define BSP_CFG_SUBWAITTIME (800000U)
-/* High-speed on-chip oscillator clock oscillation stabilization wait time(T.B.D) */
-#define BSP_CFG_FIHWAITTIME (80U)
-/* PLL multiplication effective wait time(T.B.D) */
-#define BSP_CFG_PLLWAITTIME (10U)
+
+/* High-speed on-chip oscillator clock oscillation stabilization wait time */
+/* If the main system clock 32 MHz, 560 means 105.4 us. */
+#define BSP_CFG_FIHWAITTIME (560U)
+
+/* PLL multiplication effective wait time */
+/* If the main system clock 32 MHz, 5 means 1.15 us. */
+#define BSP_CFG_PLLWAITTIME (5U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the
    following callback definitions AND provide a call back function name for the respective callback

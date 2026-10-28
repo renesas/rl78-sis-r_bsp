@@ -23,7 +23,14 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 28.02.2022 1.20     First Release
-*
+*         : 11.11.2022 1.40     Changed the frequency table of the high-speed on-chip oscillator.
+*                               Changed comment about error in change_clock_setting function.
+*                               Changed the error condition when HIOCLK is set to the argument of
+*                               the change_clock_setting function.
+*                               Changed the error condition when ADCLK is set to the argument of
+*                               the change_clock_setting function.
+*                               Added processing to set SELPLL
+*                               when HIOCLK or SYSCLK is set as an argument of the set_fclk_clock_source function.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -70,7 +77,7 @@ const uint32_t g_fih_hz[] = {
     16000000,
     8000000,
     4000000,
-    2000000,
+    0,                  /* Setting prohibited */
     0,                  /* Setting prohibited */
     0,                  /* Setting prohibited */
     80000000,
@@ -361,6 +368,15 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     else
                     {
 #endif
+                        SELPLL = 0U;
+
+                        /* WAIT_LOOP */
+                        /* Confirm that the Clock through mode is selected. */
+                        while (1U == SELPLLS)
+                        {
+                            ;
+                        }
+
                         CSS  = 0U;
                         MCM0 = 0U;
 
@@ -427,6 +443,15 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                     else
                     {
 #endif
+                        SELPLL = 0U;
+
+                        /* WAIT_LOOP */
+                        /* Confirm that the Clock through mode is selected. */
+                        while (1U == SELPLLS)
+                        {
+                            ;
+                        }
+
                         CSS  = 0U;
                         MCM0 = 1U;
 #if BSP_CFG_PARAM_CHECKING_ENABLE == 1
@@ -757,9 +782,18 @@ uint32_t get_fclk_freq_hz(void)
  * Arguments    : Clock to change setting.
  *              : Value to set for the specified clock.
  * Return value : BSP_OK if the specified clock setting is changed.
- *                BSP_ERROR1 When the specified clock is stopped.
+ *                BSP_ERROR1 (When HIOCLK is specified)
+ *                           When the high-speed on-chip oscillator is stopped
+ *                           while the high-speed on-chip oscillator is being supplied to fCLK.
+ *                           When the high-speed on-chip oscillator is oscillating
+ *                           while the high-speed on-chip oscillator is not supplied to fCLK.
+ *                           When a PLL with a high-speed on-chip oscillator as input is supplied to fCLK.
+ *                           (When ADCLK is specified)
+ *                           When AD conversion is starting.
+ *                           (When SYSCLK or PLLCLK is specified)
+ *                           When the specified clock is oscillating.
  *                BSP_ARG_ERROR An invalid argument was input.
- * Attention    : Stop the specified clock before calling this function.
+ * Attention    : 
 **************************************************/
 #if BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE == 0
 e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t * set_values)
@@ -771,7 +805,15 @@ e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t * set_values)
     {
         case HIOCLK:
 
-            if (0U == HIOSTOP)
+            if ((1U == HIOSTOP) && (0U == CLS) && (0U == MCS))
+            {
+                status = BSP_ERROR1;
+            }
+            else if ((0U == HIOSTOP) && ((1U == CLS) || (1U == MCS)))
+            {
+                status = BSP_ERROR1;
+            }
+            else if (((1U == SELPLLS) || (1U == SELPLL)) && (0U == CLS) && (0U == MCS))
             {
                 status = BSP_ERROR1;
             }
@@ -898,7 +940,7 @@ e_bsp_err_t change_clock_setting(e_clock_mode_t mode, uint8_t * set_values)
 
         case ADCLK:
 
-            if (0U == ADCEN)
+            if ((0U == ADCEN) || (0x8000U == (ADCSR & 0x8000U)) || (0x01 == (IAWCTL & 0x01U)))  
             {
                 status = BSP_ERROR1;
             }

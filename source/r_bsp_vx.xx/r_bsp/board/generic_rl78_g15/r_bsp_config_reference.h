@@ -24,7 +24,11 @@
 /***********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 31.05.2022 1.30     First Release
-
+*         : 11.11.2022 1.40     Changed the initial values of the following macro defiintions from 0 to 1.
+*                                - BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -406,7 +410,7 @@ Set PIOR13 to 0.
  0 : Enable API functions
  1 : Disable API functions
 */
-#define BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE (0)
+#define BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE (1)
 
 /* API function disable(R_BSP_GetFclkFreqHz)
  0 : Enable API functions
@@ -418,19 +422,19 @@ Set PIOR13 to 0.
  0 : Enable API functions
  1 : Disable API functions
 */
-#define BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE (0)
+#define BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE (1)
 
 /* API function disable(R_BSP_ChangeClockSetting)
  0 : Enable API functions
  1 : Disable API functions
 */
-#define BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE (0)
+#define BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE (1)
 
 /* API function disable(R_BSP_SoftwareDelay)
  0 : Enable API functions
  1 : Disable API functions
 */
-#define BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE (0)
+#define BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE (1)
 
 /* Parameter check enable
  0 : Disable parameter check.
@@ -535,9 +539,9 @@ Set PIOR13 to 0.
  */
 #define BSP_CFG_RTOS_USED (0)
 
-/* High-speed on-chip oscillator clock stabilization time.    (T.B.D.)
-   If the main system clock is 16 MHz, 30 means 0.00us. */
-#define BSP_CFG_FIHWAITTIME              (30U)
+/* High-speed on-chip oscillator clock stabilization time. */
+/* If the main system clock is 16 MHz, 75 means 28.5us. */
+#define BSP_CFG_FIHWAITTIME              (75U)
 
 /* If the user would like to determine if a warm start reset has occurred, then they may enable one or more of the
    following callback definitions AND provide a call back function name for the respective callback

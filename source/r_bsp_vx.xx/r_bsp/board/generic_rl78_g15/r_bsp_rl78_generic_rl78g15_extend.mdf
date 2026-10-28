@@ -26,6 +26,11 @@
 /**********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
 *         : 31.05.2022 1.30     First Release
+*         : 11.11.2022 1.40     Changed the initial values of the following macro defiintions from 0 to 1.
+*                                - BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE
+*                                - BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
   Purpose: Module Description File (MDF) Example (Schema Version 2.0)
@@ -49,7 +54,7 @@
             <description>0 = Disable initialization of peripheral functions by Code Generator/Smart Configurator.
 1 = Enable initialization of peripheral functions by Code Generator/Smart Configurator.</description>
         </property>
-        <property id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_StartClock, R_BSP_StopClock)" default="0" type="combobox">
+        <property id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_StartClock, R_BSP_StopClock)" default="1" type="combobox">
             <option id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
             <option id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
             <description>0 = Enable API functions.
@@ -61,19 +66,19 @@
             <description>0 = Enable API functions.
 1 = Disable API functions.</description>
         </property>
-        <property id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_SetClockSource)" default="0" type="combobox">
+        <property id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_SetClockSource)" default="1" type="combobox">
             <option id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
             <option id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
             <description>0 = Enable API functions.
 1 = Disable API functions.</description>
         </property>
-        <property id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_ChangeClockSetting)" default="0" type="combobox">
+        <property id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_ChangeClockSetting)" default="1" type="combobox">
             <option id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
             <option id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
             <description>0 = Enable API functions.
 1 = Disable API functions.</description>
         </property>
-        <property id="BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_SoftwareDelay)" default="0" type="combobox">
+        <property id="BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_SoftwareDelay)" default="1" type="combobox">
             <constraint display="when using R_BSP_SoftwareDelay function, enable R_BSP_GetFclkFreqHz function." actionOnFail="error">!((${BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE} == ${BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE.1}) &amp;&amp; (${BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE} == ${BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE.0}))</constraint>
             <option id="BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
             <option id="BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
