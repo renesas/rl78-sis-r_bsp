@@ -14,6 +14,7 @@
 *         : 07.06.2024 1.70     Fixed error message.
 *                               Removed unnecessary comments.
 *         : 04.07.2025 1.92     Changed the disclaimer.
+*         : 14.04.2026 2.00     Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __IOR7F100G_EXT_H__
@@ -21,6 +22,16 @@
 
 #if !defined(__IASMRL78__) && !defined(__ICCRL78__)
   #error "iodefine_ext.h file for use with RL78 Assembler or Compiler only"
+#endif
+
+#if !defined(__S2__)
+#define __S2__ __RL78_1__
+#endif
+#if !defined(__S3__)
+#define __S3__ __RL78_2__
+#endif
+#if !defined(__S1__)
+#define __S1__ __RL78_0__
 #endif
 
 #if defined(__IASMRL78__)
@@ -121,62 +132,62 @@ __near __no_bit_access __no_init volatile union
   __BITS8       ADTES_bit;
 } @ 0xF0013;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short ADCR0;
-  __BITS16       ADCR0_bit;
+  const unsigned short ADCR0;
+  const __BITS16       ADCR0_bit;
   struct
   {
     unsigned char :8;
     union
     {
-      unsigned char ADCR0H;
-      __BITS8       ADCR0H_bit;
+      const unsigned char ADCR0H;
+      const __BITS8       ADCR0H_bit;
     };
   };
 } @ 0xF0020;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short ADCR1;
-  __BITS16       ADCR1_bit;
+  const unsigned short ADCR1;
+  const __BITS16       ADCR1_bit;
   struct
   {
     unsigned char :8;
     union
     {
-      unsigned char ADCR1H;
-      __BITS8       ADCR1H_bit;
+      const unsigned char ADCR1H;
+      const __BITS8       ADCR1H_bit;
     };
   };
 } @ 0xF0022;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short ADCR2;
-  __BITS16       ADCR2_bit;
+  const unsigned short ADCR2;
+  const __BITS16       ADCR2_bit;
   struct
   {
     unsigned char :8;
     union
     {
-      unsigned char ADCR2H;
-      __BITS8       ADCR2H_bit;
+      const unsigned char ADCR2H;
+      const __BITS8       ADCR2H_bit;
     };
   };
 } @ 0xF0024;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short ADCR3;
-  __BITS16       ADCR3_bit;
+  const unsigned short ADCR3;
+  const __BITS16       ADCR3_bit;
   struct
   {
     unsigned char :8;
     union
     {
-      unsigned char ADCR3H;
-      __BITS8       ADCR3H_bit;
+      const unsigned char ADCR3H;
+      const __BITS8       ADCR3H_bit;
     };
   };
 } @ 0xF0026;
@@ -543,22 +554,22 @@ __near __no_init volatile union
   };
 } @ 0xF00AB;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short FLSEC;
-  __BITS16       FLSEC_bit;
+  const unsigned short FLSEC;
+  const __BITS16       FLSEC_bit;
 } @ 0xF00B0;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short FLFSWS;
-  __BITS16       FLFSWS_bit;
+  const unsigned short FLFSWS;
+  const __BITS16       FLFSWS_bit;
 } @ 0xF00B2;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short FLFSWE;
-  __BITS16       FLFSWE_bit;
+  const unsigned short FLFSWE;
+  const __BITS16       FLFSWE_bit;
 } @ 0xF00B4;
 
 __near __no_bit_access __no_init volatile union
@@ -578,35 +589,17 @@ __near __no_init volatile union
   };
 } @ 0xF00B7;
 
-__near __no_bit_access __no_init volatile const union
-{
-  unsigned short FLFADL;
-  __BITS16       FLFADL_bit;
-} @ 0xF00B8;
-
-__near __no_bit_access __no_init volatile const union
-{
-  unsigned char FLFADH;
-  __BITS8       FLFADH_bit;
-} @ 0xF00BA;
-
 __near __no_bit_access __no_init volatile union
 {
   unsigned char PFCMD;
   __BITS8       PFCMD_bit;
 } @ 0xF00C0;
 
-__near __no_init volatile const union
+__near __no_init volatile union
 {
-  unsigned char PFS;
-  __BITS8       PFS_bit;
+  const unsigned char PFS;
+  const __BITS8       PFS_bit;
 } @ 0xF00C1;
-
-__near __no_bit_access __no_init volatile union
-{
-  unsigned char FLWE;
-  __BITS8       FLWE_bit;
-} @ 0xF00C6;
 
 __near __no_init volatile union
 {
@@ -718,10 +711,10 @@ __near __no_init volatile union
   };
 } @ 0xF00FB;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char BCDADJ;
-  __BITS8       BCDADJ_bit;
+  const unsigned char BCDADJ;
+  const __BITS8       BCDADJ_bit;
 } @ 0xF00FE;
 
 __near __no_bit_access __no_init volatile union
@@ -730,61 +723,61 @@ __near __no_bit_access __no_init volatile union
   __BITS8       VECTCTRL_bit;
 } @ 0xF00FF;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short SSR00;
-  __BITS16       SSR00_bit;
+  const unsigned short SSR00;
+  const __BITS16       SSR00_bit;
   struct
   {
     union
     {
-      unsigned char SSR00L;
-      __BITS8       SSR00L_bit;
+      const unsigned char SSR00L;
+      const __BITS8       SSR00L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF0100;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short SSR01;
-  __BITS16       SSR01_bit;
+  const unsigned short SSR01;
+  const __BITS16       SSR01_bit;
   struct
   {
     union
     {
-      unsigned char SSR01L;
-      __BITS8       SSR01L_bit;
+      const unsigned char SSR01L;
+      const __BITS8       SSR01L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF0102;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short SSR02;
-  __BITS16       SSR02_bit;
+  const unsigned short SSR02;
+  const __BITS16       SSR02_bit;
   struct
   {
     union
     {
-      unsigned char SSR02L;
-      __BITS8       SSR02L_bit;
+      const unsigned char SSR02L;
+      const __BITS8       SSR02L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF0104;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short SSR03;
-  __BITS16       SSR03_bit;
+  const unsigned short SSR03;
+  const __BITS16       SSR03_bit;
   struct
   {
     union
     {
-      unsigned char SSR03L;
-      __BITS8       SSR03L_bit;
+      const unsigned char SSR03L;
+      const __BITS8       SSR03L_bit;
     };
     unsigned char :8;
   };
@@ -898,16 +891,16 @@ __near __no_bit_access __no_init volatile union
   __BITS16       SCR03_bit;
 } @ 0xF011E;
 
-__near __no_init volatile const union
+__near __no_init volatile union
 {
-  unsigned short SE0;
-  __BITS16       SE0_bit;
+  const unsigned short SE0;
+  const __BITS16       SE0_bit;
   struct
   {
     union
     {
-      unsigned char SE0L;
-      __BITS8       SE0L_bit;
+      const unsigned char SE0L;
+      const __BITS8       SE0L_bit;
     };
     unsigned char :8;
   };
@@ -1009,61 +1002,61 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF0138;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short SSR10;
-  __BITS16       SSR10_bit;
+  const unsigned short SSR10;
+  const __BITS16       SSR10_bit;
   struct
   {
     union
     {
-      unsigned char SSR10L;
-      __BITS8       SSR10L_bit;
+      const unsigned char SSR10L;
+      const __BITS8       SSR10L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF0140;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short SSR11;
-  __BITS16       SSR11_bit;
+  const unsigned short SSR11;
+  const __BITS16       SSR11_bit;
   struct
   {
     union
     {
-      unsigned char SSR11L;
-      __BITS8       SSR11L_bit;
+      const unsigned char SSR11L;
+      const __BITS8       SSR11L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF0142;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short SSR12;
-  __BITS16       SSR12_bit;
+  const unsigned short SSR12;
+  const __BITS16       SSR12_bit;
   struct
   {
     union
     {
-      unsigned char SSR12L;
-      __BITS8       SSR12L_bit;
+      const unsigned char SSR12L;
+      const __BITS8       SSR12L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF0144;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short SSR13;
-  __BITS16       SSR13_bit;
+  const unsigned short SSR13;
+  const __BITS16       SSR13_bit;
   struct
   {
     union
     {
-      unsigned char SSR13L;
-      __BITS8       SSR13L_bit;
+      const unsigned char SSR13L;
+      const __BITS8       SSR13L_bit;
     };
     unsigned char :8;
   };
@@ -1177,16 +1170,16 @@ __near __no_bit_access __no_init volatile union
   __BITS16       SCR13_bit;
 } @ 0xF015E;
 
-__near __no_init volatile const union
+__near __no_init volatile union
 {
-  unsigned short SE1;
-  __BITS16       SE1_bit;
+  const unsigned short SE1;
+  const __BITS16       SE1_bit;
   struct
   {
     union
     {
-      unsigned char SE1L;
-      __BITS8       SE1L_bit;
+      const unsigned char SE1L;
+      const __BITS8       SE1L_bit;
     };
     unsigned char :8;
   };
@@ -1288,52 +1281,52 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF0178;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR00;
-  __BITS16       TCR00_bit;
+  const unsigned short TCR00;
+  const __BITS16       TCR00_bit;
 } @ 0xF0180;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR01;
-  __BITS16       TCR01_bit;
+  const unsigned short TCR01;
+  const __BITS16       TCR01_bit;
 } @ 0xF0182;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR02;
-  __BITS16       TCR02_bit;
+  const unsigned short TCR02;
+  const __BITS16       TCR02_bit;
 } @ 0xF0184;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR03;
-  __BITS16       TCR03_bit;
+  const unsigned short TCR03;
+  const __BITS16       TCR03_bit;
 } @ 0xF0186;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR04;
-  __BITS16       TCR04_bit;
+  const unsigned short TCR04;
+  const __BITS16       TCR04_bit;
 } @ 0xF0188;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR05;
-  __BITS16       TCR05_bit;
+  const unsigned short TCR05;
+  const __BITS16       TCR05_bit;
 } @ 0xF018A;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR06;
-  __BITS16       TCR06_bit;
+  const unsigned short TCR06;
+  const __BITS16       TCR06_bit;
 } @ 0xF018C;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR07;
-  __BITS16       TCR07_bit;
+  const unsigned short TCR07;
+  const __BITS16       TCR07_bit;
 } @ 0xF018E;
 
 __near __no_bit_access __no_init volatile union
@@ -1384,136 +1377,136 @@ __near __no_bit_access __no_init volatile union
   __BITS16       TMR07_bit;
 } @ 0xF019E;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR00;
-  __BITS16       TSR00_bit;
+  const unsigned short TSR00;
+  const __BITS16       TSR00_bit;
   struct
   {
     union
     {
-      unsigned char TSR00L;
-      __BITS8       TSR00L_bit;
+      const unsigned char TSR00L;
+      const __BITS8       TSR00L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01A0;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR01;
-  __BITS16       TSR01_bit;
+  const unsigned short TSR01;
+  const __BITS16       TSR01_bit;
   struct
   {
     union
     {
-      unsigned char TSR01L;
-      __BITS8       TSR01L_bit;
+      const unsigned char TSR01L;
+      const __BITS8       TSR01L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01A2;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR02;
-  __BITS16       TSR02_bit;
+  const unsigned short TSR02;
+  const __BITS16       TSR02_bit;
   struct
   {
     union
     {
-      unsigned char TSR02L;
-      __BITS8       TSR02L_bit;
+      const unsigned char TSR02L;
+      const __BITS8       TSR02L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01A4;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR03;
-  __BITS16       TSR03_bit;
+  const unsigned short TSR03;
+  const __BITS16       TSR03_bit;
   struct
   {
     union
     {
-      unsigned char TSR03L;
-      __BITS8       TSR03L_bit;
+      const unsigned char TSR03L;
+      const __BITS8       TSR03L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01A6;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR04;
-  __BITS16       TSR04_bit;
+  const unsigned short TSR04;
+  const __BITS16       TSR04_bit;
   struct
   {
     union
     {
-      unsigned char TSR04L;
-      __BITS8       TSR04L_bit;
+      const unsigned char TSR04L;
+      const __BITS8       TSR04L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01A8;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR05;
-  __BITS16       TSR05_bit;
+  const unsigned short TSR05;
+  const __BITS16       TSR05_bit;
   struct
   {
     union
     {
-      unsigned char TSR05L;
-      __BITS8       TSR05L_bit;
+      const unsigned char TSR05L;
+      const __BITS8       TSR05L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01AA;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR06;
-  __BITS16       TSR06_bit;
+  const unsigned short TSR06;
+  const __BITS16       TSR06_bit;
   struct
   {
     union
     {
-      unsigned char TSR06L;
-      __BITS8       TSR06L_bit;
+      const unsigned char TSR06L;
+      const __BITS8       TSR06L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01AC;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR07;
-  __BITS16       TSR07_bit;
+  const unsigned short TSR07;
+  const __BITS16       TSR07_bit;
   struct
   {
     union
     {
-      unsigned char TSR07L;
-      __BITS8       TSR07L_bit;
+      const unsigned char TSR07L;
+      const __BITS8       TSR07L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01AE;
 
-__near __no_init volatile const union
+__near __no_init volatile union
 {
-  unsigned short TE0;
-  __BITS16       TE0_bit;
+  const unsigned short TE0;
+  const __BITS16       TE0_bit;
   struct
   {
     union
     {
-      unsigned char TE0L;
-      __BITS8       TE0L_bit;
+      const unsigned char TE0L;
+      const __BITS8       TE0L_bit;
     };
     unsigned char :8;
   };
@@ -1615,52 +1608,52 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF01BE;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR10;
-  __BITS16       TCR10_bit;
+  const unsigned short TCR10;
+  const __BITS16       TCR10_bit;
 } @ 0xF01C0;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR11;
-  __BITS16       TCR11_bit;
+  const unsigned short TCR11;
+  const __BITS16       TCR11_bit;
 } @ 0xF01C2;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR12;
-  __BITS16       TCR12_bit;
+  const unsigned short TCR12;
+  const __BITS16       TCR12_bit;
 } @ 0xF01C4;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR13;
-  __BITS16       TCR13_bit;
+  const unsigned short TCR13;
+  const __BITS16       TCR13_bit;
 } @ 0xF01C6;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR14;
-  __BITS16       TCR14_bit;
+  const unsigned short TCR14;
+  const __BITS16       TCR14_bit;
 } @ 0xF01C8;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR15;
-  __BITS16       TCR15_bit;
+  const unsigned short TCR15;
+  const __BITS16       TCR15_bit;
 } @ 0xF01CA;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR16;
-  __BITS16       TCR16_bit;
+  const unsigned short TCR16;
+  const __BITS16       TCR16_bit;
 } @ 0xF01CC;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TCR17;
-  __BITS16       TCR17_bit;
+  const unsigned short TCR17;
+  const __BITS16       TCR17_bit;
 } @ 0xF01CE;
 
 __near __no_bit_access __no_init volatile union
@@ -1711,136 +1704,136 @@ __near __no_bit_access __no_init volatile union
   __BITS16       TMR17_bit;
 } @ 0xF01DE;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR10;
-  __BITS16       TSR10_bit;
+  const unsigned short TSR10;
+  const __BITS16       TSR10_bit;
   struct
   {
     union
     {
-      unsigned char TSR10L;
-      __BITS8       TSR10L_bit;
+      const unsigned char TSR10L;
+      const __BITS8       TSR10L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01E0;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR11;
-  __BITS16       TSR11_bit;
+  const unsigned short TSR11;
+  const __BITS16       TSR11_bit;
   struct
   {
     union
     {
-      unsigned char TSR11L;
-      __BITS8       TSR11L_bit;
+      const unsigned char TSR11L;
+      const __BITS8       TSR11L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01E2;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR12;
-  __BITS16       TSR12_bit;
+  const unsigned short TSR12;
+  const __BITS16       TSR12_bit;
   struct
   {
     union
     {
-      unsigned char TSR12L;
-      __BITS8       TSR12L_bit;
+      const unsigned char TSR12L;
+      const __BITS8       TSR12L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01E4;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR13;
-  __BITS16       TSR13_bit;
+  const unsigned short TSR13;
+  const __BITS16       TSR13_bit;
   struct
   {
     union
     {
-      unsigned char TSR13L;
-      __BITS8       TSR13L_bit;
+      const unsigned char TSR13L;
+      const __BITS8       TSR13L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01E6;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR14;
-  __BITS16       TSR14_bit;
+  const unsigned short TSR14;
+  const __BITS16       TSR14_bit;
   struct
   {
     union
     {
-      unsigned char TSR14L;
-      __BITS8       TSR14L_bit;
+      const unsigned char TSR14L;
+      const __BITS8       TSR14L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01E8;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR15;
-  __BITS16       TSR15_bit;
+  const unsigned short TSR15;
+  const __BITS16       TSR15_bit;
   struct
   {
     union
     {
-      unsigned char TSR15L;
-      __BITS8       TSR15L_bit;
+      const unsigned char TSR15L;
+      const __BITS8       TSR15L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01EA;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR16;
-  __BITS16       TSR16_bit;
+  const unsigned short TSR16;
+  const __BITS16       TSR16_bit;
   struct
   {
     union
     {
-      unsigned char TSR16L;
-      __BITS8       TSR16L_bit;
+      const unsigned char TSR16L;
+      const __BITS8       TSR16L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01EC;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short TSR17;
-  __BITS16       TSR17_bit;
+  const unsigned short TSR17;
+  const __BITS16       TSR17_bit;
   struct
   {
     union
     {
-      unsigned char TSR17L;
-      __BITS8       TSR17L_bit;
+      const unsigned char TSR17L;
+      const __BITS8       TSR17L_bit;
     };
     unsigned char :8;
   };
 } @ 0xF01EE;
 
-__near __no_init volatile const union
+__near __no_init volatile union
 {
-  unsigned short TE1;
-  __BITS16       TE1_bit;
+  const unsigned short TE1;
+  const __BITS16       TE1_bit;
   struct
   {
     union
     {
-      unsigned char TE1L;
-      __BITS8       TE1L_bit;
+      const unsigned char TE1L;
+      const __BITS8       TE1L_bit;
     };
     unsigned char :8;
   };
@@ -2437,16 +2430,16 @@ __near __no_init volatile union
   __BITS8       FLRST_bit;
 } @ 0xF02C9;
 
-__near __no_init volatile const union
+__near __no_init volatile union
 {
-  unsigned char FSASTL;
-  __BITS8       FSASTL_bit;
+  const unsigned char FSASTL;
+  const __BITS8       FSASTL_bit;
 } @ 0xF02CA;
 
-__near __no_init volatile const union
+__near __no_init volatile union
 {
-  unsigned char FSASTH;
-  __BITS8       FSASTH_bit;
+  const unsigned char FSASTH;
+  const __BITS8       FSASTH_bit;
 } @ 0xF02CB;
 
 __near __no_bit_access __no_init volatile union
@@ -2526,10 +2519,10 @@ __near __no_bit_access __no_init volatile union
   __BITS8       TXBA0_bit;
 } @ 0xF0300;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char RXBA0;
-  __BITS8       RXBA0_bit;
+  const unsigned char RXBA0;
+  const __BITS8       RXBA0_bit;
 } @ 0xF0301;
 
 __near __no_init volatile union
@@ -2559,10 +2552,10 @@ __near __no_bit_access __no_init volatile union
   __BITS8       BRGCA0_bit;
 } @ 0xF0304;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char ASISA0;
-  __BITS8       ASISA0_bit;
+  const unsigned char ASISA0;
+  const __BITS8       ASISA0_bit;
 } @ 0xF0305;
 
 __near __no_init volatile union
@@ -2584,10 +2577,10 @@ __near __no_bit_access __no_init volatile union
   __BITS8       TXBA1_bit;
 } @ 0xF0308;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char RXBA1;
-  __BITS8       RXBA1_bit;
+  const unsigned char RXBA1;
+  const __BITS8       RXBA1_bit;
 } @ 0xF0309;
 
 __near __no_init volatile union
@@ -2617,10 +2610,10 @@ __near __no_bit_access __no_init volatile union
   __BITS8       BRGCA1_bit;
 } @ 0xF030C;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char ASISA1;
-  __BITS8       ASISA1_bit;
+  const unsigned char ASISA1;
+  const __BITS8       ASISA1_bit;
 } @ 0xF030D;
 
 __near __no_init volatile union
@@ -2745,10 +2738,10 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF0362;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short ITLCAP00;
-  __BITS16       ITLCAP00_bit;
+  const unsigned short ITLCAP00;
+  const __BITS16       ITLCAP00_bit;
 } @ 0xF0364;
 
 __near __no_init volatile union
@@ -3001,10 +2994,10 @@ __near __no_bit_access __no_init volatile union
   __BITS16       SMSI31_bit;
 } @ 0xF03BE;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short SMSG0;
-  __BITS16       SMSG0_bit;
+  const unsigned short SMSG0;
+  const __BITS16       SMSG0_bit;
 } @ 0xF03C0;
 
 __near __no_bit_access __no_init volatile union
@@ -3091,10 +3084,10 @@ __near __no_bit_access __no_init volatile union
   __BITS16       SMSG14_bit;
 } @ 0xF03DC;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short SMSG15;
-  __BITS16       SMSG15_bit;
+  const unsigned short SMSG15;
+  const __BITS16       SMSG15_bit;
 } @ 0xF03DE;
 
 __near __no_init volatile union
@@ -3111,14 +3104,14 @@ __near __no_init volatile union
   };
 } @ 0xF03E0;
 
-__near __no_init volatile const union
+__near __no_init volatile union
 {
-  unsigned char SMSS;
-  __BITS8       SMSS_bit;
+  const unsigned char SMSS;
+  const __BITS8       SMSS_bit;
   struct
   {
-    unsigned char  :7;
-    unsigned char  SMSSTAT:1;
+          unsigned char  :7;
+    const unsigned char  SMSSTAT:1;
   };
 } @ 0xF03E1;
 
@@ -3158,7 +3151,7 @@ __near __no_bit_access __no_init volatile union
   __BITS16       GIAWCTL_bit;
 } @ 0xF048E;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned short CTSUCRAL;
   __BITS16       CTSUCRAL_bit;
@@ -3177,7 +3170,7 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF0500;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned short CTSUCRAH;
   __BITS16       CTSUCRAH_bit;
@@ -3196,7 +3189,7 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF0502;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned short CTSUCRBL;
   __BITS16       CTSUCRBL_bit;
@@ -3249,7 +3242,7 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF0508;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned short CTSUMCHH;
   __BITS16       CTSUMCHH_bit;
@@ -3264,7 +3257,7 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF050A;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned short CTSUCHACAL;
   __BITS16       CTSUCHACAL_bit;
@@ -3283,7 +3276,7 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF050C;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned short CTSUCHACAH;
   __BITS16       CTSUCHACAH_bit;
@@ -3302,7 +3295,7 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF050E;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned short CTSUCHACBL;
   __BITS16       CTSUCHACBL_bit;
@@ -3321,7 +3314,7 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF0510;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned short CTSUCHACBH;
   __BITS16       CTSUCHACBH_bit;
@@ -3340,7 +3333,7 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF0512;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned short CTSUCHTRCAL;
   __BITS16       CTSUCHTRCAL_bit;
@@ -3359,7 +3352,7 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF0514;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned short CTSUCHTRCAH;
   __BITS16       CTSUCHTRCAH_bit;
@@ -3378,7 +3371,7 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF0516;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned short CTSUCHTRCBL;
   __BITS16       CTSUCHTRCBL_bit;
@@ -3397,7 +3390,7 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF0518;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned short CTSUCHTRCBH;
   __BITS16       CTSUCHTRCBH_bit;
@@ -3416,7 +3409,7 @@ __near __no_bit_access __no_init volatile union
   };
 } @ 0xF051A;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned short CTSUSRL;
   __BITS16       CTSUSRL_bit;
@@ -3437,21 +3430,6 @@ __near __no_bit_access __no_init volatile union
 
 __near __no_bit_access __no_init volatile union
 {
-  unsigned short CTSUSRH;
-  __BITS16       CTSUSRH_bit;
-  struct
-  {
-    union
-    {
-      unsigned char CTSUST2;
-      __BITS8       CTSUST2_bit;
-    };
-    unsigned char :8;
-  };
-} @ 0xF051E;
-
-__near __no_bit_access __no_init volatile union
-{
   unsigned short CTSUSO0;
   __BITS16       CTSUSO0_bit;
 } @ 0xF0520;
@@ -3462,16 +3440,16 @@ __near __no_bit_access __no_init volatile union
   __BITS16       CTSUSO1_bit;
 } @ 0xF0522;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short CTSUSC;
-  __BITS16       CTSUSC_bit;
+  const unsigned short CTSUSC;
+  const __BITS16       CTSUSC_bit;
 } @ 0xF0524;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short CTSUUC;
-  __BITS16       CTSUUC_bit;
+  const unsigned short CTSUUC;
+  const __BITS16       CTSUUC_bit;
 } @ 0xF0526;
 
 __near __no_bit_access __no_init volatile union
@@ -3510,16 +3488,24 @@ __near __no_bit_access __no_init volatile union
   __BITS16       CTSUSUCLK3_bit;
 } @ 0xF0532;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char TRNGSDR;
-  __BITS8       TRNGSDR_bit;
+  const unsigned char TRNGSDR;
+  const __BITS8       TRNGSDR_bit;
 } @ 0xF0540;
 
-__near __no_bit_access __no_init volatile union
+__near __no_init volatile union
 {
   unsigned char TRNGSCR0;
   __BITS8       TRNGSCR0_bit;
+  struct
+  {
+    unsigned char  :2;
+    unsigned char  TRNGST:1;
+    unsigned char  TRNGEN:1;
+    unsigned char  :3;
+    unsigned char  TRNGRDY:1;
+  };
 } @ 0xF0542;
 
 __near __no_bit_access __no_init volatile union
@@ -3757,52 +3743,52 @@ __near __no_init volatile union
   };
 } @ 0xF0658;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char REMDAT1;
-  __BITS8       REMDAT1_bit;
+  const unsigned char REMDAT1;
+  const __BITS8       REMDAT1_bit;
 } @ 0xF0659;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char REMDAT2;
-  __BITS8       REMDAT2_bit;
+  const unsigned char REMDAT2;
+  const __BITS8       REMDAT2_bit;
 } @ 0xF065A;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char REMDAT3;
-  __BITS8       REMDAT3_bit;
+  const unsigned char REMDAT3;
+  const __BITS8       REMDAT3_bit;
 } @ 0xF065B;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char REMDAT4;
-  __BITS8       REMDAT4_bit;
+  const unsigned char REMDAT4;
+  const __BITS8       REMDAT4_bit;
 } @ 0xF065C;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char REMDAT5;
-  __BITS8       REMDAT5_bit;
+  const unsigned char REMDAT5;
+  const __BITS8       REMDAT5_bit;
 } @ 0xF065D;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char REMDAT6;
-  __BITS8       REMDAT6_bit;
+  const unsigned char REMDAT6;
+  const __BITS8       REMDAT6_bit;
 } @ 0xF065E;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char REMDAT7;
-  __BITS8       REMDAT7_bit;
+  const unsigned char REMDAT7;
+  const __BITS8       REMDAT7_bit;
 } @ 0xF065F;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned short REMTIM;
-  __BITS16       REMTIM_bit;
+  const unsigned short REMTIM;
+  const __BITS16       REMTIM_bit;
 } @ 0xF0660;
 
 __near __no_bit_access __no_init volatile union
@@ -4201,10 +4187,10 @@ __near __no_bit_access __no_init volatile union
   __BITS8       ELOENCTL_bit;
 } @ 0xF06C8;
 
-__near __no_bit_access __no_init volatile const union
+__near __no_bit_access __no_init volatile union
 {
-  unsigned char ELOMONI;
-  __BITS8       ELOMONI_bit;
+  const unsigned char ELOMONI;
+  const __BITS8       ELOMONI_bit;
 } @ 0xF06C9;
 
 
@@ -4291,11 +4277,8 @@ FLFSWS     DEFINE  0xF00B2
 FLFSWE     DEFINE  0xF00B4
 FSSET      DEFINE  0xF00B6
 FSSE       DEFINE  0xF00B7
-FLFADL     DEFINE  0xF00B8
-FLFADH     DEFINE  0xF00BA
 PFCMD      DEFINE  0xF00C0
 PFS        DEFINE  0xF00C1
-FLWE       DEFINE  0xF00C6
 PER0       DEFINE  0xF00F0
 PRR0       DEFINE  0xF00F1
 MOCODIV    DEFINE  0xF00F2
@@ -4694,8 +4677,6 @@ CTSUCHTRC7 DEFINE  0xF051B
 CTSUSRL    DEFINE  0xF051C
 CTSUST1    DEFINE  0xF051C
 CTSUST     DEFINE  0xF051D
-CTSUSRH    DEFINE  0xF051E
-CTSUST2    DEFINE  0xF051E
 CTSUSO0    DEFINE  0xF0520
 CTSUSO1    DEFINE  0xF0522
 CTSUSC     DEFINE  0xF0524
@@ -4713,7 +4694,7 @@ RTRIM      DEFINE  0xF0600
 DACTRIM    DEFINE  0xF0601
 CTSUTRIM1  DEFINE  0xF0602
 SUADJD     DEFINE  0xF0602
-SUADJTRIM  DEFINE  0xF0603
+TRESULT4   DEFINE  0xF0603
 CTSUTRIM2  DEFINE  0xF0604
 TRESULT0   DEFINE  0xF0604
 TRESULT1   DEFINE  0xF0605

@@ -14,6 +14,8 @@
 ;;*                               Added RAMSAR register setting.
 ;;*                               Added label _ramsar_init.
 ;;*         : 04.07.2025 1.92     Changed the disclaimer.
+;;*         : 24.12.2025 2.00     Changed the macro definition name from BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+;;*                               to BSP_CFG_ASM_RAMSAR_VALUE.
 ;;***********************************************************************************************************************/
 
 ;------------------------------------------------------------------------------
@@ -94,9 +96,9 @@ ___interrupt_0x00:
         CODE
         DI
 
-#ifdef BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+#ifdef BSP_CFG_ASM_RAMSAR_VALUE
         MOVW    HL, #BSP_CFG_ASM_RAMSAR_ADDRESS
-        MOV     [HL], #BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+        MOV     [HL], #BSP_CFG_ASM_RAMSAR_VALUE
 #endif
 
         MOV     A, #(_NEAR_CONST_LOCATION & 1)  ; Near/Far, set mirror area

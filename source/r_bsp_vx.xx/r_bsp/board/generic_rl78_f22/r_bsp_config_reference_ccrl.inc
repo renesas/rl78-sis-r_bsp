@@ -12,13 +12,25 @@
 ;;* History : DD.MM.YYYY Version  Description
 ;;*         : 06.11.2024 1.80     First Release
 ;;*         : 04.07.2025 1.92     Changed the disclaimer.
+;;*         : 24.12.2025 2.00     Added notes to prevent omissions in macro definitions setting when using an RTOS.
+;;*                               Changed the macro definition name from BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+;;*                               to BSP_CFG_ASM_RAMSAR_VALUE.
 ;;***********************************************************************************************************************/
 
 $IFDEF __r_bsp_config_inc__
 $ELSE
 
 __r_bsp_config_inc__                .EQU    1
-BSP_CFG_ASM_RTOS_USED               .EQU    0
-BSP_CFG_ASM_RAM_GUARD_START_ADDRESS .EQU    0xCF
+;;/* This macro lets other modules no if a RTOS is being used.
+;; 0 : RTOS is not used.
+;; 1 : FreeRTOS is used.
+;; 2 : embOS is used.(This is not available.)
+;; 3 : MicroC_OS is used.(This is not available.)
+;; 4 : Renesas ITRON is used.
+;; (Note)
+;;   Set the same value to BSP_CFG_RTOS_USED in r_bsp_config.h.
+;;*/
+BSP_CFG_ASM_RTOS_USED       .EQU    0
+BSP_CFG_ASM_RAMSAR_VALUE    .EQU    0xCF
 
 $ENDIF    ; __r_bsp_config_inc__

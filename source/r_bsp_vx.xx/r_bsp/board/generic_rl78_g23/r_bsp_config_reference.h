@@ -69,6 +69,16 @@
 *                               Reviewed the initial values of macro definitions.
 *                               Reviewed the comments of macro definitions.
 *                               Added macro definitions for waiting process.
+*         : 09.01.2026 2.00     Added notes to prevent omissions in macro definitions setting when using an RTOS.
+*                               Added the following macro definition.
+*                                - BSP_CFG_MCU_PART_G23_GROUP
+*                               Added a description about 104G to the comments in the following macro definitions.
+*                                - BSP_CFG_PIOR0
+*                                - BSP_CFG_PIOR1
+*                                - BSP_CFG_PIOR2
+*                                - BSP_CFG_PIOR3
+*                                - BSP_CFG_PIOR4
+*                                - BSP_CFG_PIOR5
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -78,17 +88,17 @@
  *************************************************/
 /*
  R 7 F 100G L J 3 xxx C FB #AA0
- | | |  |   | | |  |  |  |  |__not used                   Packaging specification
- | | |  |   | | |  |  |  |_____not used                   Package type
- | | |  |   | | |  |  |________not used                   Fields of application
- | | |  |   | | |  |___________not used                   ROM number(Omitted for blank products)
- | | |  |   | | |______________not used                   Ambient operating temperature range
- | | |  |   | |________________BSP_CFG_MCU_PART_ROM_SIZE  ROM capacity
- | | |  |   |__________________BSP_CFG_MCU_PART_PIN_NUM   Pin count
- | | |  |______________________not used                   RL78/G23
- | | |_________________________BSP_CFG_MCU_PART_ROM_TYPE  Device type
- | |___________________________not used                   Renesas MCU
- |_____________________________not used                   Renesas semiconductor product
+ | | |  |   | | |  |  |  |  |__not used                    Packaging specification
+ | | |  |   | | |  |  |  |_____not used                    Package type
+ | | |  |   | | |  |  |________not used                    Fields of application
+ | | |  |   | | |  |___________not used                    ROM number(Omitted for blank products)
+ | | |  |   | | |______________not used                    Ambient operating temperature range
+ | | |  |   | |________________BSP_CFG_MCU_PART_ROM_SIZE   ROM capacity
+ | | |  |   |__________________BSP_CFG_MCU_PART_PIN_NUM    Pin count
+ | | |  |______________________BSP_CFG_MCU_PART_G23_GROUP  RL78/G23 group
+ | | |_________________________BSP_CFG_MCU_PART_ROM_TYPE   Device type
+ | |___________________________not used                    Renesas MCU
+ |_____________________________not used                    Renesas semiconductor product
 */
 
 /* ROM capacity
@@ -117,8 +127,15 @@
 */
 #define BSP_CFG_MCU_PART_PIN_NUM (0xA)
 
+/* RL78/G23 group
+  100G = RL78/G23                         : 0x0
+  104G = RL78/G23(CTSU channel extension) : 0x1
+*/
+#define BSP_CFG_MCU_PART_G23_GROUP (0x0)
+
 /* group
- 100G = RL78/G23 : (true)
+ 100G = RL78/G23                         : (true)
+ 104G = RL78/G23(CTSU channel extension) : (true)
 */
 #define BSP_CFG_MCU_PART_HAS_DATA_FLASH (true)
 
@@ -150,6 +167,7 @@
  * Pin assignment setting
  *************************************************/
 /* Peripheral I/O redirection register(PIOR-PIOR0)
+ (RL78/G23 group=100G)
    40/36/32/30-pin
  0 : TI02/TO02 - P17
      TI03/TO03 - P31
@@ -205,10 +223,54 @@
      TI05/TO05 - P12
      TI06/TO06 - P11
      TI07/TO07 - P10
+
+ (RL78/G23 group=104G)
+   32-pin
+ 0 : TI02/TO02 - P17
+     TI03/TO03 - P31
+     TI04/TO04 - -
+     TI05/TO05 - P05
+     TI06/TO06 - P06
+     TI07/TO07 - -
+ 1 : TI02/TO02 - -
+     TI03/TO03 - -
+     TI04/TO04 - -
+     TI05/TO05 - P12
+     TI06/TO06 - P11
+     TI07/TO07 - P10
+
+   44-pin
+ 0 : TI02/TO02 - P17
+     TI03/TO03 - P31
+     TI04/TO04 - -
+     TI05/TO05 - P05
+     TI06/TO06 - P06
+     TI07/TO07 - -
+ 1 : TI02/TO02 - -
+     TI03/TO03 - -
+     TI04/TO04 - P13
+     TI05/TO05 - P12
+     TI06/TO06 - P11
+     TI07/TO07 - P10
+
+   48-pin
+ 0 : TI02/TO02 - P17
+     TI03/TO03 - P31
+     TI04/TO04 - -
+     TI05/TO05 - P05
+     TI06/TO06 - P06
+     TI07/TO07 - P41
+ 1 : TI02/TO02 - -
+     TI03/TO03 - P14
+     TI04/TO04 - P13
+     TI05/TO05 - P12
+     TI06/TO06 - P11
+     TI07/TO07 - P10
 */
 #define BSP_CFG_PIOR0 (0)
 
 /* Peripheral I/O redirection register(PIOR-PIOR1)
+ (RL78/G23 group=100G)
    48/44/40/36/32/30-pin
  0 : INTP10 - These functions are not available for use.
      INTP11 - These functions are not available for use.
@@ -344,19 +406,137 @@
      SI00   - P16
      SO00   - P17
      SCK00  - P55
+
+ (RL78/G23 group=104G)
+   32-pin
+ 0 : INTP10 - P76
+     INTP11 - P77
+     TxD2   - -
+     RxD2   - -
+     SCL20  - -
+     SDA20  - -
+     SI20   - -
+     SO20   - -
+     SCK20  - -
+     TxD0   - P12
+     RxD0   - P11
+     SCL00  - P10
+     SDA00  - P11
+     SI00   - P11
+     SO00   - P12
+     SCK00  - P10
+ 1 : INTP10 - -
+     INTP11 - -
+     TxD2   - P77
+     RxD2   - P76
+     SCL20  - -
+     SDA20  - -
+     SI20   - -
+     SO20   - -
+     SCK20  - -
+     TxD0   - P17
+     RxD0   - P16
+     SCL00  - -
+     SDA00  - -
+     SI00   - -
+     SO00   - -
+     SCK00  - -
+
+   44-pin
+ 0 : INTP10 - P76
+     INTP11 - P77
+     TxD2   - P13
+     RxD2   - -
+     SCL20  - -
+     SDA20  - -
+     SI20   - -
+     SO20   - -
+     SCK20  - -
+     TxD0   - P12
+     RxD0   - P11
+     SCL00  - P10
+     SDA00  - P11
+     SI00   - P11
+     SO00   - P12
+     SCK00  - P10
+ 1 : INTP10 - -
+     INTP11 - -
+     TxD2   - P77
+     RxD2   - P76
+     SCL20  - -
+     SDA20  - -
+     SI20   - -
+     SO20   - -
+     SCK20  - -
+     TxD0   - P17
+     RxD0   - P16
+     SCL00  - -
+     SDA00  - -
+     SI00   - -
+     SO00   - -
+     SCK00  - -
+
+   48-pin
+ 0 : INTP10 - P76
+     INTP11 - P77
+     TxD2   - P13
+     RxD2   - P14
+     SCL20  - -
+     SDA20  - -
+     SI20   - -
+     SO20   - -
+     SCK20  - -
+     TxD0   - P12
+     RxD0   - P11
+     SCL00  - P10
+     SDA00  - P11
+     SI00   - P11
+     SO00   - P12
+     SCK00  - P10
+ 1 : INTP10 - -
+     INTP11 - -
+     TxD2   - P77
+     RxD2   - P76
+     SCL20  - -
+     SDA20  - -
+     SI20   - -
+     SO20   - -
+     SCK20  - -
+     TxD0   - P17
+     RxD0   - P16
+     SCL00  - -
+     SDA00  - -
+     SI00   - -
+     SO00   - -
+     SCK00  - -
 */
 #define BSP_CFG_PIOR1 (0)
 
 /* Peripheral I/O redirection register(PIOR-PIOR2)
+ (RL78/G23 group=100G)
    128/100/80/64/52/48/44/40/36/32/30-pin
  0 : SCLA0 - P60
      SDAA0 - P61
+ 1 : SCLA0 - P14
+     SDAA0 - P13
+
+ (RL78/G23 group=104G)
+   44/32-pin
+ 0 : SCLA0 - -
+     SDAA0 - -
+ 1 : SCLA0 - -
+     SDAA0 - -
+
+   48-pin
+ 0 : SCLA0 - -
+     SDAA0 - -
  1 : SCLA0 - P14
      SDAA0 - P13
 */
 #define BSP_CFG_PIOR2 (0)
 
 /* Peripheral I/O redirection register(PIOR-PIOR3)
+ (RL78/G23 group=100G)
    44/40/36/32/30-pin
  0 : PCLBUZ0 - These functions are not available for use. Set this bit to 0(default value).
  1 : PCLBUZ0 - These functions are not available for use. Set this bit to 0(default value).
@@ -364,10 +544,16 @@
    128/100/80/64/52/48-pin
  0 : PCLBUZ0 - P140
  1 : PCLBUZ0 - P31
+
+ (RL78/G23 group=104G)
+   48/44/32-pin
+ 0 : PCLBUZ0 - -
+ 1 : PCLBUZ0 - P31
 */
 #define BSP_CFG_PIOR3 (0)
 
 /* Peripheral I/O redirection register(PIOR-PIOR4)
+ (RL78/G23 group=100G)
    52/48/44/40/36/32/30-pin
  0 : PCLBUZ1 - These functions are not available for use. Set this bit to 0(default value).
      INTP5   - These functions are not available for use. Set this bit to 0(default value).
@@ -379,10 +565,18 @@
      INTP5   - P16
  1 : PCLBUZ1 - P55
      INTP5   - P12
+
+ (RL78/G23 group=104G)
+   48/44/32-pin
+ 0 : PCLBUZ1 - -
+     INTP5   - P16
+ 1 : PCLBUZ1 - -
+     INTP5   - P12
 */
 #define BSP_CFG_PIOR4 (0)
 
 /* Peripheral I/O redirection register(PIOR-PIOR5)
+ (RL78/G23 group=100G)
    80/64/52/48/44/40/36/32/30-pin
  0 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
      INTP3 - These functions are not available for use. Set this bit to 0(default value).
@@ -442,6 +636,37 @@
      SI10  - P81
      SO10  - P82
      SCK10 - P80
+
+ (RL78/G23 group=104G)
+   48/44/32-pin
+ 0 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
+     INTP3 - These functions are not available for use. Set this bit to 0(default value).
+     INTP4 - These functions are not available for use. Set this bit to 0(default value).
+     INTP6 - These functions are not available for use. Set this bit to 0(default value).
+     INTP7 - These functions are not available for use. Set this bit to 0(default value).
+     INTP8 - These functions are not available for use. Set this bit to 0(default value).
+     INTP9 - These functions are not available for use. Set this bit to 0(default value).
+     TxD1  - These functions are not available for use. Set this bit to 0(default value).
+     RxD1  - These functions are not available for use. Set this bit to 0(default value).
+     SCL10 - These functions are not available for use. Set this bit to 0(default value).
+     SDA10 - These functions are not available for use. Set this bit to 0(default value).
+     SI10  - These functions are not available for use. Set this bit to 0(default value).
+     SO10  - These functions are not available for use. Set this bit to 0(default value).
+     SCK10 - These functions are not available for use. Set this bit to 0(default value).
+ 1 : INTP1 - These functions are not available for use. Set this bit to 0(default value).
+     INTP3 - These functions are not available for use. Set this bit to 0(default value).
+     INTP4 - These functions are not available for use. Set this bit to 0(default value).
+     INTP6 - These functions are not available for use. Set this bit to 0(default value).
+     INTP7 - These functions are not available for use. Set this bit to 0(default value).
+     INTP8 - These functions are not available for use. Set this bit to 0(default value).
+     INTP9 - These functions are not available for use. Set this bit to 0(default value).
+     TxD1  - These functions are not available for use. Set this bit to 0(default value).
+     RxD1  - These functions are not available for use. Set this bit to 0(default value).
+     SCL10 - These functions are not available for use. Set this bit to 0(default value).
+     SDA10 - These functions are not available for use. Set this bit to 0(default value).
+     SI10  - These functions are not available for use. Set this bit to 0(default value).
+     SO10  - These functions are not available for use. Set this bit to 0(default value).
+     SCK10 - These functions are not available for use. Set this bit to 0(default value).
 */
 #define BSP_CFG_PIOR5 (0)
 
@@ -780,11 +1005,13 @@
 #define BSP_CFG_FIH_START_ON_STARTUP (1)
 
 /* This macro lets other modules no if a RTOS is being used.
-   0 = RTOS is not used.
-   1 = FreeRTOS is used.(This is not available.)
-   2 = embOS is used.(This is not available.)
-   3 = MicroC_OS is used.(This is not available.)
-   4 = Renesas ITRON is used.
+ 0 = RTOS is not used.
+ 1 = FreeRTOS is used.
+ 2 = embOS is used.(This is not available.)
+ 3 = MicroC_OS is used.(This is not available.)
+ 4 = Renesas ITRON is used.
+ (Note)
+   Set the same value to BSP_CFG_ASM_RTOS_USED in r_bsp_config.inc.
 */
 #define BSP_CFG_RTOS_USED               (0)
 

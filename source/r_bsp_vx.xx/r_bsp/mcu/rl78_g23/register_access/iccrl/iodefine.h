@@ -14,6 +14,7 @@
 *         : 07.06.2024 1.70     Fixed error message.
 *                               Removed unnecessary comments.
 *         : 04.07.2025 1.92     Changed the disclaimer.
+*         : 14.04.2026 2.00     Updated device file.
 ***********************************************************************************************************************/
 
 #ifndef __IOR7F100G_H__
@@ -21,6 +22,16 @@
 
 #if !defined(__IASMRL78__) && !defined(__ICCRL78__)
   #error "iodefine.h file for use with RL78 Assembler or Compiler only"
+#endif
+
+#if !defined(__S2__)
+#define __S2__ __RL78_1__
+#endif
+#if !defined(__S3__)
+#define __S3__ __RL78_2__
+#endif
+#if !defined(__S1__)
+#define __S1__ __RL78_0__
 #endif
 
 #if defined(__IASMRL78__)
@@ -227,10 +238,10 @@ __saddr __no_bit_access __no_init volatile union
   {
     union
     {
-      unsigned char SIO30;
-      __BITS8       SIO30_bit;
       unsigned char TXD3;
       __BITS8       TXD3_bit;
+      unsigned char SIO30;
+      __BITS8       SIO30_bit;
     };
     unsigned char :8;
   };
@@ -244,10 +255,10 @@ __saddr __no_bit_access __no_init volatile union
   {
     union
     {
-      unsigned char RXD3;
-      __BITS8       RXD3_bit;
       unsigned char SIO31;
       __BITS8       SIO31_bit;
+      unsigned char RXD3;
+      __BITS8       RXD3_bit;
     };
     unsigned char :8;
   };
@@ -278,17 +289,17 @@ __saddr __no_bit_access __no_init volatile union
   };
 } @ 0xFFF1A;
 
-__saddr __no_bit_access __no_init volatile const union
+__saddr __no_bit_access __no_init volatile union
 {
-  unsigned short ADCR;
-  __BITS16       ADCR_bit;
+  const unsigned short ADCR;
+  const __BITS16       ADCR_bit;
   struct
   {
     unsigned char :8;
     union
     {
-      unsigned char ADCRH;
-      __BITS8       ADCRH_bit;
+      const unsigned char ADCRH;
+      const __BITS8       ADCRH_bit;
     };
   };
 } @ 0xFFF1E;
@@ -514,10 +525,10 @@ __sfr __no_bit_access __no_init volatile union
   {
     union
     {
-      unsigned char RXD2;
-      __BITS8       RXD2_bit;
       unsigned char SIO21;
       __BITS8       SIO21_bit;
+      unsigned char RXD2;
+      __BITS8       RXD2_bit;
     };
     unsigned char :8;
   };
@@ -529,20 +540,20 @@ __sfr __no_bit_access __no_init volatile union
   __BITS8       IICA0_bit;
 } @ 0xFFF50;
 
-__sfr __no_init volatile const union
+__sfr __no_init volatile union
 {
-  unsigned char IICS0;
-  __BITS8       IICS0_bit;
+  const unsigned char IICS0;
+  const __BITS8       IICS0_bit;
   struct
   {
-    unsigned char  SPD0:1;
-    unsigned char  STD0:1;
-    unsigned char  ACKD0:1;
-    unsigned char  TRC0:1;
-    unsigned char  COI0:1;
-    unsigned char  EXC0:1;
-    unsigned char  ALD0:1;
-    unsigned char  MSTS0:1;
+    const unsigned char  SPD0:1;
+    const unsigned char  STD0:1;
+    const unsigned char  ACKD0:1;
+    const unsigned char  TRC0:1;
+    const unsigned char  COI0:1;
+    const unsigned char  EXC0:1;
+    const unsigned char  ALD0:1;
+    const unsigned char  MSTS0:1;
   };
 } @ 0xFFF51;
 
@@ -566,20 +577,20 @@ __sfr __no_bit_access __no_init volatile union
   __BITS8       IICA1_bit;
 } @ 0xFFF54;
 
-__sfr __no_init volatile const union
+__sfr __no_init volatile union
 {
-  unsigned char IICS1;
-  __BITS8       IICS1_bit;
+  const unsigned char IICS1;
+  const __BITS8       IICS1_bit;
   struct
   {
-    unsigned char  SPD1:1;
-    unsigned char  STD1:1;
-    unsigned char  ACKD1:1;
-    unsigned char  TRC1:1;
-    unsigned char  COI1:1;
-    unsigned char  EXC1:1;
-    unsigned char  ALD1:1;
-    unsigned char  MSTS1:1;
+    const unsigned char  SPD1:1;
+    const unsigned char  STD1:1;
+    const unsigned char  ACKD1:1;
+    const unsigned char  TRC1:1;
+    const unsigned char  COI1:1;
+    const unsigned char  EXC1:1;
+    const unsigned char  ALD1:1;
+    const unsigned char  MSTS1:1;
   };
 } @ 0xFFF55;
 
@@ -740,10 +751,10 @@ __sfr __no_init volatile union
   };
 } @ 0xFFFA1;
 
-__sfr __no_init volatile const union
+__sfr __no_init volatile union
 {
-  unsigned char OSTC;
-  __BITS8       OSTC_bit;
+  const unsigned char OSTC;
+  const __BITS8       OSTC_bit;
 } @ 0xFFFA2;
 
 __sfr __no_bit_access __no_init volatile union
@@ -801,10 +812,10 @@ __sfr __no_init volatile union
   };
 } @ 0xFFFA7;
 
-__sfr __no_bit_access __no_init volatile const union
+__sfr __no_bit_access __no_init volatile union
 {
-  unsigned char RESF;
-  __BITS8       RESF_bit;
+  const unsigned char RESF;
+  const __BITS8       RESF_bit;
 } @ 0xFFFA8;
 
 __sfr __no_init volatile union
@@ -874,9 +885,9 @@ __sfr __no_init volatile union
       __BITS8       IF2H_bit;
       struct
       {
-        unsigned char  CMPIF0:1;
-        unsigned char  CMPIF1:1;
-        unsigned char  TMIF10:1;
+        unsigned char  PIF10:1;
+        unsigned char  PIF11:1;
+        unsigned char  UREIF0:1;
         unsigned char  TMIF11:1;
         unsigned char  TMIF12:1;
         unsigned char  SREIF3:1;
@@ -885,9 +896,9 @@ __sfr __no_init volatile union
       };
       struct
       {
-        unsigned char  PIF10:1;
-        unsigned char  PIF11:1;
-        unsigned char  UREIF0:1;
+        unsigned char  CMPIF0:1;
+        unsigned char  CMPIF1:1;
+        unsigned char  TMIF10:1;
         unsigned char  UREIF1:1;
         unsigned char  :1;
         unsigned char  TMIF13H:1;
@@ -962,10 +973,10 @@ __sfr __no_init volatile union
       __BITS8       MK2H_bit;
       struct
       {
-        unsigned char  CMPMK0:1;
+        unsigned char  PMK10:1;
         unsigned char  CMPMK1:1;
-        unsigned char  TMMK10:1;
-        unsigned char  TMMK11:1;
+        unsigned char  UREMK0:1;
+        unsigned char  UREMK1:1;
         unsigned char  TMMK12:1;
         unsigned char  SREMK3:1;
         unsigned char  CTSUWRMK:1;
@@ -973,10 +984,10 @@ __sfr __no_init volatile union
       };
       struct
       {
-        unsigned char  PMK10:1;
+        unsigned char  CMPMK0:1;
         unsigned char  PMK11:1;
-        unsigned char  UREMK0:1;
-        unsigned char  UREMK1:1;
+        unsigned char  TMMK10:1;
+        unsigned char  TMMK11:1;
         unsigned char  :1;
         unsigned char  TMMK13H:1;
         unsigned char  :2;
@@ -1139,7 +1150,7 @@ __sfr __no_init volatile union
       struct
       {
         unsigned char  CMPPR10:1;
-        unsigned char  CMPPR11:1;
+        unsigned char  PPR111:1;
         unsigned char  TMPR110:1;
         unsigned char  TMPR111:1;
         unsigned char  TMPR112:1;
@@ -1150,7 +1161,7 @@ __sfr __no_init volatile union
       struct
       {
         unsigned char  PPR110:1;
-        unsigned char  PPR111:1;
+        unsigned char  CMPPR11:1;
         unsigned char  UREPR10:1;
         unsigned char  UREPR11:1;
         unsigned char  :1;
@@ -1227,30 +1238,30 @@ __sfr __no_init volatile union
       struct
       {
         unsigned char  CSIIF20:1;
-        unsigned char  CSIIF21:1;
-        unsigned char  SREIF2:1;
+        unsigned char  SRIF2:1;
+        unsigned char  TMIF11H:1;
         unsigned char  ELCLIF:1;
         unsigned char  SMSEIF:1;
-        unsigned char  CSIIF00:1;
+        unsigned char  STIF0:1;
         unsigned char  TMIF00:1;
+        unsigned char  TMIF01H:1;
+      };
+      struct
+      {
+        unsigned char  STIF2:1;
+        unsigned char  CSIIF21:1;
+        unsigned char  SREIF2:1;
+        unsigned char  :2;
+        unsigned char  CSIIF00:1;
+        unsigned char  :1;
         unsigned char  SREIF0:1;
       };
       struct
       {
         unsigned char  IICIF20:1;
         unsigned char  IICIF21:1;
-        unsigned char  TMIF11H:1;
-        unsigned char  :2;
-        unsigned char  IICIF00:1;
-        unsigned char  :1;
-        unsigned char  TMIF01H:1;
-      };
-      struct
-      {
-        unsigned char  STIF2:1;
-        unsigned char  SRIF2:1;
         unsigned char  :3;
-        unsigned char  STIF0:1;
+        unsigned char  IICIF00:1;
         unsigned char  :2;
       };
     };
@@ -1269,30 +1280,30 @@ __sfr __no_init volatile union
       __BITS8       IF1L_bit;
       struct
       {
-        unsigned char  CSIIF10:1;
+        unsigned char  STIF1:1;
         unsigned char  CSIIF11:1;
-        unsigned char  SREIF1:1;
+        unsigned char  TMIF03H:1;
         unsigned char  IICAIF0:1;
-        unsigned char  CSIIF01:1;
+        unsigned char  SRIF0:1;
         unsigned char  TMIF01:1;
         unsigned char  TMIF02:1;
         unsigned char  TMIF03:1;
       };
       struct
       {
-        unsigned char  IICIF10:1;
+        unsigned char  CSIIF10:1;
         unsigned char  IICIF11:1;
-        unsigned char  TMIF03H:1;
+        unsigned char  SREIF1:1;
         unsigned char  :1;
         unsigned char  IICIF01:1;
         unsigned char  :3;
       };
       struct
       {
-        unsigned char  STIF1:1;
+        unsigned char  IICIF10:1;
         unsigned char  SRIF1:1;
         unsigned char  :2;
-        unsigned char  SRIF0:1;
+        unsigned char  CSIIF01:1;
         unsigned char  :3;
       };
     };
@@ -1306,23 +1317,23 @@ __sfr __no_init volatile union
         unsigned char  RTCIF:1;
         unsigned char  ITLIF:1;
         unsigned char  KRIF:1;
-        unsigned char  CSIIF30:1;
-        unsigned char  CSIIF31:1;
+        unsigned char  STIF3:1;
+        unsigned char  IICIF31:1;
         unsigned char  TMIF13:1;
         unsigned char  TMIF04:1;
       };
       struct
       {
         unsigned char  :4;
-        unsigned char  IICIF30:1;
-        unsigned char  IICIF31:1;
+        unsigned char  CSIIF30:1;
+        unsigned char  SRIF3:1;
         unsigned char  :2;
       };
       struct
       {
         unsigned char  :4;
-        unsigned char  STIF3:1;
-        unsigned char  SRIF3:1;
+        unsigned char  IICIF30:1;
+        unsigned char  CSIIF31:1;
         unsigned char  :2;
       };
     };
@@ -1358,28 +1369,28 @@ __sfr __no_init volatile union
       struct
       {
         unsigned char  CSIMK20:1;
-        unsigned char  CSIMK21:1;
+        unsigned char  IICMK21:1;
         unsigned char  SREMK2:1;
         unsigned char  ELCLMK:1;
         unsigned char  SMSEMK:1;
         unsigned char  CSIMK00:1;
         unsigned char  TMMK00:1;
-        unsigned char  SREMK0:1;
-      };
-      struct
-      {
-        unsigned char  IICMK20:1;
-        unsigned char  IICMK21:1;
-        unsigned char  TMMK11H:1;
-        unsigned char  :2;
-        unsigned char  IICMK00:1;
-        unsigned char  :1;
         unsigned char  TMMK01H:1;
       };
       struct
       {
         unsigned char  STMK2:1;
         unsigned char  SRMK2:1;
+        unsigned char  TMMK11H:1;
+        unsigned char  :2;
+        unsigned char  IICMK00:1;
+        unsigned char  :1;
+        unsigned char  SREMK0:1;
+      };
+      struct
+      {
+        unsigned char  IICMK20:1;
+        unsigned char  CSIMK21:1;
         unsigned char  :3;
         unsigned char  STMK0:1;
         unsigned char  :2;
@@ -1400,11 +1411,11 @@ __sfr __no_init volatile union
       __BITS8       MK1L_bit;
       struct
       {
-        unsigned char  CSIMK10:1;
-        unsigned char  CSIMK11:1;
+        unsigned char  STMK1:1;
+        unsigned char  IICMK11:1;
         unsigned char  SREMK1:1;
         unsigned char  IICAMK0:1;
-        unsigned char  CSIMK01:1;
+        unsigned char  IICMK01:1;
         unsigned char  TMMK01:1;
         unsigned char  TMMK02:1;
         unsigned char  TMMK03:1;
@@ -1412,18 +1423,18 @@ __sfr __no_init volatile union
       struct
       {
         unsigned char  IICMK10:1;
-        unsigned char  IICMK11:1;
+        unsigned char  SRMK1:1;
         unsigned char  TMMK03H:1;
         unsigned char  :1;
-        unsigned char  IICMK01:1;
+        unsigned char  SRMK0:1;
         unsigned char  :3;
       };
       struct
       {
-        unsigned char  STMK1:1;
-        unsigned char  SRMK1:1;
+        unsigned char  CSIMK10:1;
+        unsigned char  CSIMK11:1;
         unsigned char  :2;
-        unsigned char  SRMK0:1;
+        unsigned char  CSIMK01:1;
         unsigned char  :3;
       };
     };
@@ -1437,8 +1448,8 @@ __sfr __no_init volatile union
         unsigned char  RTCMK:1;
         unsigned char  ITLMK:1;
         unsigned char  KRMK:1;
-        unsigned char  CSIMK30:1;
-        unsigned char  CSIMK31:1;
+        unsigned char  STMK3:1;
+        unsigned char  IICMK31:1;
         unsigned char  TMMK13:1;
         unsigned char  TMMK04:1;
       };
@@ -1446,14 +1457,14 @@ __sfr __no_init volatile union
       {
         unsigned char  :4;
         unsigned char  IICMK30:1;
-        unsigned char  IICMK31:1;
+        unsigned char  SRMK3:1;
         unsigned char  :2;
       };
       struct
       {
         unsigned char  :4;
-        unsigned char  STMK3:1;
-        unsigned char  SRMK3:1;
+        unsigned char  CSIMK30:1;
+        unsigned char  CSIMK31:1;
         unsigned char  :2;
       };
     };
@@ -1488,31 +1499,31 @@ __sfr __no_init volatile union
       __BITS8       PR00H_bit;
       struct
       {
-        unsigned char  CSIPR020:1;
-        unsigned char  CSIPR021:1;
+        unsigned char  STPR02:1;
+        unsigned char  IICPR021:1;
         unsigned char  SREPR02:1;
         unsigned char  ELCLPR0:1;
         unsigned char  SMSEPR0:1;
-        unsigned char  CSIPR000:1;
+        unsigned char  STPR00:1;
         unsigned char  TMPR000:1;
-        unsigned char  SREPR00:1;
-      };
-      struct
-      {
-        unsigned char  IICPR020:1;
-        unsigned char  IICPR021:1;
-        unsigned char  TMPR011H:1;
-        unsigned char  :2;
-        unsigned char  IICPR000:1;
-        unsigned char  :1;
         unsigned char  TMPR001H:1;
       };
       struct
       {
-        unsigned char  STPR02:1;
+        unsigned char  IICPR020:1;
         unsigned char  SRPR02:1;
+        unsigned char  TMPR011H:1;
+        unsigned char  :2;
+        unsigned char  IICPR000:1;
+        unsigned char  :1;
+        unsigned char  SREPR00:1;
+      };
+      struct
+      {
+        unsigned char  CSIPR020:1;
+        unsigned char  CSIPR021:1;
         unsigned char  :3;
-        unsigned char  STPR00:1;
+        unsigned char  CSIPR000:1;
         unsigned char  :2;
       };
     };
@@ -1531,11 +1542,11 @@ __sfr __no_init volatile union
       __BITS8       PR01L_bit;
       struct
       {
-        unsigned char  CSIPR010:1;
-        unsigned char  CSIPR011:1;
-        unsigned char  SREPR01:1;
+        unsigned char  STPR01:1;
+        unsigned char  IICPR011:1;
+        unsigned char  TMPR003H:1;
         unsigned char  IICAPR00:1;
-        unsigned char  CSIPR001:1;
+        unsigned char  IICPR001:1;
         unsigned char  TMPR001:1;
         unsigned char  TMPR002:1;
         unsigned char  TMPR003:1;
@@ -1543,15 +1554,15 @@ __sfr __no_init volatile union
       struct
       {
         unsigned char  IICPR010:1;
-        unsigned char  IICPR011:1;
-        unsigned char  TMPR003H:1;
+        unsigned char  CSIPR011:1;
+        unsigned char  SREPR01:1;
         unsigned char  :1;
-        unsigned char  IICPR001:1;
+        unsigned char  CSIPR001:1;
         unsigned char  :3;
       };
       struct
       {
-        unsigned char  STPR01:1;
+        unsigned char  CSIPR010:1;
         unsigned char  SRPR01:1;
         unsigned char  :2;
         unsigned char  SRPR00:1;
@@ -1568,23 +1579,23 @@ __sfr __no_init volatile union
         unsigned char  RTCPR0:1;
         unsigned char  ITLPR0:1;
         unsigned char  KRPR0:1;
-        unsigned char  CSIPR030:1;
-        unsigned char  CSIPR031:1;
+        unsigned char  STPR03:1;
+        unsigned char  SRPR03:1;
         unsigned char  TMPR013:1;
         unsigned char  TMPR004:1;
       };
       struct
       {
         unsigned char  :4;
-        unsigned char  IICPR030:1;
+        unsigned char  CSIPR030:1;
         unsigned char  IICPR031:1;
         unsigned char  :2;
       };
       struct
       {
         unsigned char  :4;
-        unsigned char  STPR03:1;
-        unsigned char  SRPR03:1;
+        unsigned char  IICPR030:1;
+        unsigned char  CSIPR031:1;
         unsigned char  :2;
       };
     };
@@ -1619,31 +1630,31 @@ __sfr __no_init volatile union
       __BITS8       PR10H_bit;
       struct
       {
-        unsigned char  CSIPR120:1;
-        unsigned char  CSIPR121:1;
+        unsigned char  STPR12:1;
+        unsigned char  IICPR121:1;
         unsigned char  SREPR12:1;
         unsigned char  ELCLPR1:1;
         unsigned char  SMSEPR1:1;
-        unsigned char  CSIPR100:1;
-        unsigned char  TMPR100:1;
-        unsigned char  SREPR10:1;
-      };
-      struct
-      {
-        unsigned char  IICPR120:1;
-        unsigned char  IICPR121:1;
-        unsigned char  TMPR111H:1;
-        unsigned char  :2;
         unsigned char  IICPR100:1;
-        unsigned char  :1;
+        unsigned char  TMPR100:1;
         unsigned char  TMPR101H:1;
       };
       struct
       {
-        unsigned char  STPR12:1;
+        unsigned char  IICPR120:1;
         unsigned char  SRPR12:1;
-        unsigned char  :3;
+        unsigned char  TMPR111H:1;
+        unsigned char  :2;
         unsigned char  STPR10:1;
+        unsigned char  :1;
+        unsigned char  SREPR10:1;
+      };
+      struct
+      {
+        unsigned char  CSIPR120:1;
+        unsigned char  CSIPR121:1;
+        unsigned char  :3;
+        unsigned char  CSIPR100:1;
         unsigned char  :2;
       };
     };
@@ -1662,30 +1673,30 @@ __sfr __no_init volatile union
       __BITS8       PR11L_bit;
       struct
       {
-        unsigned char  CSIPR110:1;
-        unsigned char  CSIPR111:1;
-        unsigned char  SREPR11:1;
+        unsigned char  IICPR110:1;
+        unsigned char  IICPR111:1;
+        unsigned char  TMPR103H:1;
         unsigned char  IICAPR10:1;
-        unsigned char  CSIPR101:1;
+        unsigned char  IICPR101:1;
         unsigned char  TMPR101:1;
         unsigned char  TMPR102:1;
         unsigned char  TMPR103:1;
       };
       struct
       {
-        unsigned char  IICPR110:1;
-        unsigned char  IICPR111:1;
-        unsigned char  TMPR103H:1;
+        unsigned char  STPR11:1;
+        unsigned char  CSIPR111:1;
+        unsigned char  SREPR11:1;
         unsigned char  :1;
-        unsigned char  IICPR101:1;
+        unsigned char  SRPR10:1;
         unsigned char  :3;
       };
       struct
       {
-        unsigned char  STPR11:1;
+        unsigned char  CSIPR110:1;
         unsigned char  SRPR11:1;
         unsigned char  :2;
-        unsigned char  SRPR10:1;
+        unsigned char  CSIPR101:1;
         unsigned char  :3;
       };
     };
@@ -1699,23 +1710,23 @@ __sfr __no_init volatile union
         unsigned char  RTCPR1:1;
         unsigned char  ITLPR1:1;
         unsigned char  KRPR1:1;
-        unsigned char  CSIPR130:1;
-        unsigned char  CSIPR131:1;
+        unsigned char  STPR13:1;
+        unsigned char  SRPR13:1;
         unsigned char  TMPR113:1;
         unsigned char  TMPR104:1;
       };
       struct
       {
         unsigned char  :4;
-        unsigned char  IICPR130:1;
-        unsigned char  IICPR131:1;
+        unsigned char  CSIPR130:1;
+        unsigned char  CSIPR131:1;
         unsigned char  :2;
       };
       struct
       {
         unsigned char  :4;
-        unsigned char  STPR13:1;
-        unsigned char  SRPR13:1;
+        unsigned char  IICPR130:1;
+        unsigned char  IICPR131:1;
         unsigned char  :2;
       };
     };
@@ -1779,11 +1790,11 @@ SDR01      DEFINE  0xFFF12
 RXD0       DEFINE  0xFFF12
 SIO01      DEFINE  0xFFF12
 SDR12      DEFINE  0xFFF14
-SIO30      DEFINE  0xFFF14
 TXD3       DEFINE  0xFFF14
+SIO30      DEFINE  0xFFF14
 SDR13      DEFINE  0xFFF16
-RXD3       DEFINE  0xFFF16
 SIO31      DEFINE  0xFFF16
+RXD3       DEFINE  0xFFF16
 TDR00      DEFINE  0xFFF18
 TDR01      DEFINE  0xFFF1A
 TDR01L     DEFINE  0xFFF1A
@@ -1825,8 +1836,8 @@ SDR10      DEFINE  0xFFF48
 SIO20      DEFINE  0xFFF48
 TXD2       DEFINE  0xFFF48
 SDR11      DEFINE  0xFFF4A
-RXD2       DEFINE  0xFFF4A
 SIO21      DEFINE  0xFFF4A
+RXD2       DEFINE  0xFFF4A
 IICA0      DEFINE  0xFFF50
 IICS0      DEFINE  0xFFF51
 IICF0      DEFINE  0xFFF52

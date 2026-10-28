@@ -14,6 +14,7 @@
 *         : 04.08.2021 1.12     Added prototype declaration to suppress LLVM compiler warning messages.
 *         : 06.08.2025 1.92     Changed the disclaimer.
 *                               Changed to set only valid bits of BSP_CFG_PIORx.
+*         : 09.01.2026 2.00     Added PIOR setting process for 104G.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -65,6 +66,8 @@ void bsp_init_hardware (void);
 void bsp_init_system(void)
 {
     /* Pin setting */
+#if BSP_CFG_MCU_PART_G23_GROUP == 0
+    /* RL78/G23 group = 100G */
 #if BSP_CFG_MCU_PART_PIN_NUM < 5
     /* 44,40,36,32,30-pin */
     PIOR = BSP_CFG_PIOR0 | (BSP_CFG_PIOR1 << 1U) | (BSP_CFG_PIOR2 << 2U);
@@ -80,6 +83,12 @@ void bsp_init_system(void)
     /* 128,100-pin */
     PIOR = BSP_CFG_PIOR0 | (BSP_CFG_PIOR1 << 1U) | (BSP_CFG_PIOR2 << 2U) |
         (BSP_CFG_PIOR3 << 3U) | (BSP_CFG_PIOR4 << 4U) | (BSP_CFG_PIOR5 << 5U);
+#endif
+#else
+    /* RL78/G23 group = 104G */
+    /* 48,44,32-pin */
+    PIOR = BSP_CFG_PIOR0 | (BSP_CFG_PIOR1 << 1U) | (BSP_CFG_PIOR2 << 2U) |
+        (BSP_CFG_PIOR3 << 3U) | (BSP_CFG_PIOR4 << 4U);
 #endif
 
     /* If the window open period of watchdog timer is set to 50%, then call it. */

@@ -12,14 +12,16 @@
 ;;* History : DD.MM.YYYY Version  Description
 ;;*         : 07.06.2024 1.70     First Release
 ;;*         : 04.07.2025 1.92     Changed the disclaimer.
+;;*         : 24.12.2025 2.00     Changed the macro definition name from BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+;;*                               to BSP_CFG_ASM_RAMSAR_VALUE.
 ;;***********************************************************************************************************************/
 
 #ifdef __r_bsp_config_inc__
 #else
 
-#define __r_bsp_config_inc__                   (1)
-#define BSP_CFG_ASM_RTOS_USED                  (0)
-#define BSP_CFG_ASM_RAMSAR_ADDRESS             (0x0076)
-#define BSP_CFG_ASM_RAM_GUARD_START_ADDRESS    (0x5F)
+#define __r_bsp_config_inc__          (1)
+#define BSP_CFG_ASM_RTOS_USED         (0)
+#define BSP_CFG_ASM_RAMSAR_ADDRESS    (0x0076)
+#define BSP_CFG_ASM_RAMSAR_VALUE      (0x5F)
 
 #endif

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+/*
+* Copyright (c) 2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+*/
+/***********************************************************************************************************************
+* File Name    : r_bsp_rl78_generic_rl78g21_extend.mdf
+* H/W Platform : GENERIC_RL78_G21
+* Description  : 
+***********************************************************************************************************************/
+/***********************************************************************************************************************
+* History : DD.MM.YYYY Version  Description
+*         : 19.12.2025 2.00     First Release
+***********************************************************************************************************************/
+/***********************************************************************************************************************
+  Purpose: Module Description File (MDF) Example (Schema Version 2.0)
+           This is a description of a sample FIT module configuration file
+***********************************************************************************************************************/
+-->
+<module xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="2.0" xs:noNamespaceSchemaLocation="schema_mdf_2.00.xsd">
+    <fileVersion>1.00</fileVersion>
+    <formatVersion>2.00</formatVersion>
+    <fileTemplate></fileTemplate>
+    <configuration>
+        <property id="BSP_CFG_STARTUP_DISABLE" display="Start up select" default="0" type="combobox">
+            <option id="BSP_CFG_STARTUP_DISABLE.0" display="Enable (use BSP startup)" value="0"/>
+            <option id="BSP_CFG_STARTUP_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable BSP startup program.
+1 = Disable BSP startup program. (e.g. Using user startup program.)</description>
+        </property>
+        <property id="BSP_CFG_INVALID_MEMORY_ACCESS_DETECTION_ENABLE" display="Control of illicit memory access detection(IAWEN)" default="0" type="combobox">
+            <option id="BSP_CFG_INVALID_MEMORY_ACCESS_DETECTION_ENABLE.0" display="Disable" value="0"/>
+            <option id="BSP_CFG_INVALID_MEMORY_ACCESS_DETECTION_ENABLE.1" display="Enable" value="1"/>
+            <description>0 = Disables the detection of illicit memory accesses.
+1 = Enables the detection of illicit memory accesses.</description>
+        </property>
+        <property id="BSP_CFG_RAM_GUARD_FUNC" display="Protected area in the RAM(GRAM1-0)" default="0" type="combobox">
+            <option id="BSP_CFG_RAM_GUARD_FUNC.0" display="Disabled" value="0"/>
+            <option id="BSP_CFG_RAM_GUARD_FUNC.1" display="128 bytes" value="1"/>
+            <option id="BSP_CFG_RAM_GUARD_FUNC.2" display="256 bytes" value="2"/>
+            <option id="BSP_CFG_RAM_GUARD_FUNC.3" display="512 bytes" value="3"/>
+            <description>0 = Disabled. Writing to the RAM is allowed.
+1 = 128 bytes from the base address of the RAM.
+2 = 256 bytes from the base address of the RAM.
+3 = 512 bytes from the base address of the RAM.</description>
+        </property>
+        <property id="BSP_CFG_PORT_FUNCTION_GUARD" display="Protection of the port control registers(GPORT)" default="0" type="combobox">
+            <option id="BSP_CFG_PORT_FUNCTION_GUARD.0" display="Disabled" value="0"/>
+            <option id="BSP_CFG_PORT_FUNCTION_GUARD.1" display="Enabled" value="1"/>
+            <description>0 = Disabled. Reading from and writing to the port control registers are allowed.
+1 = Enabled. Writing to the port control registers is not allowed. Reading from them is allowed.
+[Protected SFRs] PMxx, PUxx, PIMxx, POMxx, PMCAxx, PDIDISxx
+Note : The port registers (Pxx) are not protected.</description>
+        </property>
+        <property id="BSP_CFG_INT_FUNCTION_GUARD" display="Protection of the interrupt control registers(GINT)" default="0" type="combobox">
+            <option id="BSP_CFG_INT_FUNCTION_GUARD.0" display="Disabled" value="0"/>
+            <option id="BSP_CFG_INT_FUNCTION_GUARD.1" display="Enabled" value="1"/>
+            <description>0 = Disabled. Reading from and writing to the interrupt control registers are allowed.
+1 = Enabled. Writing to the interrupt control registers is not allowed. Reading from them is allowed.
+[Protected SFRs] IFxx, MKxx, PRxx, EGPx, EGNx</description>
+        </property>
+        <property id="BSP_CFG_CHIP_STATE_CTRL_GUARD" display="Protection of the clock, voltage detector, and RAM parity error detection control registers(GCSC)" default="0" type="combobox">
+            <option id="BSP_CFG_CHIP_STATE_CTRL_GUARD.0" display="Disabled" value="0"/>
+            <option id="BSP_CFG_CHIP_STATE_CTRL_GUARD.1" display="Enabled" value="1"/>
+            <description>0 = Disabled. Reading from and writing to the clock, voltage detector, and RAM parity error detection control registers are allowed.
+1 = Enabled. Writing to the clock, voltage detector, and RAM parity error detection control registers is not allowed. Reading from them is allowed.
+[Protected SFRs] CMC, CSC, OSTS, CKC, PERx, OSMC, LVIM, LVIS, RPECTL, CKSEL, PRRx</description>
+        </property>
+        <property id="BSP_CFG_DATA_FLASH_ACCESS_ENABLE" display="Data flash memory area/extra area access control(DFLEN)" default="0" type="combobox">
+            <option id="BSP_CFG_DATA_FLASH_ACCESS_ENABLE.0" display="Disables" value="0"/>
+            <option id="BSP_CFG_DATA_FLASH_ACCESS_ENABLE.1" display="Enables" value="1"/>
+            <description>0 = Access to the data flash memory area is disabled.
+1 = Access to the data flash memory area is enabled.</description>
+        </property>
+        <property id="BSP_CFG_CONFIGURATOR_SELECT" display="Initialization of peripheral functions by Code Generator/Smart Configurator" default="1" type="combobox">
+            <option id="BSP_CFG_CONFIGURATOR_SELECT.0" display="Disable" value="0"/>
+            <option id="BSP_CFG_CONFIGURATOR_SELECT.1" display="Enable" value="1"/>
+            <description>0 = Disable initialization of peripheral functions by Code Generator/Smart Configurator.
+1 = Enable initialization of peripheral functions by Code Generator/Smart Configurator.</description>
+        </property>
+        <property id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_StartClock, R_BSP_StopClock)" default="1" type="combobox">
+            <option id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable API functions.
+1 = Disable API functions.</description>
+        </property>
+        <property id="BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_GetFclkFreqHz)" default="0" type="combobox">
+            <option id="BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable API function.
+1 = Disable API function.</description>
+        </property>
+        <property id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_SetClockSource)" default="1" type="combobox">
+            <option id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_SET_CLOCK_SOURCE_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable API functions.
+1 = Disable API functions.</description>
+        </property>
+        <property id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_ChangeClockSetting)" default="1" type="combobox">
+            <option id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_CHANGE_CLOCK_SETTING_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable API function.
+1 = Disable API function.</description>
+        </property>
+        <property id="BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE" display="API functions disable(R_BSP_SoftwareDelay)" default="1" type="combobox">
+            <constraint display="when using R_BSP_SoftwareDelay function, enable R_BSP_GetFclkFreqHz function." actionOnFail="error">!((${BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE} == ${BSP_CFG_GET_FREQ_API_FUNCTIONS_DISABLE.1}) &amp;&amp; (${BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE} == ${BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE.0}))</constraint>
+            <option id="BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE.0" display="Enable" value="0"/>
+            <option id="BSP_CFG_SOFTWARE_DELAY_API_FUNCTIONS_DISABLE.1" display="Disable" value="1"/>
+            <description>0 = Enable API function.
+1 = Disable API function.</description>
+        </property>
+        <property id="BSP_CFG_PARAM_CHECKING_ENABLE" display="Parameter check enable" default="1" type="combobox">
+            <option id="BSP_CFG_PARAM_CHECKING_ENABLE.0" display="Disable" value="0"/>
+            <option id="BSP_CFG_PARAM_CHECKING_ENABLE.1" display="Enable" value="1"/>
+            <description>0 =Disable parameter check.
+1 = Enable parameter check.</description>
+        </property>
+        <property id="BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED" display="Enable user warm start callback (PRE)" default="0" type="combobox">
+            <option id="BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED.0" display="Unused" value="0"/>
+            <option id="BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED.1" display="Used" value="1"/>
+            <description>0 = Warm start callback pre function is not to be used.
+1 = Warm start callback pre function is to be used.</description>
+        </property>
+        <property id="BSP_CFG_USER_WARM_START_PRE_C_FUNCTION" display="User warm start callback  function name (PRE)" default="my_sw_warmstart_prec_function" type="textbox">
+            <constraint display="when User warm start callback  function name (PRE) is Used only" actionOnFail="disable">${BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED} == ${BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED.1}</constraint>
+            <constraint display="Please enter a valid function name without spaces or funny characters" actionOnFail="error">testSymbol("${BSP_CFG_USER_WARM_START_PRE_C_FUNCTION}")</constraint>
+            <description>User warm start callback pre function name.</description>
+        </property>
+        <property id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED" display="Enable user warm start callback (POST)" default="0" type="combobox">
+            <option id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED.0" display="Unused" value="0"/>
+            <option id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED.1" display="Used" value="1"/>
+            <description>0 = Warm start callback post function is not to be used.
+1 = Warm start callback post function is to be used.</description>
+        </property>
+        <property id="BSP_CFG_USER_WARM_START_POST_C_FUNCTION" display="User warm start callback  function name (POST)" default="my_sw_warmstart_postc_function" type="textbox">
+            <constraint display="when User warm start callback  function name (POST) is Used only" actionOnFail="disable">${BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED} == ${BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED.1}</constraint>
+            <constraint display="Please enter a valid function name without spaces or funny characters" actionOnFail="error">testSymbol("${BSP_CFG_USER_WARM_START_POST_C_FUNCTION}")</constraint>
+            <description>User warm start callback post function name.</description>
+        </property>
+        <property id="BSP_CFG_WDT_REFRESH_ENABLE" display="Watchdog Timer refresh enable" default="0" type="combobox">
+            <option id="BSP_CFG_WDT_REFRESH_ENABLE.0" display="Unused" value="0"/>
+            <option id="BSP_CFG_WDT_REFRESH_ENABLE.1" display="Used(100%)" value="1"/>
+            <option id="BSP_CFG_WDT_REFRESH_ENABLE.2" display="Used(50%)" value="2"/>
+            <description>0 = Watchdog Timer Counter operation disabled.
+1 = Watchdog Timer Counter operation enabled. Window Open Period 100%
+2 = Watchdog Timer Counter operation enabled. Window Open Period 50%
+NOTE:Please also set this config as the same setting in Watchdog Timer config.</description>
+        </property>
+        <property id="BSP_CFG_USER_WDT_REFRESH_INIT_FUNCTION" display="Watchdog Timer initialize user function name" default="my_sw_wdt_refresh_init_function" type="textbox">
+            <constraint display="when Watchdog Timer initialize user function name is Used(50%) only" actionOnFail="disable">${BSP_CFG_WDT_REFRESH_ENABLE} == ${BSP_CFG_WDT_REFRESH_ENABLE.2}</constraint>
+            <constraint display="Please enter a valid function name without spaces or funny characters" actionOnFail="error">testSymbol("${BSP_CFG_USER_WDT_REFRESH_INIT_FUNCTION}")</constraint>
+            <description>Watchdog Timer initialize user function name.</description>
+        </property>
+        <property id="BSP_CFG_USER_WDT_REFRESH_SETTING_FUNCTION" display="Watchdog Timer setting user function name" default="my_sw_wdt_refresh_setting_function" type="textbox">
+            <constraint display="when Watchdog Timer setting user function name is Used(50%) only" actionOnFail="disable">${BSP_CFG_WDT_REFRESH_ENABLE} == ${BSP_CFG_WDT_REFRESH_ENABLE.2}</constraint>
+            <constraint display="Please enter a valid function name without spaces or funny characters" actionOnFail="error">testSymbol("${BSP_CFG_USER_WDT_REFRESH_SETTING_FUNCTION}")</constraint>
+            <description>Watchdog Timer setting user function name.</description>
+        </property>
+    </configuration>
+</module>

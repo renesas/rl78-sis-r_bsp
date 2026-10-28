@@ -23,6 +23,8 @@
 ;;*         : 07.06.2024 1.70     Updated base file version 1.06 to 1.10c
 ;;*         : 01.04.2025 1.91     Updated base file version 1.10c to 1.10d
 ;;*         : 04.07.2025 1.92     Changed the disclaimer.
+;;*         : 24.12.2025 2.00     Changed the macro definition name from BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+;;*                               to BSP_CFG_ASM_RAMSAR_VALUE.
 ;;***********************************************************************************************************************/
 
 /************************************************************************/
@@ -62,8 +64,8 @@ ___dso_handle:
 /* call to _PowerON_Reset */
 _PowerON_Reset:
 /* initialise RAMSAR register */
-.ifdef BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
-    mov !BSP_CFG_ASM_RAMSAR_ADDRESS, #BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+.ifdef BSP_CFG_ASM_RAMSAR_VALUE
+    mov !BSP_CFG_ASM_RAMSAR_ADDRESS, #BSP_CFG_ASM_RAMSAR_VALUE
     nop
     nop
 .endif

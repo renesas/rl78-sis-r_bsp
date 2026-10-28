@@ -19,6 +19,7 @@
 *                               Reviewed the comments of macro definitions.
 *                               Added macro definitions for waiting process.
 *                               Modified the comment about AMPH.
+*         : 19.12.2025 2.00     Added notes to prevent omissions in macro definitions setting when using an RTOS.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -2380,11 +2381,13 @@
 #define BSP_CFG_FIH_START_ON_STARTUP (1)
 
 /* This macro lets other modules no if a RTOS is being used.
-  0 = RTOS is not used.
-  1 = FreeRTOS is used.(This is not available.)
-  2 = embOS is used.(This is not available.)
-  3 = MicroC_OS is used.(This is not available.)
-  4 = Renesas ITRON is used.
+ 0 = RTOS is not used.
+ 1 = FreeRTOS is used.
+ 2 = embOS is used.(This is not available.)
+ 3 = MicroC_OS is used.(This is not available.)
+ 4 = Renesas ITRON is used.
+ (Note)
+   Set the same value to BSP_CFG_ASM_RTOS_USED in r_bsp_config.inc.
 */
 #define BSP_CFG_RTOS_USED (0)
 

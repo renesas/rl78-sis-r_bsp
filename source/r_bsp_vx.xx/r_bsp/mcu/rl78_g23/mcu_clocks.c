@@ -29,6 +29,10 @@
 *                               Added processing to check MCS1 after setting MCM1 bit.
 *                               Added parentheses to the #if condition to clarify the order of evaluation.
 *         : 04.07.2025 1.92     Changed the disclaimer.
+*         : 09.01.2026 2.00     Added processing for 104G to the following functions.
+*                                - start_clock
+*                                - set_fclk_clock_source
+*                                - mcu_clock_setup
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -128,6 +132,11 @@ e_bsp_err_t start_clock(e_clock_mode_t mode)
 
         case SXCLK:
 
+#if (BSP_CFG_MCU_PART_G23_GROUP == 1) && (BSP_CFG_MCU_PART_PIN_NUM == 1)
+            status = BSP_ARG_ERROR;
+
+            break;
+#else
             if (1U == XTSTOP)
             {
                 XTSTOP = 0U;
@@ -148,6 +157,7 @@ e_bsp_err_t start_clock(e_clock_mode_t mode)
             }
 
             break;
+#endif
 
         case HIOCLK:
 
@@ -401,13 +411,18 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
 
             case SXCLK:
 
+#if (BSP_CFG_MCU_PART_G23_GROUP == 1) && (BSP_CFG_MCU_PART_PIN_NUM == 1)
+                status = BSP_ARG_ERROR;
+
+                break;
+#else
                 if (1U == XTSTOP)
                 {
                     /* Error if the subsystem clock is stopped. */
                     status = BSP_ERROR1;
                 }
 #if BSP_CFG_PARAM_CHECKING_ENABLE == 1
-#if BSP_CFG_MCU_PART_PIN_NUM <= 2
+#if (BSP_CFG_MCU_PART_G23_GROUP == 0) && (BSP_CFG_MCU_PART_PIN_NUM <= 2)
                 else if ((CMC & 0x18U) != 0x18U)
                 {
                     /* Error if the subsystem clock is invalid. */
@@ -439,6 +454,7 @@ e_bsp_err_t set_fclk_clock_source(e_clock_mode_t mode)
                 }
 
                 break;
+#endif
 
             case MIOCLK:
 
@@ -762,6 +778,12 @@ void mcu_clock_setup(void)
     HOCODIV = BSP_CFG_HOCO_DIVIDE;
 
     /* Subsystem clock oscillator clock(fSX) setting */
+#if (BSP_CFG_MCU_PART_G23_GROUP == 1) && (BSP_CFG_MCU_PART_PIN_NUM == 1)
+    /* 32 pin device(104G) */
+    /* Subsystem clock pin operation mode(EXCLKS/OSCSELS) setting */
+    /* Selection of the oscillation mode of the XT1 oscillator(AMPHS1/AMPHS0) setting */
+    cmc_tmp |= 0x10U;
+#else
 #if BSP_CFG_SUBCLK_SOURCE == 0
     /* Input port mode */
     /* Not used.
@@ -769,8 +791,8 @@ void mcu_clock_setup(void)
      * when not using subsystem clock(fSUB)
      */
 #elif BSP_CFG_SUBCLK_SOURCE == 1
-#if BSP_CFG_MCU_PART_PIN_NUM <= 2
-    /* 30 - 36 pin device */
+#if ((BSP_CFG_MCU_PART_G23_GROUP == 0) && (BSP_CFG_MCU_PART_PIN_NUM <= 2))
+    /* 30 - 36 pin device(100G) */
     /* XTSEL setting */
     cmc_tmp |= 0x08U;
 #endif
@@ -797,8 +819,8 @@ void mcu_clock_setup(void)
     cmc_tmp |= 0x16U;
 #endif
 #else
-#if BSP_CFG_MCU_PART_PIN_NUM <= 2
-    /* 30 - 36 pin device */
+#if ((BSP_CFG_MCU_PART_G23_GROUP == 0) && (BSP_CFG_MCU_PART_PIN_NUM <= 2))
+    /* 30 - 36 pin device(100G) */
     /* XTSEL setting */
     cmc_tmp |= 0x08U;
 #endif
@@ -806,6 +828,7 @@ void mcu_clock_setup(void)
     /* EXCLKS/OSCSELS setting */
     cmc_tmp |= 0x30U;
 #endif /* BSP_CFG_SUBCLK_SOURCE == 0 */
+#endif /* (BSP_CFG_MCU_PART_G23_GROUP == 1) && (BSP_CFG_MCU_PART_PIN_NUM == 1) */
     /* Clock operation mode control register(CMC) setting */
     CMC = cmc_tmp;
 
