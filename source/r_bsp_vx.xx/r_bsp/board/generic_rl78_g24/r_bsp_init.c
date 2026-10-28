@@ -13,6 +13,7 @@
 *         : 28.02.2023 1.60     First Release
 *         : 06.08.2025 1.92     Changed the disclaimer.
 *                               Changed to set only valid bits of BSP_CFG_PIORxx.
+*         : 08.07.2026 1.93     Fixed the valid bit for the PIOR register.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -65,15 +66,18 @@ void bsp_init_system(void)
 {
     /* Pin setting */
     /* PIOR0 */
-#if BSP_CFG_MCU_PART_ROM_SIZE < 3
-    /* 25,24,20-pin */
+#if BSP_CFG_MCU_PART_PIN_NUM < 1
+    /* 20-pin */
+    PIOR0 = (BSP_CFG_PIOR02 << 2U) | (BSP_CFG_PIOR06 << 6U) | (BSP_CFG_PIOR07 << 7U);
+#elif BSP_CFG_MCU_PART_PIN_NUM < 3
+    /* 25,24-pin */
     PIOR0 = (BSP_CFG_PIOR01 << 1U) | (BSP_CFG_PIOR02 << 2U) | (BSP_CFG_PIOR06 << 6U) |
             (BSP_CFG_PIOR07 << 7U);
-#elif BSP_CFG_MCU_PART_ROM_SIZE < 7
+#elif BSP_CFG_MCU_PART_PIN_NUM < 7
     /* 44,40,32,30-pin */
     PIOR0 = (BSP_CFG_PIOR01 << 1U) | (BSP_CFG_PIOR02 << 2U) | (BSP_CFG_PIOR05 << 5U) |
             (BSP_CFG_PIOR06 << 6U) | (BSP_CFG_PIOR07 << 7U);
-#elif BSP_CFG_MCU_PART_ROM_SIZE < 9
+#elif BSP_CFG_MCU_PART_PIN_NUM < 9
     /* 52,48-pin */
     PIOR0 = (BSP_CFG_PIOR01 << 1U) | (BSP_CFG_PIOR02 << 2U) | (BSP_CFG_PIOR03 << 3U) |
             (BSP_CFG_PIOR05 << 5U) | (BSP_CFG_PIOR06 << 6U) | (BSP_CFG_PIOR07 << 7U);
@@ -89,14 +93,14 @@ void bsp_init_system(void)
             (BSP_CFG_PIOR13 << 3U);
 
     /* PIOR2 */
-#if BSP_CFG_MCU_PART_ROM_SIZE < 1
+#if BSP_CFG_MCU_PART_PIN_NUM < 1
     /* 20-pin */
     PIOR2 = (BSP_CFG_PIOR27 << 7U);
-#elif BSP_CFG_MCU_PART_ROM_SIZE < 3
+#elif BSP_CFG_MCU_PART_PIN_NUM < 3
     /* 25,24-pin */
     PIOR2 = BSP_CFG_PIOR20 | (BSP_CFG_PIOR22 << 2U) | (BSP_CFG_PIOR26 << 6U) |
             (BSP_CFG_PIOR27 << 7U);
-#elif BSP_CFG_MCU_PART_ROM_SIZE < 4
+#elif BSP_CFG_MCU_PART_PIN_NUM < 4
     /* 30-pin */
     PIOR2 = BSP_CFG_PIOR20 | (BSP_CFG_PIOR22 << 2U) | (BSP_CFG_PIOR23 << 3U) |
             (BSP_CFG_PIOR24 << 4U) | (BSP_CFG_PIOR25 << 5U) | (BSP_CFG_PIOR26 << 6U) |
@@ -109,7 +113,7 @@ void bsp_init_system(void)
 #endif
 
     /* PIOR3 */
-#if BSP_CFG_MCU_PART_ROM_SIZE < 3
+#if BSP_CFG_MCU_PART_PIN_NUM < 3
     /* 25,24,20-pin */
     PIOR3 = (BSP_CFG_PIOR34 << 4U) | (BSP_CFG_PIOR35 << 5U) | (BSP_CFG_PIOR36 << 6U) | 
             (BSP_CFG_PIOR37 << 7U);

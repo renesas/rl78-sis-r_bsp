@@ -13,6 +13,7 @@
 *         : 06.11.2024 1.80     First Release
 *         : 06.08.2025 1.92     Changed the disclaimer.
 *                               Reviewed the comments of macro definition BSP_CFG_PIORxx.
+*         : 06.07.2026 1.93     Fixed the valid bit for the PIOR register.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -78,9 +79,14 @@ void bsp_init_system(void)
             (BSP_CFG_PIOR13 << 3U) | (BSP_CFG_PIOR14 << 4U) | (BSP_CFG_PIOR15 << 5U) |
             (BSP_CFG_PIOR16 << 6U) | (BSP_CFG_PIOR17 << 7U);
 
-    /* 48,32,24-pin */
+#if BSP_CFG_MCU_PART_PIN_NUM < 1
+    /* 24-pin */
+    PIOR3 = (BSP_CFG_PIOR31 << 1U) | (BSP_CFG_PIOR32 << 2U) | (BSP_CFG_PIOR33 << 3U);
+#else
+    /* 48,32-pin */
     PIOR3 = BSP_CFG_PIOR30 | (BSP_CFG_PIOR31 << 1U) | (BSP_CFG_PIOR32 << 2U) |
             (BSP_CFG_PIOR33 << 3U);
+#endif
 
 #if BSP_CFG_MCU_PART_PIN_NUM < 1
     /* The 24-pin product does not have a PIOR4 register. */
@@ -99,7 +105,7 @@ void bsp_init_system(void)
     /* 48,32,24-pin */
     PIOR7 = BSP_CFG_PIOR70 | (BSP_CFG_PIOR71 << 1U) | (BSP_CFG_PIOR73 << 3U);
 
-#if BSP_CFG_MCU_PART_PIN_NUM < 1
+#if BSP_CFG_MCU_PART_PIN_NUM < 2
     /* 32,24-pin */
     PIOR9 = BSP_CFG_PIOR90 | (BSP_CFG_PIOR91 << 1U) | (BSP_CFG_PIOR95 << 5U);
 #else

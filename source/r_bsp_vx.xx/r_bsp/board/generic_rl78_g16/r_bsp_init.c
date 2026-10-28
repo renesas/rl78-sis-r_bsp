@@ -13,6 +13,7 @@
 *         : 31.01.2023 1.50     First Release
 *         : 04.07.2025 1.92     Changed the disclaimer.
 *                               Changed to set only valid bits of BSP_CFG_PIORxx.
+*         : 07.07.2026 1.93     Fixed the valid bit for the PIOR register.
 ***********************************************************************************************************************/
 /*************************************************
  * Includes  <System Includes> , "Project Includes"
@@ -170,23 +171,6 @@ void bsp_init_system(void)
     PIOR6 = BSP_CFG_PIOR60 | (BSP_CFG_PIOR61 << 1U) | (BSP_CFG_PIOR62 << 2U) |
             (BSP_CFG_PIOR63 << 3U) | (BSP_CFG_PIOR64 << 4U) | (BSP_CFG_PIOR65 << 5U) |
             (BSP_CFG_PIOR66 << 6U) | (BSP_CFG_PIOR67 << 7U);
-#endif
-
-#if BSP_CFG_MCU_PART_PIN_NUM <= 0
-    /* The 10-pin products do not have the PIOR1, PIOR2, PIOR5 register. */
-#else
-    /* 16,20,24,32-pin */
-    PIOR1 = BSP_CFG_PIOR10 | (BSP_CFG_PIOR11 << 1U) | (BSP_CFG_PIOR12 << 2U) |
-            (BSP_CFG_PIOR13 << 3U) | (BSP_CFG_PIOR14 << 4U) | (BSP_CFG_PIOR15 << 5U) |
-            (BSP_CFG_PIOR16 << 6U) | (BSP_CFG_PIOR17 << 7U);
-
-    PIOR2 = BSP_CFG_PIOR20 | (BSP_CFG_PIOR21 << 1U) | (BSP_CFG_PIOR22 << 2U) |
-            (BSP_CFG_PIOR23 << 3U) | (BSP_CFG_PIOR24 << 4U) | (BSP_CFG_PIOR25 << 5U) |
-            (BSP_CFG_PIOR26 << 6U);
-
-    PIOR5 = BSP_CFG_PIOR50 | (BSP_CFG_PIOR51 << 1U) | (BSP_CFG_PIOR52 << 2U) |
-            (BSP_CFG_PIOR53 << 3U) | (BSP_CFG_PIOR54 << 4U) | (BSP_CFG_PIOR55 << 5U) |
-            (BSP_CFG_PIOR56 << 6U) | (BSP_CFG_PIOR57 << 7U);
 #endif
 
     /* Clock initialization */

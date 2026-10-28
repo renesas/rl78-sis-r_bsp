@@ -117,8 +117,8 @@ void bsp_init_system(void)
             (BSP_CFG_PIOR123 << 3U);
 
 #if BSP_CFG_MCU_PART_ROM_SIZE < 2
-    /* ROM capacity 64 or 128 KB */
-#if BSP_CFG_MCU_PART_PIN_NUM < 4
+    /* ROM capacity 64 or 128 KB */ 
+    #if BSP_CFG_MCU_PART_PIN_NUM < 4
     /* 64,52,48,44-pin */
     PIOR13 = BSP_CFG_PIOR130 | (BSP_CFG_PIOR131 << 1U) | (BSP_CFG_PIOR132 << 2U) |
             (BSP_CFG_PIOR133 << 3U);
