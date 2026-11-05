@@ -4,6 +4,7 @@
 
 # License
 - Use condition is basically [BSD-3-Clause](https://github.com/renesas/rl78-sis-r_bsp/blob/master/license.md).
+- Use condition for V1.91 or earlier is basically [MIT License](https://github.com/renesas/rl78-sis-r_bsp/blob/V1.9.1/license.md).
 
 # How to Install
 - The official package can be installed by Smart Configurator.
